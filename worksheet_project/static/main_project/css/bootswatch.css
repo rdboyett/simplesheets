@@ -1,0 +1,262 @@
+.navbar {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border-bottom: 10px solid #d2d2d2;
+  padding-right: 20px;
+}
+.navbar-default .badge {
+  background-color: #545454;
+  color: #ffffff;
+}
+.navbar-inverse .badge {
+  background-color: #fff;
+  color: #fc8949;
+}
+.navbar .active {
+  color: #55bceb;
+  background: #FFF;
+}
+@media (min-width: 768px) {
+  .navbar .active:after {
+    top: 67px;
+    left: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    margin-left: -10px;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid #d2d2d2;
+  }
+}
+.btn {
+  font-weight: 300;
+}
+.btn-default:hover {
+  background-color: #f7f7f7;
+}
+.btn-sm,
+.btn-xs {
+  font-size: 12px;
+}
+body {
+  padding: 110px 0px 30px 0px;
+  font-weight: 300;
+}
+.text-primary,
+.text-primary:hover {
+  color: #fc8949;
+}
+.text-success,
+.text-success:hover {
+  color: #28a30b;
+}
+.text-danger,
+.text-danger:hover {
+  color: #e51512;
+}
+.text-warning,
+.text-warning:hover {
+  color: #f79409;
+}
+.text-info,
+.text-info:hover {
+  color: #1811fc;
+}
+.page-header {
+  color: #ffffff;
+  border-bottom-color: #ffffff;
+}
+.dropdown-menu {
+  border: none;
+  margin: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+.dropdown-menu > li > a {
+  font-size: 12px;
+  font-weight: 300;
+}
+.btn-group.open .dropdown-toggle {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+.dropdown-header {
+  font-size: 12px;
+}
+table,
+.table {
+  font-size: 12px;
+}
+table a,
+.table a {
+  color: #fff;
+  text-decoration: underline;
+}
+table .text-muted,
+.table .text-muted {
+  color: #ffffff;
+}
+table > thead > tr > th,
+.table > thead > tr > th,
+table > tbody > tr > th,
+.table > tbody > tr > th,
+table > tfoot > tr > th,
+.table > tfoot > tr > th,
+table > thead > tr > td,
+.table > thead > tr > td,
+table > tbody > tr > td,
+.table > tbody > tr > td,
+table > tfoot > tr > td,
+.table > tfoot > tr > td {
+  border-color: transparent;
+}
+input,
+textarea {
+  color: #2c2b50;
+}
+label,
+.radio label,
+.checkbox label,
+.help-block {
+  font-size: 12px;
+  font-weight: 300;
+}
+.input-addon,
+.input-group-addon {
+  color: #333333;
+}
+.has-warning .help-block,
+.has-warning .control-label,
+.has-warning .form-control-feedback {
+  color: #f79409;
+}
+.has-error .help-block,
+.has-error .control-label,
+.has-error .form-control-feedback {
+  color: #e51512;
+}
+.has-success .help-block,
+.has-success .control-label,
+.has-success .form-control-feedback {
+  color: #28a30b;
+}
+.form-control:focus {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+.has-warning .form-control:focus,
+.has-error .form-control:focus,
+.has-success .form-control:focus {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+.nav .open > a,
+.nav .open > a:hover,
+.nav .open > a:focus {
+  border-color: transparent;
+}
+.nav-tabs > li > a {
+  color: #333333;
+}
+.nav-pills > li > a {
+  color: #333333;
+}
+.pager a {
+  color: #333333;
+}
+.close {
+  opacity: 0.4;
+}
+.close:hover,
+.close:focus {
+  opacity: 1;
+}
+.label {
+  font-weight: 300;
+}
+.alert {
+  color: #333333;
+}
+.alert a,
+.alert .alert-link {
+  color: #333333;
+}
+.well {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+.panel {
+  border: none;
+}
+.panel-default > .panel-heading {
+  background-color: #f7f7f7;
+  color: #333333;
+}
+.thumbnail {
+  background-color: #ffffff;
+  border: none;
+}
+.modal {
+  padding: 0;
+}
+.modal-header,
+.modal-footer {
+  background-color: #f7f7f7;
+  border: none;
+  border-radius: 0;
+}
+.popover-title {
+  border: none;
+}
+h1,
+.h1,
+h2,
+.h2,
+h3,
+.h3,
+h4,
+.h4,
+h5,
+.h5,
+h6,
+.h6,
+p {
+  color: #ffffff;
+}
+.jumbotron p,
+.well p,
+.btn-default {
+  color: #333333;
+}
+blockquote footer,
+blockquote small,
+blockquote .small,
+.form-group {
+  color: #ffffff;
+}
+.well .form-group {
+  color: #333333;
+}
+.bs-component {
+  position: relative;
+}
+.bs-component .modal {
+  position: relative;
+  top: auto;
+  right: auto;
+  left: auto;
+  bottom: auto;
+  z-index: 1;
+  display: block;
+}
+.bs-component .modal-dialog {
+  width: 90%;
+}
+.modal-title,
+.modal-body p {
+  color: #333333;
+}

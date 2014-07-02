@@ -1,0 +1,627 @@
+/******************* for testing purposes only **************
+* { background-color: rgba(255,0,0,.2); }
+* * { background-color: rgba(0,255,0,.2); }
+* * * { background-color: rgba(0,0,255,.2); }
+* * * * { background-color: rgba(255,0,255,.2); }
+* * * * * { background-color: rgba(0,255,255,.2); }
+* * * * * * { background-color: rgba(255,255,0,.2); }
+/***********************************************************/
+body{
+  /*background:url(../images/bg-tissue.png),-webkit-gradient(linear, 50% 72%, 49% 2%, from(#2C2B50), to(#8F8DFC)) no-repeat center center fixed;*/
+  padding-bottom: 0;
+  
+  font-family: "Brush Script MT", cursive;
+}
+
+
+#search-bar::-webkit-input-placeholder, textarea::-webkit-input-placeholder { 
+    color:    #FFF;
+}
+#search-bar:-moz-placeholder, textarea:-moz-placeholder { 
+    color:    #FFF;
+}
+#search-bar::-moz-placeholder, textarea::-moz-placeholder { 
+    color:    #FFF;
+}
+#search-bar:-ms-input-placeholder, textarea:-ms-input-placeholder { 
+    color:    #FFF;
+}
+
+
+.navbar .badge {
+background-color: #F20202;
+color: #ffffff;
+
+position: relative;
+top: -10px;
+left: -13px;
+margin-right: -10px;
+z-index: 1;
+}
+.navbar .glyphicon-bell {
+z-index: 2;
+}
+
+.navbar-nav > li > .dropdown-menu {
+margin-top: 0;
+border-top-right-radius: 0;
+border-top-left-radius: 0;
+border-left: 1px solid #3A3A3A;
+border-right: 1px solid #3A3A3A;
+border-bottom: 1px solid #3A3A3A;
+}
+
+.round-button{
+  border: 1px solid #605F5F;
+  background-color: #FFF;
+  text-align: center;
+  width: 25px;
+  height: 25px;
+  line-height: 25px;
+  border-radius: 25px;
+  font-weight: bold;
+}
+
+.round-button {
+width: 50px;
+height: 50px;
+padding: 12px 16px;
+font-size: 18px;
+line-height: 1.33;
+border-radius: 25px;
+}
+
+
+
+footer {
+  border-top: 10px solid #d2d2d2;
+  margin: 50px 0 0 0;
+   width:100%;
+   height:100px;   /* Height of the footer */
+   background:#FFF;
+}
+
+.list-group-item p{color: #000;}
+.list-group-item.active p{color: #FFF;}
+/*
+#classes-list .list-group-item.new-class {
+margin-top: 10px;
+background-color: #428bca;
+color: #fff;
+}*/
+
+#classes-list a{text-decoration: none;}
+
+#classes-list .list-group-item:hover{
+    z-index: 2;
+    color: #fff !important;
+    background-color: #87D673 !important;
+}
+
+#classes-list .list-group-item.active:hover {
+    z-index: 2;
+    color: #fff;
+    background-color: #87D673;
+    border-color: #ddd;
+}
+
+.popover h3{background-color: #55bceb;color: #fff;}
+
+
+
+.card-title h5{
+color: #4F4F4F;
+}
+
+.card-edpuzzle .panel-footer {height: 50px !important;}
+
+.btn-labeled{padding: 2px 5px 2px 5px;}
+
+#main-region .panel .panel-heading{
+  border-bottom: 1px solid #CCC;
+}
+
+
+#info-btn, #grid-btn, #list-btn, #download-btn {
+    margin-top: -2px;
+    padding: 2px 10px;
+}
+
+
+.card-edpuzzle.panel-default, .card-edpuzzle .panel-footer {
+}
+
+.card-edpuzzle .btn-default{font-size: 18px;color: #428bca;background-color: transparent !important;}
+
+#grid-students, #list-students{display: none;}
+
+
+
+.studentBox{
+    border: 2px solid #737373;
+    margin: 0;
+    width: 150px;
+    height: 130px;
+    opacity: 0.8;
+    cursor: pointer;
+    margin: 10px;
+    padding: 10px 10px 0px 10px;
+}
+.studentBox:hover{opacity: 1;}
+
+.svg{}
+.svg path {
+stroke-linejoin: round;
+stroke-linecap: round;
+}
+.cont {
+  display: block;
+    width: 130px;
+    height: 130px;
+  margin: 0 auto;
+  position: relative;
+  color: #000;
+}
+
+.cont:after {
+  position: absolute;
+  display: block;
+    width: 130px;
+    height: 130px;
+  left: 50%;
+  top: 50%;
+  content: attr(student-name);
+  margin-top: -65px;
+  margin-left: -68px;
+  line-height: 130px;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+  
+  
+	text-shadow:0px 0px 10px #FFF;
+}
+
+.background{stroke: #484848; stroke-width:25; fill:none;}
+.right-green{stroke: #48ff48; stroke-width:20; fill:none;}
+.wrong-red{stroke: #ff8080; stroke-width:20; fill:none;}
+
+
+.rounded {
+-webkit-border-radius: 3px;
+-moz-border-radius: 3px;
+border-radius: 3px;
+}
+
+
+.large-rounded {
+-webkit-border-radius: 20px;
+-moz-border-radius: 20px;
+border-radius: 20px;
+}
+
+.left-rounded {
+-webkit-border-top-left-radius: 3px;
+-webkit-border-bottom-left-radius: 3px;
+-moz-border-radius-topleft: 3px;
+-moz-border-radius-bottomleft: 3px;
+border-top-left-radius: 3px;
+border-bottom-left-radius: 3px;
+}
+
+.right-rounded {
+-webkit-border-top-right-radius: 3px;
+-webkit-border-bottom-right-radius: 3px;
+-moz-border-radius-topright: 3px;
+-moz-border-radius-bottomright: 3px;
+border-top-right-radius: 3px;
+border-bottom-right-radius: 3px;
+}
+
+.top-rounded {
+-webkit-border-top-left-radius: 3px;
+-webkit-border-top-right-radius: 3px;
+-moz-border-radius-topleft: 3px;
+-moz-border-radius-topright: 3px;
+border-top-left-radius: 3px;
+border-top-right-radius: 3px;
+}
+
+.bottom-rounded {
+-webkit-border-bottom-left-radius: 3px;
+-webkit-border-bottom-right-radius: 3px;
+-moz-border-radius-bottomleft: 3px;
+-moz-border-radius-bottomright: 3px;
+border-bottom-left-radius: 3px;
+border-bottom-right-radius: 3px;
+}
+
+.list-group-item:last-child {
+margin-bottom: 0;
+-webkit-border-bottom-left-radius: 3px;
+-webkit-border-bottom-right-radius: 3px;
+-moz-border-radius-bottomleft: 3px;
+-moz-border-radius-bottomright: 3px;
+border-bottom-left-radius: 3px;
+border-bottom-right-radius: 3px;
+}
+.list-group-item:first-child {
+-webkit-border-top-left-radius: 3px;
+-webkit-border-top-right-radius: 3px;
+-moz-border-radius-topleft: 3px;
+-moz-border-radius-topright: 3px;
+border-top-left-radius: 3px;
+border-top-right-radius: 3px;
+
+-webkit-border-bottom-left-radius: 0px;
+-webkit-border-bottom-right-radius: 0px;
+-moz-border-radius-bottomleft: 0px;
+-moz-border-radius-bottomright: 0px;
+border-bottom-left-radius: 0px;
+border-bottom-right-radius: 0px;
+}
+
+.modal-header, .modal-footer{
+  background:url(../images/bg-tissue.png),-webkit-gradient(linear, 50% 72%, 49% 2%, from(#D4F9CA), to(#D4F9CA)) no-repeat center center fixed;
+}
+
+.modal form input{background-color: #ADADAD;font-size: 18px;}
+
+
+.modal form input::-webkit-input-placeholder, textarea::-webkit-input-placeholder { 
+    color:    #FFF;
+}
+.modal form input:-moz-placeholder, textarea:-moz-placeholder { 
+    color:    #FFF;
+}
+.modal form input::-moz-placeholder, textarea::-moz-placeholder { 
+    color:    #FFF;
+}
+.modal form input:-ms-input-placeholder, textarea:-ms-input-placeholder { 
+    color:    #FFF;
+}
+
+.profile-card .media-object {
+margin-right: 15px;
+margin-bottom: 10px;
+width: 100px;
+background-color: #FFF;
+}
+
+.btn-social {
+position: relative;
+padding-left: 44px;
+text-align: left;
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+}
+
+.btn-google{background-color: #dd4b39;}
+
+
+.profile-card {
+    background:url(../images/bg-tissue.png),-webkit-gradient(linear, 50% 72%, 49% 2%, from(#6362AF), to(#8F8DFC)) no-repeat center center fixed;
+}
+
+.alert-info {
+  background:url(../images/bg-tissue.png),-webkit-gradient(linear, 50% 72%, 49% 2%, from(#1811fc), to(#1811fc)) no-repeat center center fixed;
+}
+
+.well.success{
+  background:url(../images/bg-tissue.png),-webkit-gradient(linear, 50% 72%, 49% 2%, from(#B2F2A2), to(#B2F2A2)) no-repeat center center fixed;
+}
+
+.well, .panel, .table, .panel-footer{
+  background:url(../images/bg-tissue.png),-webkit-gradient(linear, 50% 72%, 49% 2%, from(#FFFFFF), to(#FFFFFF)) no-repeat center center fixed;
+}
+
+#classes-list .list-group-item.active {
+  background:url(../images/bg-tissue.png),-webkit-gradient(linear, 50% 72%, 49% 2%, from(#87D673), to(#87D673)) no-repeat center center fixed;
+}
+
+.btn-info {
+  background:url(../images/bg-tissue.png),-webkit-gradient(linear, 50% 72%, 49% 2%, from(#1811fc), to(#1811fc)) no-repeat center center fixed;
+}
+.btn-info:hover,
+.btn-info:focus,
+.btn-info:active,
+.btn-info.active,
+.open > .dropdown-toggle.btn-info {
+  background:url(../images/bg-tissue.png),-webkit-gradient(linear, 50% 72%, 49% 2%, from(#0903d7), to(#0903d7)) no-repeat center center fixed;
+}
+.btn-info.disabled,
+.btn-info[disabled],
+fieldset[disabled] .btn-info,
+.btn-info.disabled:hover,
+.btn-info[disabled]:hover,
+fieldset[disabled] .btn-info:hover,
+.btn-info.disabled:focus,
+.btn-info[disabled]:focus,
+fieldset[disabled] .btn-info:focus,
+.btn-info.disabled:active,
+.btn-info[disabled]:active,
+fieldset[disabled] .btn-info:active,
+.btn-info.disabled.active,
+.btn-info[disabled].active,
+fieldset[disabled] .btn-info.active {
+  background:url(../images/bg-tissue.png),-webkit-gradient(linear, 50% 72%, 49% 2%, from(#1811fc), to(#1811fc)) no-repeat center center fixed;
+}
+
+
+.btn-warning {
+  background:url(../images/bg-tissue.png),-webkit-gradient(linear, 50% 72%, 49% 2%, from(#f79409), to(#f79409)) no-repeat center center fixed;
+}
+.btn-warning:hover,
+.btn-warning:focus,
+.btn-warning:active,
+.btn-warning.active,
+.open > .dropdown-toggle.btn-warning {
+  background:url(../images/bg-tissue.png),-webkit-gradient(linear, 50% 72%, 49% 2%, from(#c77706), to(#c77706)) no-repeat center center fixed;
+}
+.btn-warning.disabled,
+.btn-warning[disabled],
+fieldset[disabled] .btn-warning,
+.btn-warning.disabled:hover,
+.btn-warning[disabled]:hover,
+fieldset[disabled] .btn-warning:hover,
+.btn-warning.disabled:focus,
+.btn-warning[disabled]:focus,
+fieldset[disabled] .btn-warning:focus,
+.btn-warning.disabled:active,
+.btn-warning[disabled]:active,
+fieldset[disabled] .btn-warning:active,
+.btn-warning.disabled.active,
+.btn-warning[disabled].active,
+fieldset[disabled] .btn-warning.active {
+  background:url(../images/bg-tissue.png),-webkit-gradient(linear, 50% 72%, 49% 2%, from(#f79409), to(#f79409)) no-repeat center center fixed;
+}
+
+
+.btn-danger {
+  background:url(../images/bg-tissue.png),-webkit-gradient(linear, 50% 72%, 49% 2%, from(#e51512), to(#e51512)) no-repeat center center fixed;
+}
+.btn-danger:hover,
+.btn-danger:focus,
+.btn-danger:active,
+.btn-danger.active,
+.open > .dropdown-toggle.btn-danger {
+  background:url(../images/bg-tissue.png),-webkit-gradient(linear, 50% 72%, 49% 2%, from(#b6110e), to(#b6110e)) no-repeat center center fixed;
+}
+.btn-danger.disabled,
+.btn-danger[disabled],
+fieldset[disabled] .btn-danger,
+.btn-danger.disabled:hover,
+.btn-danger[disabled]:hover,
+fieldset[disabled] .btn-danger:hover,
+.btn-danger.disabled:focus,
+.btn-danger[disabled]:focus,
+fieldset[disabled] .btn-danger:focus,
+.btn-danger.disabled:active,
+.btn-danger[disabled]:active,
+fieldset[disabled] .btn-danger:active,
+.btn-danger.disabled.active,
+.btn-danger[disabled].active,
+fieldset[disabled] .btn-danger.active {
+  background:url(../images/bg-tissue.png),-webkit-gradient(linear, 50% 72%, 49% 2%, from(#e51512), to(#e51512)) no-repeat center center fixed;
+}
+
+
+.btn-default {
+  background:url(../images/bg-tissue.png),-webkit-gradient(linear, 50% 72%, 49% 2%, from(#ffffff), to(#ffffff)) no-repeat center center fixed;
+}
+.btn-default:hover,
+.btn-default:focus,
+.btn-default:active,
+.btn-default.active,
+.open > .dropdown-toggle.btn-default {
+  background:url(../images/bg-tissue.png),-webkit-gradient(linear, 50% 72%, 49% 2%, from(#e6e6e6), to(#e6e6e6)) no-repeat center center fixed;
+}
+.btn-default.disabled,
+.btn-default[disabled],
+fieldset[disabled] .btn-default,
+.btn-default.disabled:hover,
+.btn-default[disabled]:hover,
+fieldset[disabled] .btn-default:hover,
+.btn-default.disabled:focus,
+.btn-default[disabled]:focus,
+fieldset[disabled] .btn-default:focus,
+.btn-default.disabled:active,
+.btn-default[disabled]:active,
+fieldset[disabled] .btn-default:active,
+.btn-default.disabled.active,
+.btn-default[disabled].active,
+fieldset[disabled] .btn-default.active {
+  background:url(../images/bg-tissue.png),-webkit-gradient(linear, 50% 72%, 49% 2%, from(#ffffff), to(#ffffff)) no-repeat center center fixed;
+}
+
+.btn-primary {
+  background:url(../images/bg-tissue.png),-webkit-gradient(linear, 50% 72%, 49% 2%, from(#fc8949), to(#fc8949)) no-repeat center center fixed;
+}
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active,
+.open > .dropdown-toggle.btn-primary {
+  background:url(../images/bg-tissue.png),-webkit-gradient(linear, 50% 72%, 49% 2%, from(#fb6817), to(#fb6817)) no-repeat center center fixed;
+}
+.btn-primary.disabled,
+.btn-primary[disabled],
+fieldset[disabled] .btn-primary,
+.btn-primary.disabled:hover,
+.btn-primary[disabled]:hover,
+fieldset[disabled] .btn-primary:hover,
+.btn-primary.disabled:focus,
+.btn-primary[disabled]:focus,
+fieldset[disabled] .btn-primary:focus,
+.btn-primary.disabled:active,
+.btn-primary[disabled]:active,
+fieldset[disabled] .btn-primary:active,
+.btn-primary.disabled.active,
+.btn-primary[disabled].active,
+fieldset[disabled] .btn-primary.active {
+  background:url(../images/bg-tissue.png),-webkit-gradient(linear, 50% 72%, 49% 2%, from(#fc8949), to(#fc8949)) no-repeat center center fixed;
+}
+
+.btn-success {
+  background:url(../images/bg-tissue.png),-webkit-gradient(linear, 50% 72%, 49% 2%, from(#28a30b), to(#28a30b)) no-repeat center center fixed;
+}
+.btn-success:hover,
+.btn-success:focus,
+.btn-success:active,
+.btn-success.active,
+.open > .dropdown-toggle.btn-success {
+  background:url(../images/bg-tissue.png),-webkit-gradient(linear, 50% 72%, 49% 2%, from(#1c7308), to(#1c7308)) no-repeat center center fixed;
+}
+.btn-success.disabled,
+.btn-success[disabled],
+fieldset[disabled] .btn-success,
+.btn-success.disabled:hover,
+.btn-success[disabled]:hover,
+fieldset[disabled] .btn-success:hover,
+.btn-success.disabled:focus,
+.btn-success[disabled]:focus,
+fieldset[disabled] .btn-success:focus,
+.btn-success.disabled:active,
+.btn-success[disabled]:active,
+fieldset[disabled] .btn-success:active,
+.btn-success.disabled.active,
+.btn-success[disabled].active,
+fieldset[disabled] .btn-success.active {
+  background:url(../images/bg-tissue.png),-webkit-gradient(linear, 50% 72%, 49% 2%, from(#28a30b), to(#28a30b)) no-repeat center center fixed;
+}
+
+.space{margin-top: 5px; margin-bottom: 5px; !important;}
+.surround-space{margin: 5px !important;}
+
+.worksheet-badge{
+  position: absolute;
+  top: 0;
+  right: 20px;
+  font-size: 30px;
+  z-index: 3;
+  color: #fff;
+  text-align: center;
+  cursor: pointer;
+  
+  opacity: 0.8
+}
+.woksheet-badge:hover{opacity: 1;}
+
+.sheet-cover-up{
+  height: 150px;
+  overflow: hidden;
+  cursor: pointer;
+  background-color:#545353;
+  padding: 5px;
+  border-bottom: 5px solid #545353;
+}
+
+.worksheet-ribbon{
+  position: absolute;
+  top: 10px;
+  right: -30px;
+  z-index: 3;
+  color: #fff;
+  text-align: center;
+  cursor: pointer;
+}
+.ribbon-archive {
+  width: 120px;
+  text-align: center;
+  background-color: #e51512;
+  -webkit-transform: rotate(45deg);
+  -moz-transform:    rotate(45deg);
+  -ms-transform:     rotate(45deg);
+  -o-transform:      rotate(45deg);
+}
+
+.ribbon-archive:hover,
+.ribbon-archive:focus,
+.ribbon-archive:active,
+.ribbon-archive.active,
+.open > .dropdown-toggle.ribbon-archive  {background-color: #b6110e;}
+
+.ribbon-active {
+  width: 120px;
+  text-align: center;
+  background-color: #28a30b;
+  -webkit-transform: rotate(45deg);
+  -moz-transform:    rotate(45deg);
+  -ms-transform:     rotate(45deg);
+  -o-transform:      rotate(45deg);
+}
+
+.ribbon-active:hover,
+.ribbon-active:focus,
+.ribbon-active:active,
+.ribbon-active.active,
+.open > .dropdown-toggle.ribbon-active  {background-color: #1c7308;}
+
+.ribbon-pending {
+  width: 120px;
+  text-align: center;
+  background-color: #fc8949;
+  -webkit-transform: rotate(45deg);
+  -moz-transform:    rotate(45deg);
+  -ms-transform:     rotate(45deg);
+  -o-transform:      rotate(45deg);
+}
+
+.ribbon-pending:hover,
+.ribbon-pending:focus,
+.ribbon-pending:active,
+.ribbon-pending.active,
+.open > .dropdown-toggle.ribbon-pending  {background-color: #fb6817;}
+
+
+.assign-to-class{
+  position: absolute;
+  top: 110px;
+  left: 5%;
+  width: 90%;
+}
+
+.worksheet-title{
+   font-size: 150%;
+   margin: 0 0 20px 0;
+   border-bottom: 1px solid #CCC;
+   height: 33px;
+   overflow: hidden;
+}
+
+
+.dashboard-worksheet-holder{border: 1px solid #605F5F;}
+
+
+.picker-dialog{z-index: 100000 !important;}
+#shade{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 99999;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

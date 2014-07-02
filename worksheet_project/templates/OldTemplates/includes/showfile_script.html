@@ -1,0 +1,302 @@
+ 
+<script>
+$( document ).ready(function() {
+    $("#shade").fadeOut(600);
+	
+	
+    var opts = {
+      lines: 17, // The number of lines to draw
+      length: 40, // The length of each line
+      width: 21, // The line thickness
+      radius: 60, // The radius of the inner circle
+      corners: 1, // Corner roundness (0..1)
+      rotate: 0, // The rotation offset
+      direction: 1, // 1: clockwise, -1: counterclockwise
+      color: '#000', // #rgb or #rrggbb or array of colors
+      speed: 1.2, // Rounds per second
+      trail: 100, // Afterglow percentage
+      shadow: true, // Whether to render a shadow
+      hwaccel: false, // Whether to use hardware acceleration
+      className: 'spinner', // The CSS class to assign to the spinner
+      zIndex: 2e9, // The z-index (defaults to 2000000000)
+      top: 'auto', // Top position relative to parent in px
+      left: 'auto' // Left position relative to parent in px
+    };
+    var target = document.getElementById('wait-spinner');
+    var spinner = new Spinner(opts).spin(target);
+
+        resizeElements();
+});
+   
+    
+$( window ).resize(function() {
+        resizeElements();
+});
+    
+function resizeElements() {
+	var wholeScreenWidth = $('body').width();
+	var windowWidth = $(window).width(); //retrieve current window width
+	var windowHeight = $(window).height();
+	
+	var centerGradeLeft = (windowWidth/2)-($("#centerGrade").width()/2);
+	$("#centerGrade").css({'margin-left':centerGradeLeft+'px'});
+	
+	if ($('#sidebar-content').is(":visible")) {
+	    $('#wrapper-holder').width(wholeScreenWidth-270);
+	    $('#app-bar-content').width(wholeScreenWidth-270);
+	}
+	else{
+	    $('#wrapper-holder').width(wholeScreenWidth);
+	    $('#app-bar-content').width(wholeScreenWidth);
+	}
+        var screenWidth = $( '#wrapper' ).width();
+        var fontPixels = (screenWidth/1267)*22;
+        var fontPixels2 = (screenWidth/1267)*20;
+        //$("input").attr('style','font-size:'+fontPixels+'px;line-height:'+fontPixels+'px;');
+        //$("input").css('font-size', fontPixels+'px', 'line-height', fontPixels+'px');
+        $("#default_form input").css({
+                'font-size': fontPixels+'px',
+                'line-height': fontPixels+'px' 
+        });
+	$("#default_form textarea").css({
+                'font-size': fontPixels+'px',
+                'line-height': fontPixels+'px' 
+        });
+	$("#default_form select").css({
+                'font-size': fontPixels+'px',
+                'line-height': fontPixels+'px' 
+        });
+	if (fontPixels2 < 12) {
+	    fontPixels2 = 12
+	}
+	$("#default_form div").css({
+                'font-size': fontPixels2+'px',
+                'line-height': fontPixels2+'px' 
+        });
+	
+	
+	// Popup Center
+	$(".popup").each(function(){
+	    //console.log($(this).attr('id'));
+	    var popupLeft = (windowWidth/2)-($(this).width()/2);
+	    var popupTop = (windowHeight/2)-($(this).height()/2);
+	    $(this).css({
+		'left':popupLeft+'px',
+		'top':popupTop+'px',
+	    });
+	    //console.log(popupLeft);
+	    //console.log(popupTop);
+	});
+	
+	
+	// Spinner Center
+	var waitLeft = (windowWidth/2)-30;
+	var waitTop = (windowHeight/2)-10;
+	//console.log("Window Height: "+windowHeight+" Window Width: "+windowWidth+" wait width: "+$("#wait-spinner").width()+" wait height: "+$("#wait-spinner").height())
+	//console.log(waitLeft+" and "+waitTop);
+	$(".spinner").css({
+	    'left':waitLeft,
+	    'top':waitTop,
+	});
+	
+	var appBar = $("#app-bar-content").width();
+	var logoLeft = ((appBar/2)-110)/appBar*100;
+	$("#barLogo").css({'margin-left':logoLeft+"%"});
+	
+        
+}
+    
+    
+    {% if myAnswers %}
+	{% if formInputs %}
+	    {% for input in formInputs %}
+		{% ifequal input.pageNumber pageNumber %}
+		{% for myAnswer in myAnswers %}
+		    {% ifequal myAnswer.answerId input.id %}
+			{% if myAnswer.bCorrect %}
+			$("#input{{ input.id }}").data('bCorrect','correct');
+			{% endif %}
+		    {% if input.inputType == 'work' %}
+			$('#workinput{{ input.id }} img').attr('src', '{{ MEDIA_URL }}{{ myAnswer.workImagePath }}')
+			{% if myAnswer.myAnswer %}
+			$('#input{{ input.id }}').val('{{ myAnswer.myAnswer }}');
+			{% endif %}
+			
+		    {% elif input.inputType == 'checkbox' %}
+			$('#input{{ input.id }}').prop("checked", {{ myAnswer.myAnswer }});
+				
+		    {% else %}
+			$('#input{{ input.id }}').val('{{ myAnswer.myAnswer }}');
+		    {% endif %}
+		    {% endifequal %}
+		{% endfor %}
+		{% endifequal %}
+	    {% endfor %}
+	{% endif %}
+    {% endif %}
+	
+	
+{% if not bTeacher %}
+        // init wPaint
+	
+        $('#wPaint1').wPaint({
+          path: '/static/',
+          menuOffsetLeft: 10,
+          menuOffsetTop: -46,
+          menuOrientation: 'horizontal',
+          menuHandle:      true,
+          imageStretch:    true,
+          fontSize       : '60',
+          fillStyle:   '#000000',
+          strokeStyle: '#000000',
+        });
+        
+	$("#paintHolder").hide();
+	
+	$(".wPaint-menu-holder").css({
+	    'background-color':'#55bceb',
+	});
+    
+    $("#default_form").on("click", ".show_work", function(){
+	var workElementID = $(this).parent().attr('id');
+	var inputID = $("#"+workElementID).data("options").answer_id;
+        var image = $("#"+workElementID+" img").attr('src');
+	
+	//Get image width and height
+	var imageWidth = $("#"+workElementID+" img").width();
+	var imageHeight = $("#"+workElementID+" img").height();
+	var windowWidth = $(window).width(); //retrieve current window width
+	var windowHeight = ($(window).height()-46);
+	//find out which is larger
+	if (windowWidth>=windowHeight) {
+	    console.log("Window width is greater than Window height");
+	    var ratio = imageWidth/imageHeight;
+	    var newHeight = windowHeight;
+	    var newWidth = newHeight*ratio;
+	    if (newWidth>windowWidth) {
+		newWidth = windowWidth;
+		newHeight = newWidth/ratio;
+	    }
+	    var left = (windowWidth-newWidth)/2;
+	    var top = ((windowHeight-newHeight)/2)+46;
+	    console.log("image: width: "+imageWidth+" height: "+imageHeight);
+	    console.log("newWidth: "+newWidth+" newHeight: "+newHeight);
+	    console.log(imageHeight/imageWidth);
+	    console.log(newHeight/newWidth);
+	    
+	    $("#paintHolder").css({
+		'top':top+'px' ,
+		'left':left+"px",
+		'width':newWidth+"px",
+		'height':(newHeight)+"px",
+	    });
+	    
+	    $("#wPaint1").css({
+		'width':(newWidth)+"px",
+		'height':(newHeight)+"px",
+	    });
+	    
+	}else{
+	    console.log("Window height is greater than Window width");
+	}
+	//set #paintHolder to 90% of screen and use % of other to change painHolder
+	//change top and left to center popup
+	/*
+	//Resize show your work popup
+	$("#paintHolder")css({
+	    'top':,
+	    'left':,
+	    'width':,
+	    'height':,
+	});
+	*/
+	
+        $('#wPaint1').wPaint({
+          path: '/static/',
+          menuOffsetLeft: 10,
+          menuOffsetTop: -46,
+          menuOrientation: 'horizontal',
+          menuHandle:      true,
+          imageStretch:    true,
+          fontSize       : '60',
+          fillStyle:   '#000000',
+          strokeStyle: '#000000',
+	  image: image,
+        })
+	.wPaint('resize')
+	.wPaint('clear')
+	.wPaint('image', image);;
+	
+	
+	  
+	
+	$(".wPaint-menu-icon-name-clear").click(function(){
+	    console.log("x was clicked");
+	    $("#wPaint1")
+	    .wPaint('clear')
+	    .wPaint('image', image);
+	});
+	
+	$("#shade").fadeIn(600);
+	$("#paintHolder").fadeIn(600);
+        
+	$("#resize-button").unbind("click").click(function(){
+            var paintImage = $("#wPaint1").wPaint("image");
+	    var convertImage = paintImage.replace(/^data:image\/(png|jpg);base64,/, "");
+	    uploadWorkboxImage(convertImage, inputID);
+            $("#"+workElementID+" img").attr('src',paintImage);
+            $("#paintHolder").fadeOut(600);
+	    $("#shade").fadeOut(600);
+	});
+        
+	
+	$("#shade").unbind("click").click(function(){
+            var paintImage = $("#wPaint1").wPaint("image");
+	    var convertImage = paintImage.replace(/^data:image\/(png|jpg);base64,/, "");
+	    uploadWorkboxImage(convertImage, inputID);
+            $("#"+workElementID+" img").attr('src',paintImage);
+            $("#paintHolder").fadeOut(600);
+	    $("#shade").fadeOut(600);
+	    $("#shade").unbind("click").click(function(){
+		closePopups();
+	    });
+	});
+        
+	
+        $(document).unbind('keydown').keydown(function(e){
+            
+            var paintImage = $("#wPaint1").wPaint("image");
+            //submit it to 
+            
+            if (e.keyCode==27) {
+		var convertImage = paintImage.replace(/^data:image\/(png|jpg);base64,/, "");
+		uploadWorkboxImage(convertImage, inputID);
+                $("#"+workElementID+" img").attr('src',paintImage);
+                $("#paintHolder").fadeOut(600);
+		$("#shade").fadeOut(600);
+            }
+        });
+        
+        
+        
+    });        
+        
+	
+{% endif %}
+	
+	
+	
+    
+    
+    
+{% if bTeacher %}
+    {% include "includes/image_area_select.html" %} //Run Image Area Select
+{% endif %}
+    
+    {% include "includes/event_pickups.html" %}//Pickup all click, focus and key events
+    
+    {% include "includes/functions.html" %}
+       
+    {% include "includes/ajax_calls.html" %}
+    
+</script>

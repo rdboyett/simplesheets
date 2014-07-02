@@ -1,0 +1,134 @@
+$.extend($.imgAreaSelect.prototype, {
+    animateSelection: function (x1, y1, x2, y2, duration) {
+        console.log("in Image area: x1: "+x1+" y1: "+y1+" x2: "+x2+" y2: "+y2);
+        var fx = $.extend($('<div/>')[0], {
+            ias: this,
+            start: this.getSelection(),
+            end: { x1: x1, y1: y1, x2: x2, y2: y2 }
+        });
+
+        $(fx).animate({
+            cur: 1
+        },
+        {
+            duration: duration,
+            step: function (now, fx) {
+                var start = fx.elem.start, end = fx.elem.end,
+                    curX1 = Math.round(start.x1 + (end.x1 - start.x1) * now),
+                    curY1 = Math.round(start.y1 + (end.y1 - start.y1) * now),
+                    curX2 = Math.round(start.x2 + (end.x2 - start.x2) * now),
+                    curY2 = Math.round(start.y2 + (end.y2 - start.y2) * now);
+                fx.elem.ias.setSelection(curX1, curY1, curX2, curY2);
+                fx.elem.ias.update();
+            }
+        });
+    }
+});
+
+
+
+
+
+
+
+    var leftPercentage = 0;
+    var topPercentage = 0;
+    var widthPercentage = 0;
+    var heightPercentage = 0;
+    
+    ias = $('#backgroundImage').imgAreaSelect({
+        fadeSpeed: false,
+        handles: true,
+        onSelectStart: makeImageAreaSelection(),
+        onSelectEnd: function(img, selection){
+            if (!selection.width || !selection.height){
+                return;
+            }
+            $('.imgareaselect-selection').attr( 'id', 'enter_area');
+            var imageWidth = $( '#wrapper' ).width();
+            leftPercentage = (selection.x1/imageWidth)*100;
+            var imageHeight = $( '#wrapper' ).height();
+            topPercentage = (selection.y1/imageHeight)*100;
+            widthPercentage = (selection.width/imageWidth)*100;
+            heightPercentage = (selection.height/imageHeight)*100;
+            
+            
+            //alert('left: ' + leftPercentage + '%, top: '+ topPercentage+ '%, width: ' + widthPercentage + '%, height: ' + heightPercentage + '%...');
+            
+        },
+        instance: true,
+    });
+    
+function makeImageAreaSelection() {
+    $(document).unbind('keydown').keydown(function (e) {
+        if (e.keyCode == 13){
+            e.preventDefault();
+            if ($('#enter_area').is(":visible")) {
+                //alert('selection is visible');
+                runSelection();
+            }
+        }
+    });
+    
+    $( document ).unbind('dblclick').dblclick(function() {
+            if ($('#enter_area').is(":visible")) {
+                //alert('selection is visible');
+                runSelection();
+            }
+        //alert('left: ' + leftPercentage + '%, top: '+ topPercentage+ '%, width: ' + widthPercentage + '%, height: ' + heightPercentage + '%...');
+    });
+}
+    
+    function runSelection() {
+        whiteFlash();
+        ias.cancelSelection();
+        /*
+        $('#wrapper img').imgAreaSelect({
+            fadeSpeed: 1000,
+            hide: true,
+            onSelectStart: doThisNext,
+        });
+        $('#wrapper img').imgAreaSelect({
+            fadeSpeed: false,
+        });
+        */
+        var inputNumber = ($("form input").length)+1;
+        //Dajaxice.myproject.googleapi.test(test_callback, {'userInfo': '{{ userInfo.id }}', 'project_id':'{{ newProject.id }}', 'pageNumber': '{{ pageNumber }}', 'inputNumber': inputNumber, 'left': leftPercentage,'top':topPercentage,'width':widthPercentage,'height':heightPercentage});
+        imageAreaSet('{{ newProject.id }}', '{{ pageNumber }}', inputNumber, leftPercentage, topPercentage, widthPercentage, heightPercentage);
+        
+    }
+    
+    
+    
+    
+    //Dajaxice.myproject.teacherTools.setQuickLink(setQuickLink_callback, {'list_id':listId, 'link_id':parseInt(linkID), 'user_id':parseInt(userID), 'sort_number':parseInt(sortNumber)});
+    /*--------------------for dajaxice callbacks------------------------------------*/
+	
+    function imageAreaSet_callback(data){
+        //alert('left: ' + data.left + '%, top: '+ data.top+ '%, width: ' + data.width + '%, height: ' + data.height + '%...');
+
+        $( "#default_form" ).append( "<input id='input"+ data.inputNumber +"' class='answers highlight' data-options='' type='text' title='answer...' name=''>" );
+        $("#input"+ data.inputNumber).css({
+                'position': 'absolute',
+                'z-index': '1000',
+                'left': data.left + '%',
+                'top': data.top+ '%',
+                'width': data.width + '%',
+                'height': data.height + '%'
+        });
+        $("#input"+ data.inputNumber).attr('data-options', '{"answer_id":"'+ data.inputNumber + '", "question_number":"'+ data.questionNumber + '", "input_type":"text", "points":"1", "help_text":"", "help_link":""}');
+        
+        $("#page{{ pageNumber }} .page-holder" ).remove();
+        var newhtml = '<div id="questionTab'+ data.questionNumber + '" class="questionTab-holder img-rounded">'+
+                            '<div class="question_click">Question '+ data.questionNumber + '</div>'+
+                            '<div class="x-icon" title="delete"></div>'+
+                            '<div class="resize-icon" title="delete"></div>'+
+                        '</div>'
+                        
+        $( "#page{{ pageNumber }}" ).append(newhtml);
+        
+        $("#questionTab"+ data.questionNumber).attr('data-options','{"answer_id":"'+ data.inputNumber + '", "question_number":"'+ data.questionNumber + '"}');
+        
+        resizeElements();
+    }
+    

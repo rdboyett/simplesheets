@@ -1,0 +1,9 @@
+<li id="message{{ message.id }}" class="new-uploaded-message ui-corner-all custom-corners" data-options='{"messageID":{{ message.id }}}'>
+    <div class="ui-bar ui-bar-b" {% if userInfo.avatarBackColor %}style="background-color: {{ userInfo.avatarBackColor }};color: {{ userInfo.avatarTextColor }};"{% endif %}>
+	<h3 style="margin-top: 15px;">I posted this {{ message.timeDate|timesince }} ago</h3>
+	<span style="float: right;"><a href="#deleteTweetCheck" onclick="$('#yes_or_no').val('{{ message.id }}')" data-rel="popup" data-position-to="window" class="ui-btn ui-btn-a ui-mini ui-corner-all ui-btn-icon-notext ui-icon-delete ui-shadow" title="delete message"></a></span>
+    </div>
+    <div class="ui-body ui-body-a new-uploaded-message-body">
+	<p class="message">{{ message.text }}</p>
+    </div>
+</li>

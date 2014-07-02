@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+
+{% block title %}Dashboard{% endblock %}
+
+{% block body %}
+
+<!-----------------Nav bar -------------------------------------------------------------->
+<div class="navbar navbar-default navbar-fixed-top">
+  <div class="navbar-header col-sm-3">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand hidden-xs" href="#">
+      <img style="width:120%;max-width: 200px;margin:-5px 0 0 -10px;" src="{% static "main_project/images/Simplesheets-dot-logo.png" %}" alt="SimpleSheets" />
+    </a>
+    <a class="navbar-brand col-xs-8 visible-xs" href="#">
+      <img style="width:120%;max-width:200px;margin-top:-8px;" src="{% static "main_project/images/Simplesheets-dot-logo.png" %}" alt="SimpleSheets" />
+    </a>
+  </div>
+  <div class="navbar-collapse collapse navbar-responsive-collapse">
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="#">dashboard</a></li>
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">worksheets</span></a>
+        <ul class="dropdown-menu">
+          <li><a href="{% url "google_drive.views.google_picker" %}"><span class="glyphicon glyphicon-file"></span>  create</a></li>
+          <li><a href="#"><span class="glyphicon glyphicon-file"></span>  assign</a></li>
+          <li><a href="monitor.html"><span class="glyphicon glyphicon-stats"></span>  monitor</a></li>
+        </ul>
+      </li>
+      <li><a href="classes.html">classes</a></li>
+      
+      <li class="dropdown visible-sm">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-search"></span></a>
+        <ul class="dropdown-menu">
+          <form class="navbar-form navbar-left" style="width: 19%;">
+            <input id="search-bar" type="text" class="form-control" placeholder="Search" style="width: 200px;background-color: #ADADAD;">
+          </form>
+        </ul>
+      </li>
+      
+    </ul>
+    
+    
+    <form class="navbar-form navbar-left hidden-sm">
+      <input id="search-bar" type="text" class="form-control" placeholder="Search" style="width: 200px;background-color: #ADADAD;">
+    </form>
+    
+    
+    <ul class="nav navbar-nav navbar-right">
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-bell"></span> <span class="badge">3</span><b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li><a href="#">some info here asdf asdf asdf asdf</a></li>
+          <li class="divider"></li>
+          <li><a href="#">some info here asdf asdf asdf asdf</a></li>
+          <li class="divider"></li>
+          <li><a href="#">some info here asdf asdf asdf asdf</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle hidden-sm hidden-md" data-toggle="dropdown">Robert  <span class="glyphicon glyphicon-user"></span><b class="caret"></b></a>
+        <a href="#" class="dropdown-toggle visible-sm visible-md" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span><b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li><a href="profile.html"><span class="glyphicon glyphicon-user"></span>  edit profile</a></li>
+          <li><a href="#"><span class="glyphicon glyphicon-cog"></span>  settings</a></li>
+          <li class="divider"></li>
+          <li><a href="/google/logout/"><span class="glyphicon glyphicon-log-out"></span>  sign out</a></li>
+        </ul>
+      </li>
+    </ul>
+    
+    
+  </div>
+</div>
+<!-------------------------End Navbar --------------------------------------------------->
+
+
+
+<div class="container">
+  <div class="row">
+    <h3>Welcome to SimpleSheets</h3>
+    <p>Follow these steps and you will quickly be able to transform any document or pdf into an automatically graded online worksheet for your classroom.</p>
+  </div>
+</div>
+<div class="container">
+  <div class="row alert alert-info rounded">
+      <div class="col-xs-4 col-sm-2 col-md-1">
+        <div class="round-button">1</div>
+      </div>
+      <div class="col-xs-8 col-sm-6 col-lg-5">
+        <p><strong>create a worksheet</strong></p>
+        <p>Pick a document or pdf from your Google Drive, Dropbox or computer.</p>
+      </div>
+      <div class="col-xs-12 col-sm-4 col-md-3">
+        <a href="{% url "google_drive.views.google_picker" %}" class="btn btn-primary btn-block btn-lg rounded" role="button" style="margin: 15px 0 0 0;color: #FFF;"><span class="glyphicon glyphicon-file"></span><strong>  Create a Worksheet</strong></a>
+      </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row well success rounded">
+      <div class="col-xs-4 col-sm-2 col-md-1">
+        <div class="round-button"><span class="text-success glyphicon glyphicon-ok"></span></div>
+      </div>
+      <div class="col-xs-8 col-sm-6 col-lg-5">
+        <p><strong>create a classroom</strong></p>
+        <p>Because you need a place to handout worksheets.</p>
+      </div>
+      <div class="col-xs-12 col-sm-4 col-md-3">
+        <button class="btn btn-success btn-block btn-lg rounded" style="margin: 15px 0 0 0;"><span class="glyphicon glyphicon-book"></span><strong>  Create a Class</strong></button>
+      </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row well rounded">
+      <div class="col-xs-4 col-sm-2 col-md-1">
+        <div class="round-button">3</div>
+      </div>
+      <div class="col-xs-8 col-sm-6 col-lg-5">
+        <p><strong>handout your worksheet</strong></p>
+        <p>Because your students need something to do.</p>
+      </div>
+      <div class="col-xs-12 col-sm-4 col-md-3">
+        <button class="btn btn-info btn-block btn-lg rounded" style="margin: 15px 0 0 0;"><span class="glyphicon glyphicon-file"></span><strong>  Assign a Worksheet</strong></button>
+      </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row well rounded">
+      <div class="col-xs-4 col-sm-2 col-md-1">
+        <div class="round-button">4</div>
+      </div>
+      <div class="col-xs-8 col-sm-6 col-lg-5">
+        <p><strong>actively monitor your students</strong></p>
+        <p>Because you need to know who needs help, now not later!</p>
+      </div>
+      <div class="col-xs-12 col-sm-4 col-md-3">
+        <button class="btn btn-info btn-block btn-lg rounded" style="margin: 15px 0 0 0;"><span class="glyphicon glyphicon-stats"></span><strong>  Monitor</strong></button>
+      </div>
+  </div>
+</div>
+
+{% endblock %}

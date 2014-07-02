@@ -1,0 +1,10 @@
+django-worksheet-creator
+========================
+
+My simple app for creating worksheets.
+
+Prerequisites:
+==============
+
+sudo apt-get install imagemagick --fix-missing
+easy_install pyPDF

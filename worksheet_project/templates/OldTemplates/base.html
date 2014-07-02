@@ -1,0 +1,56 @@
+{% load dajaxice_templatetags %}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>{% block title %}No Title{% endblock %}</title>
+    
+    <script language="JavaScript" type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script language="JavaScript" type="text/javascript" src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <script language="JavaScript" type="text/javascript" src="{% static "main_project/js/jquery-ui-1.10.3.custom.js" %}"></script>
+    
+    <link href="{% static "main_project/css/jquery-ui-1.10.3.custom.css" %}" rel="stylesheet">
+    
+    
+    <link rel="stylesheet" type="text/css" href="{% static "main_project/css/imgareaselect-animated.css" %}" />
+    <script type="text/javascript" src="{% static "main_project/js/jquery.imgareaselect.pack.js" %}"></script>
+    
+{% if not bTeacher %}
+
+      <!-- jQuery UI -->
+      <script type="text/javascript" src="{% static "main_project/js/jquery.ui.core.js" %}"></script>
+      <script type="text/javascript" src="{% static "main_project/js/jquery.ui.widget.js" %}"></script>
+      <script type="text/javascript" src="{% static "main_project/js/jquery.ui.mouse.js" %}"></script>
+      <script type="text/javascript" src="{% static "main_project/js/jquery.ui.draggable.js" %}"></script>
+      
+      <!-- wColorPicker -->
+      <link rel="Stylesheet" type="text/css" href="{% static "main_project/css/wColorPicker.min.css" %}" />
+      <script type="text/javascript" src="{% static "main_project/js/wColorPicker.min.js" %}"></script>
+
+      <!-- wPaint -->
+      <link rel="Stylesheet" type="text/css" href="{% static "main_project/css/wPaint.min.css" %}" />
+      <script type="text/javascript" src="{% static "main_project/js/wPaint.min.js" %}"></script>
+      <script type="text/javascript" src="{% static "main_project/plugins/main/wPaint.menu.main.min.js" %}"></script>
+      <script type="text/javascript" src="{% static "main_project/plugins/text/wPaint.menu.text.min.js" %}"></script>
+      <script type="text/javascript" src="{% static "main_project/plugins/shapes/wPaint.menu.main.shapes.min.js" %}"></script>
+      <script type="text/javascript" src="{% static "main_project/plugins/file/wPaint.menu.main.file.min.js" %}"></script>
+	
+{% endif %}
+
+    <script type="text/javascript" src="{% static "main_project/js/spin.js" %}"></script>
+	
+    <link rel="stylesheet" href="{% static "main_project/css/main-style.css" %}" />
+
+	{% dajaxice_js_import %}
+	
+    {% block extraHead %}{% endblock %}
+    
+</head>
+
+<body>
+    
+    {% block body %}{% endblock %}
+    
+</body>
+</html> 

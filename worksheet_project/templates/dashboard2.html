@@ -1,0 +1,1253 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!--<link rel="shortcut icon" href="../../assets/ico/favicon.ico">-->
+
+    <title>My Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <!-- Bootstrap theme -->
+    <!--<link href="css/bootstrap-theme.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/bootswatch.css" rel="stylesheet">
+        
+        
+    <!-- Just for debugging purposes. Don't actually copy this line! -->
+    <!--[if lt IE 9]><script src="js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <link href="css/theme.css" rel="stylesheet">
+    
+    
+    
+  </head>
+
+  <body role="document">
+
+<!-----------------Nav bar -------------------------------------------------------------->
+<div class="navbar navbar-default navbar-fixed-top">
+  <div class="navbar-header col-sm-3">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand hidden-xs" href="#">
+      <img style="width:120%;max-width: 200px;margin:-5px 0 0 -10px;" src="./images/Simplesheets-dot-logo.png" alt="SimpleSheets" />
+    </a>
+    <a class="navbar-brand col-xs-8 visible-xs" href="#">
+      <img style="width:120%;max-width:200px;margin-top:-8px;" src="./images/Simplesheets-dot-logo.png" alt="SimpleSheets" />
+    </a>
+  </div>
+  <div class="navbar-collapse collapse navbar-responsive-collapse">
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="#">dashboard</a></li>
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">worksheets</span></a>
+        <ul class="dropdown-menu">
+          <li><a href="#"><span class="glyphicon glyphicon-file"></span>  create</a></li>
+          <li><a href="#"><span class="glyphicon glyphicon-file"></span>  assign</a></li>
+          <li><a href="monitor.html"><span class="glyphicon glyphicon-stats"></span>  monitor</a></li>
+        </ul>
+      </li>
+      <li><a href="classes.html">classes</a></li>
+      
+      <li class="dropdown visible-sm">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-search"></span></a>
+        <ul class="dropdown-menu">
+          <form class="navbar-form navbar-left" style="width: 19%;">
+            <input id="search-bar" type="text" class="form-control" placeholder="Search" style="width: 200px;background-color: #ADADAD;">
+          </form>
+        </ul>
+      </li>
+      
+    </ul>
+    
+    
+    <form class="navbar-form navbar-left hidden-sm">
+      <input id="search-bar" type="text" class="form-control" placeholder="Search" style="width: 200px;background-color: #ADADAD;">
+    </form>
+    
+    
+    <ul class="nav navbar-nav navbar-right">
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-bell"></span> <span class="badge">3</span><b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li><a href="#">some info here asdf asdf asdf asdf</a></li>
+          <li class="divider"></li>
+          <li><a href="#">some info here asdf asdf asdf asdf</a></li>
+          <li class="divider"></li>
+          <li><a href="#">some info here asdf asdf asdf asdf</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle hidden-sm hidden-md" data-toggle="dropdown">Robert  <span class="glyphicon glyphicon-user"></span><b class="caret"></b></a>
+        <a href="#" class="dropdown-toggle visible-sm visible-md" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span><b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li><a href="profile.html"><span class="glyphicon glyphicon-user"></span>  edit profile</a></li>
+          <li><a href="#"><span class="glyphicon glyphicon-cog"></span>  settings</a></li>
+          <li class="divider"></li>
+          <li><a href="#"><span class="glyphicon glyphicon-log-out"></span>  sign out</a></li>
+        </ul>
+      </li>
+    </ul>
+    
+    
+  </div>
+</div>
+<!-------------------------End Navbar --------------------------------------------------->
+
+
+
+<div class="container">
+  <div class="row">
+    <div class="space col-xs-12 col-sm-4">
+      <button type="submit" class="btn btn-block btn-primary rounded" id="show-update-password-modal">
+	<span class="glyphicon glyphicon-file"></span>
+        new worksheet
+      </button>
+    </div>
+    <div class="space col-xs-12 col-sm-4">
+      <button type="submit" class="btn btn-block btn-primary rounded" id="show-update-password-modal">
+	<span class="glyphicon glyphicon-book"></span>
+        add a class
+      </button>
+    </div>
+    <div class="space col-xs-12 col-sm-4">
+      <button type="submit" class="btn btn-block btn-primary rounded" id="show-update-password-modal">
+	<span class="glyphicon glyphicon-file"></span>
+        assign worksheets
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    
+    <!------------------------------ Start of Worksheet ------------------------------------>
+    <div class="col-xs-6 col-sm-12 space">
+      <div class="row">
+        <div class="well dashboard-worksheet-holder col-xs-12 rounded">
+          <div class="row">
+            <div class="col-xs-12 worksheet-title text-center">A name that is really too long for this</div>
+          </div>
+          <div class="row">
+            <div class="sheet-cover-up col-xs-12 col-sm-2 col-sm-offset-1 top-rounded">
+                    <div class="worksheet-ribbon">
+                      <div class="btn-group">
+                        <button type="button" class="btn btn-primary dropdown-toggle ribbon-pending" data-toggle="dropdown">
+                          <span>pending</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                          <li><a href="#"><i class="glyphicon glyphicon-play"></i>  activate</a></li>
+                          <li><a href="#"><i class="glyphicon glyphicon-pause"></i>  pending</a></li>
+                          <li class="divider"></li>
+                          <li><a href="#"><i class="glyphicon glyphicon-stop"></i>  archive</a></li>
+                        </ul>
+                      </div>
+                    </div>
+              <img src="images/thumbnail.png" alt="simple machines" height="" width="100%" class="img-responsive rounded">
+              <div class="btn btn-info rounded assign-to-class"><span class="glyphicon glyphicon-file"></span>  assign</div>
+            </div>
+            <div class="col-xs-12 col-sm-4 text-center">
+              <div class="row" style="height: 70px;vertical-align: middle;line-height: 70px;">
+                <div class="col-xs-6 text-center text-success" style="font-size: 150%;">
+                  <span class="glyphicon glyphicon-user" data-toggle="tooltip" data-placement="left" title="" data-original-title="passing"></span>
+                  <span>160</span>
+                </div>
+                <div class="col-xs-6 text-center text-danger" style="font-size: 150%;">
+                  <span class="glyphicon glyphicon-user" data-toggle="tooltip" data-placement="left" title="" data-original-title="failing"></span>
+                  <span>160</span>
+                </div>
+              </div>
+              <div class="row visible-xs">
+                <div class="col-xs-6 pull-left">
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-default rounded dropdown-toggle" data-toggle="dropdown">
+                      <span class="glyphicon glyphicon-tasks"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                      <li><a href="#"><span class="glyphicon glyphicon-stats"></span> monitor</a></li>
+                      <li><a href="#"><span class="glyphicon glyphicon-pencil"></span> edit</a></li>
+                      <li><a href="#"><span class="glyphicon glyphicon-ok"></span> grade</a></li>
+                      <li><a href="#"><span class="glyphicon glyphicon-trash text-danger"></span><span class="text-danger"> delete</span></a></li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-xs-6 pull-right">
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-default rounded dropdown-toggle" data-toggle="dropdown">
+                      <span class="glyphicon glyphicon-book"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                      <li><a href="#">1st Period class-avg - 90%</a></li>
+                      <li><a href="#">2nd Period class-avg - 90%</a></li>
+                      <li><a href="#">3rd Period class-avg - 90%</a></li>
+                      <li><a href="#">4th Period class-avg - 90%</a></li>
+                      <li><a href="#">5th Period class-avg - 90%</a></li>
+                      <li><a href="#">6th Period class-avg - 90%</a></li>
+                      <li><a href="#">7th Period class-avg - 90%</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="row hidden-xs">
+                <div class="btn-group col-sm-6">
+                  <button type="button" class="btn btn-default btn-block rounded dropdown-toggle" data-toggle="dropdown" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="student view">
+                    <span class="glyphicon glyphicon-stats"></span>
+                    monitor
+                  </button>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="#">1st Period</a></li>
+                    <li><a href="#">2nd Period</a></li>
+                    <li><a href="#">3rd Period</a></li>
+                    <li><a href="#">4th Period</a></li>
+                    <li><a href="#">5th Period</a></li>
+                    <li><a href="#">6th Period</a></li>
+                    <li><a href="#">7th Period</a></li>
+                  </ul>
+                </div>
+                <button class="btn btn-default rounded col-sm-6">
+                  <span class="glyphicon glyphicon-pencil"></span>
+                  <span>edit</span>
+                </button>
+                <button class="btn btn-default rounded col-sm-6">
+                  <span class="glyphicon glyphicon-ok"></span>
+                  <span>grade</span>
+                </button>
+                <button class="btn btn-default rounded">
+                  <span class="glyphicon glyphicon-trash text-danger"></span>
+                  <span class="text-danger">delete</span>
+                </button>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-5">
+              <div class="row hidden-xs">
+                <div class="col-xs-12 text-center" style="height: 150px;overflow-y: auto;">
+                  <button class="btn btn-success btn-block rounded text-center" style="padding-top:5px;padding-bottom: 5px;">
+                    <span class="col-xs-12 col-sm-6 col-sm-pull">1st Period</span>
+                    <span class="hidden-xs">class avg - 100%</span>
+                  </button>
+                  <button class="btn btn-success btn-block rounded text-center" style="padding-top:5px;padding-bottom: 5px;">
+                    <span class="col-xs-12 col-sm-6 col-sm-pull">1st Period</span>
+                    <span class="hidden-xs">complete - 100%</span>
+                  </button>
+                  <button class="btn btn-success btn-block rounded text-center" style="padding-top:5px;padding-bottom: 5px;">
+                    <span class="col-xs-12 col-sm-6 col-sm-pull">1st Period</span>
+                    <span class="hidden-xs">complete - 100%</span>
+                  </button>
+                  <button class="btn btn-success btn-block rounded text-center" style="padding-top:5px;padding-bottom: 5px;">
+                    <span class="col-xs-12 col-sm-6 col-sm-pull">1st Period</span>
+                    <span class="hidden-xs">complete - 100%</span>
+                  </button>
+                  <button class="btn btn-success btn-block rounded text-center" style="padding-top:5px;padding-bottom: 5px;">
+                    <span class="col-xs-12 col-sm-6 col-sm-pull">1st Period</span>
+                    <span class="hidden-xs">complete - 100%</span>
+                  </button>
+                  <button class="btn btn-success btn-block rounded text-center" style="padding-top:5px;padding-bottom: 5px;">
+                    <span class="col-xs-12 col-sm-6 col-sm-pull">1st Period</span>
+                    <span class="hidden-xs">complete - 100%</span>
+                  </button>
+                  <button class="btn btn-success btn-block rounded text-center" style="padding-top:5px;padding-bottom: 5px;">
+                    <span class="col-xs-12 col-sm-6 col-sm-pull">1st Period</span>
+                    <span class="hidden-xs">complete - 100%</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <!------------------------------ Start of Worksheet ------------------------------------>
+    <div class="col-xs-6 col-sm-12 space">
+      <div class="row">
+        <div class="well dashboard-worksheet-holder col-xs-12 rounded">
+          <div class="row">
+            <div class="col-xs-12 worksheet-title text-center">A name that is really too long for this</div>
+          </div>
+          <div class="row">
+            <div class="sheet-cover-up col-xs-12 col-sm-2 col-sm-offset-1 top-rounded">
+                    <div class="worksheet-ribbon">
+                      <div class="btn-group">
+                        <button type="button" class="btn btn-primary dropdown-toggle ribbon-pending" data-toggle="dropdown">
+                          <span>pending</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                          <li><a href="#"><i class="glyphicon glyphicon-play"></i>  activate</a></li>
+                          <li><a href="#"><i class="glyphicon glyphicon-pause"></i>  pending</a></li>
+                          <li class="divider"></li>
+                          <li><a href="#"><i class="glyphicon glyphicon-stop"></i>  archive</a></li>
+                        </ul>
+                      </div>
+                    </div>
+              <img src="images/thumbnail.png" alt="simple machines" height="" width="100%" class="img-responsive rounded">
+              <div class="btn btn-info rounded assign-to-class"><span class="glyphicon glyphicon-file"></span>  assign</div>
+            </div>
+            <div class="col-xs-12 col-sm-4 text-center">
+              <div class="row" style="height: 70px;vertical-align: middle;line-height: 70px;">
+                <div class="col-xs-6 text-center text-success" style="font-size: 150%;">
+                  <span class="glyphicon glyphicon-user" data-toggle="tooltip" data-placement="left" title="" data-original-title="passing"></span>
+                  <span>160</span>
+                </div>
+                <div class="col-xs-6 text-center text-danger" style="font-size: 150%;">
+                  <span class="glyphicon glyphicon-user" data-toggle="tooltip" data-placement="left" title="" data-original-title="failing"></span>
+                  <span>160</span>
+                </div>
+              </div>
+              <div class="row visible-xs">
+                <div class="col-xs-6 pull-left">
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-default rounded dropdown-toggle" data-toggle="dropdown">
+                      <span class="glyphicon glyphicon-tasks"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                      <li><a href="#"><span class="glyphicon glyphicon-stats"></span> monitor</a></li>
+                      <li><a href="#"><span class="glyphicon glyphicon-pencil"></span> edit</a></li>
+                      <li><a href="#"><span class="glyphicon glyphicon-ok"></span> grade</a></li>
+                      <li><a href="#"><span class="glyphicon glyphicon-trash text-danger"></span><span class="text-danger"> delete</span></a></li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-xs-6 pull-right">
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-default rounded dropdown-toggle" data-toggle="dropdown">
+                      <span class="glyphicon glyphicon-book"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                      <li><a href="#">1st Period class-avg - 90%</a></li>
+                      <li><a href="#">2nd Period class-avg - 90%</a></li>
+                      <li><a href="#">3rd Period class-avg - 90%</a></li>
+                      <li><a href="#">4th Period class-avg - 90%</a></li>
+                      <li><a href="#">5th Period class-avg - 90%</a></li>
+                      <li><a href="#">6th Period class-avg - 90%</a></li>
+                      <li><a href="#">7th Period class-avg - 90%</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="row hidden-xs">
+                <div class="btn-group col-sm-6">
+                  <button type="button" class="btn btn-default btn-block rounded dropdown-toggle" data-toggle="dropdown" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="student view">
+                    <span class="glyphicon glyphicon-stats"></span>
+                    monitor
+                  </button>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="#">1st Period</a></li>
+                    <li><a href="#">2nd Period</a></li>
+                    <li><a href="#">3rd Period</a></li>
+                    <li><a href="#">4th Period</a></li>
+                    <li><a href="#">5th Period</a></li>
+                    <li><a href="#">6th Period</a></li>
+                    <li><a href="#">7th Period</a></li>
+                  </ul>
+                </div>
+                <button class="btn btn-default rounded col-sm-6">
+                  <span class="glyphicon glyphicon-pencil"></span>
+                  <span>edit</span>
+                </button>
+                <button class="btn btn-default rounded col-sm-6">
+                  <span class="glyphicon glyphicon-ok"></span>
+                  <span>grade</span>
+                </button>
+                <button class="btn btn-default rounded">
+                  <span class="glyphicon glyphicon-trash text-danger"></span>
+                  <span class="text-danger">delete</span>
+                </button>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-5">
+              <div class="row hidden-xs">
+                <div class="col-xs-12 text-center" style="height: 150px;overflow-y: auto;">
+                  <button class="btn btn-success btn-block rounded text-center" style="padding-top:5px;padding-bottom: 5px;">
+                    <span class="col-xs-12 col-sm-6 col-sm-pull">1st Period</span>
+                    <span class="hidden-xs">class avg - 100%</span>
+                  </button>
+                  <button class="btn btn-success btn-block rounded text-center" style="padding-top:5px;padding-bottom: 5px;">
+                    <span class="col-xs-12 col-sm-6 col-sm-pull">1st Period</span>
+                    <span class="hidden-xs">complete - 100%</span>
+                  </button>
+                  <button class="btn btn-success btn-block rounded text-center" style="padding-top:5px;padding-bottom: 5px;">
+                    <span class="col-xs-12 col-sm-6 col-sm-pull">1st Period</span>
+                    <span class="hidden-xs">complete - 100%</span>
+                  </button>
+                  <button class="btn btn-success btn-block rounded text-center" style="padding-top:5px;padding-bottom: 5px;">
+                    <span class="col-xs-12 col-sm-6 col-sm-pull">1st Period</span>
+                    <span class="hidden-xs">complete - 100%</span>
+                  </button>
+                  <button class="btn btn-success btn-block rounded text-center" style="padding-top:5px;padding-bottom: 5px;">
+                    <span class="col-xs-12 col-sm-6 col-sm-pull">1st Period</span>
+                    <span class="hidden-xs">complete - 100%</span>
+                  </button>
+                  <button class="btn btn-success btn-block rounded text-center" style="padding-top:5px;padding-bottom: 5px;">
+                    <span class="col-xs-12 col-sm-6 col-sm-pull">1st Period</span>
+                    <span class="hidden-xs">complete - 100%</span>
+                  </button>
+                  <button class="btn btn-success btn-block rounded text-center" style="padding-top:5px;padding-bottom: 5px;">
+                    <span class="col-xs-12 col-sm-6 col-sm-pull">1st Period</span>
+                    <span class="hidden-xs">complete - 100%</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <!------------------------------ Start of Worksheet ------------------------------------>
+    <div class="col-xs-6 col-sm-12 space">
+      <div class="row">
+        <div class="well dashboard-worksheet-holder col-xs-12 rounded">
+          <div class="row">
+            <div class="col-xs-12 worksheet-title text-center">A name that is really too long for this</div>
+          </div>
+          <div class="row">
+            <div class="sheet-cover-up col-xs-12 col-sm-2 col-sm-offset-1 top-rounded">
+                    <div class="worksheet-ribbon">
+                      <div class="btn-group">
+                        <button type="button" class="btn btn-primary dropdown-toggle ribbon-pending" data-toggle="dropdown">
+                          <span>pending</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                          <li><a href="#"><i class="glyphicon glyphicon-play"></i>  activate</a></li>
+                          <li><a href="#"><i class="glyphicon glyphicon-pause"></i>  pending</a></li>
+                          <li class="divider"></li>
+                          <li><a href="#"><i class="glyphicon glyphicon-stop"></i>  archive</a></li>
+                        </ul>
+                      </div>
+                    </div>
+              <img src="images/thumbnail.png" alt="simple machines" height="" width="100%" class="img-responsive rounded">
+              <div class="btn btn-info rounded assign-to-class"><span class="glyphicon glyphicon-file"></span>  assign</div>
+            </div>
+            <div class="col-xs-12 col-sm-4 text-center">
+              <div class="row" style="height: 70px;vertical-align: middle;line-height: 70px;">
+                <div class="col-xs-6 text-center text-success" style="font-size: 150%;">
+                  <span class="glyphicon glyphicon-user" data-toggle="tooltip" data-placement="left" title="" data-original-title="passing"></span>
+                  <span>160</span>
+                </div>
+                <div class="col-xs-6 text-center text-danger" style="font-size: 150%;">
+                  <span class="glyphicon glyphicon-user" data-toggle="tooltip" data-placement="left" title="" data-original-title="failing"></span>
+                  <span>160</span>
+                </div>
+              </div>
+              <div class="row visible-xs">
+                <div class="col-xs-6 pull-left">
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-default rounded dropdown-toggle" data-toggle="dropdown">
+                      <span class="glyphicon glyphicon-tasks"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                      <li><a href="#"><span class="glyphicon glyphicon-stats"></span> monitor</a></li>
+                      <li><a href="#"><span class="glyphicon glyphicon-pencil"></span> edit</a></li>
+                      <li><a href="#"><span class="glyphicon glyphicon-ok"></span> grade</a></li>
+                      <li><a href="#"><span class="glyphicon glyphicon-trash text-danger"></span><span class="text-danger"> delete</span></a></li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-xs-6 pull-right">
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-default rounded dropdown-toggle" data-toggle="dropdown">
+                      <span class="glyphicon glyphicon-book"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                      <li><a href="#">1st Period class-avg - 90%</a></li>
+                      <li><a href="#">2nd Period class-avg - 90%</a></li>
+                      <li><a href="#">3rd Period class-avg - 90%</a></li>
+                      <li><a href="#">4th Period class-avg - 90%</a></li>
+                      <li><a href="#">5th Period class-avg - 90%</a></li>
+                      <li><a href="#">6th Period class-avg - 90%</a></li>
+                      <li><a href="#">7th Period class-avg - 90%</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="row hidden-xs">
+                <div class="btn-group col-sm-6">
+                  <button type="button" class="btn btn-default btn-block rounded dropdown-toggle" data-toggle="dropdown" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="student view">
+                    <span class="glyphicon glyphicon-stats"></span>
+                    monitor
+                  </button>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="#">1st Period</a></li>
+                    <li><a href="#">2nd Period</a></li>
+                    <li><a href="#">3rd Period</a></li>
+                    <li><a href="#">4th Period</a></li>
+                    <li><a href="#">5th Period</a></li>
+                    <li><a href="#">6th Period</a></li>
+                    <li><a href="#">7th Period</a></li>
+                  </ul>
+                </div>
+                <button class="btn btn-default rounded col-sm-6">
+                  <span class="glyphicon glyphicon-pencil"></span>
+                  <span>edit</span>
+                </button>
+                <button class="btn btn-default rounded col-sm-6">
+                  <span class="glyphicon glyphicon-ok"></span>
+                  <span>grade</span>
+                </button>
+                <button class="btn btn-default rounded">
+                  <span class="glyphicon glyphicon-trash text-danger"></span>
+                  <span class="text-danger">delete</span>
+                </button>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-5">
+              <div class="row hidden-xs">
+                <div class="col-xs-12 text-center" style="height: 150px;overflow-y: auto;">
+                  <button class="btn btn-success btn-block rounded text-center" style="padding-top:5px;padding-bottom: 5px;">
+                    <span class="col-xs-12 col-sm-6 col-sm-pull">1st Period</span>
+                    <span class="hidden-xs">class avg - 100%</span>
+                  </button>
+                  <button class="btn btn-success btn-block rounded text-center" style="padding-top:5px;padding-bottom: 5px;">
+                    <span class="col-xs-12 col-sm-6 col-sm-pull">1st Period</span>
+                    <span class="hidden-xs">complete - 100%</span>
+                  </button>
+                  <button class="btn btn-success btn-block rounded text-center" style="padding-top:5px;padding-bottom: 5px;">
+                    <span class="col-xs-12 col-sm-6 col-sm-pull">1st Period</span>
+                    <span class="hidden-xs">complete - 100%</span>
+                  </button>
+                  <button class="btn btn-success btn-block rounded text-center" style="padding-top:5px;padding-bottom: 5px;">
+                    <span class="col-xs-12 col-sm-6 col-sm-pull">1st Period</span>
+                    <span class="hidden-xs">complete - 100%</span>
+                  </button>
+                  <button class="btn btn-success btn-block rounded text-center" style="padding-top:5px;padding-bottom: 5px;">
+                    <span class="col-xs-12 col-sm-6 col-sm-pull">1st Period</span>
+                    <span class="hidden-xs">complete - 100%</span>
+                  </button>
+                  <button class="btn btn-success btn-block rounded text-center" style="padding-top:5px;padding-bottom: 5px;">
+                    <span class="col-xs-12 col-sm-6 col-sm-pull">1st Period</span>
+                    <span class="hidden-xs">complete - 100%</span>
+                  </button>
+                  <button class="btn btn-success btn-block rounded text-center" style="padding-top:5px;padding-bottom: 5px;">
+                    <span class="col-xs-12 col-sm-6 col-sm-pull">1st Period</span>
+                    <span class="hidden-xs">complete - 100%</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <!------------------------------ Start of Worksheet ------------------------------------>
+    <div class="col-xs-6 col-sm-12 space">
+      <div class="row">
+        <div class="well dashboard-worksheet-holder col-xs-12 rounded">
+          <div class="row">
+            <div class="col-xs-12 worksheet-title text-center">A name that is really too long for this</div>
+          </div>
+          <div class="row">
+            <div class="sheet-cover-up col-xs-12 col-sm-2 col-sm-offset-1 top-rounded">
+                    <div class="worksheet-ribbon">
+                      <div class="btn-group">
+                        <button type="button" class="btn btn-primary dropdown-toggle ribbon-pending" data-toggle="dropdown">
+                          <span>pending</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                          <li><a href="#"><i class="glyphicon glyphicon-play"></i>  activate</a></li>
+                          <li><a href="#"><i class="glyphicon glyphicon-pause"></i>  pending</a></li>
+                          <li class="divider"></li>
+                          <li><a href="#"><i class="glyphicon glyphicon-stop"></i>  archive</a></li>
+                        </ul>
+                      </div>
+                    </div>
+              <img src="images/thumbnail.png" alt="simple machines" height="" width="100%" class="img-responsive rounded">
+              <div class="btn btn-info rounded assign-to-class"><span class="glyphicon glyphicon-file"></span>  assign</div>
+            </div>
+            <div class="col-xs-12 col-sm-4 text-center">
+              <div class="row" style="height: 70px;vertical-align: middle;line-height: 70px;">
+                <div class="col-xs-6 text-center text-success" style="font-size: 150%;">
+                  <span class="glyphicon glyphicon-user" data-toggle="tooltip" data-placement="left" title="" data-original-title="passing"></span>
+                  <span>160</span>
+                </div>
+                <div class="col-xs-6 text-center text-danger" style="font-size: 150%;">
+                  <span class="glyphicon glyphicon-user" data-toggle="tooltip" data-placement="left" title="" data-original-title="failing"></span>
+                  <span>160</span>
+                </div>
+              </div>
+              <div class="row visible-xs">
+                <div class="col-xs-6 pull-left">
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-default rounded dropdown-toggle" data-toggle="dropdown">
+                      <span class="glyphicon glyphicon-tasks"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                      <li><a href="#"><span class="glyphicon glyphicon-stats"></span> monitor</a></li>
+                      <li><a href="#"><span class="glyphicon glyphicon-pencil"></span> edit</a></li>
+                      <li><a href="#"><span class="glyphicon glyphicon-ok"></span> grade</a></li>
+                      <li><a href="#"><span class="glyphicon glyphicon-trash text-danger"></span><span class="text-danger"> delete</span></a></li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-xs-6 pull-right">
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-default rounded dropdown-toggle" data-toggle="dropdown">
+                      <span class="glyphicon glyphicon-book"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                      <li><a href="#">1st Period class-avg - 90%</a></li>
+                      <li><a href="#">2nd Period class-avg - 90%</a></li>
+                      <li><a href="#">3rd Period class-avg - 90%</a></li>
+                      <li><a href="#">4th Period class-avg - 90%</a></li>
+                      <li><a href="#">5th Period class-avg - 90%</a></li>
+                      <li><a href="#">6th Period class-avg - 90%</a></li>
+                      <li><a href="#">7th Period class-avg - 90%</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="row hidden-xs">
+                <div class="btn-group col-sm-6">
+                  <button type="button" class="btn btn-default btn-block rounded dropdown-toggle" data-toggle="dropdown" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="student view">
+                    <span class="glyphicon glyphicon-stats"></span>
+                    monitor
+                  </button>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="#">1st Period</a></li>
+                    <li><a href="#">2nd Period</a></li>
+                    <li><a href="#">3rd Period</a></li>
+                    <li><a href="#">4th Period</a></li>
+                    <li><a href="#">5th Period</a></li>
+                    <li><a href="#">6th Period</a></li>
+                    <li><a href="#">7th Period</a></li>
+                  </ul>
+                </div>
+                <button class="btn btn-default rounded col-sm-6">
+                  <span class="glyphicon glyphicon-pencil"></span>
+                  <span>edit</span>
+                </button>
+                <button class="btn btn-default rounded col-sm-6">
+                  <span class="glyphicon glyphicon-ok"></span>
+                  <span>grade</span>
+                </button>
+                <button class="btn btn-default rounded">
+                  <span class="glyphicon glyphicon-trash text-danger"></span>
+                  <span class="text-danger">delete</span>
+                </button>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-5">
+              <div class="row hidden-xs">
+                <div class="col-xs-12 text-center" style="height: 150px;overflow-y: auto;">
+                  <button class="btn btn-success btn-block rounded text-center" style="padding-top:5px;padding-bottom: 5px;">
+                    <span class="col-xs-12 col-sm-6 col-sm-pull">1st Period</span>
+                    <span class="hidden-xs">class avg - 100%</span>
+                  </button>
+                  <button class="btn btn-success btn-block rounded text-center" style="padding-top:5px;padding-bottom: 5px;">
+                    <span class="col-xs-12 col-sm-6 col-sm-pull">1st Period</span>
+                    <span class="hidden-xs">complete - 100%</span>
+                  </button>
+                  <button class="btn btn-success btn-block rounded text-center" style="padding-top:5px;padding-bottom: 5px;">
+                    <span class="col-xs-12 col-sm-6 col-sm-pull">1st Period</span>
+                    <span class="hidden-xs">complete - 100%</span>
+                  </button>
+                  <button class="btn btn-success btn-block rounded text-center" style="padding-top:5px;padding-bottom: 5px;">
+                    <span class="col-xs-12 col-sm-6 col-sm-pull">1st Period</span>
+                    <span class="hidden-xs">complete - 100%</span>
+                  </button>
+                  <button class="btn btn-success btn-block rounded text-center" style="padding-top:5px;padding-bottom: 5px;">
+                    <span class="col-xs-12 col-sm-6 col-sm-pull">1st Period</span>
+                    <span class="hidden-xs">complete - 100%</span>
+                  </button>
+                  <button class="btn btn-success btn-block rounded text-center" style="padding-top:5px;padding-bottom: 5px;">
+                    <span class="col-xs-12 col-sm-6 col-sm-pull">1st Period</span>
+                    <span class="hidden-xs">complete - 100%</span>
+                  </button>
+                  <button class="btn btn-success btn-block rounded text-center" style="padding-top:5px;padding-bottom: 5px;">
+                    <span class="col-xs-12 col-sm-6 col-sm-pull">1st Period</span>
+                    <span class="hidden-xs">complete - 100%</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <!------------------------------ Start of Worksheet ------------------------------------>
+    <div class="col-xs-6 col-sm-12 space">
+      <div class="row">
+        <div class="well dashboard-worksheet-holder col-xs-12 rounded">
+          <div class="row">
+            <div class="col-xs-12 worksheet-title text-center">A name that is really too long for this</div>
+          </div>
+          <div class="row">
+            <div class="sheet-cover-up col-xs-12 col-sm-2 col-sm-offset-1 top-rounded">
+                    <div class="worksheet-ribbon">
+                      <div class="btn-group">
+                        <button type="button" class="btn btn-primary dropdown-toggle ribbon-pending" data-toggle="dropdown">
+                          <span>pending</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                          <li><a href="#"><i class="glyphicon glyphicon-play"></i>  activate</a></li>
+                          <li><a href="#"><i class="glyphicon glyphicon-pause"></i>  pending</a></li>
+                          <li class="divider"></li>
+                          <li><a href="#"><i class="glyphicon glyphicon-stop"></i>  archive</a></li>
+                        </ul>
+                      </div>
+                    </div>
+              <img src="images/thumbnail.png" alt="simple machines" height="" width="100%" class="img-responsive rounded">
+              <div class="btn btn-info rounded assign-to-class"><span class="glyphicon glyphicon-file"></span>  assign</div>
+            </div>
+            <div class="col-xs-12 col-sm-4 text-center">
+              <div class="row" style="height: 70px;vertical-align: middle;line-height: 70px;">
+                <div class="col-xs-6 text-center text-success" style="font-size: 150%;">
+                  <span class="glyphicon glyphicon-user" data-toggle="tooltip" data-placement="left" title="" data-original-title="passing"></span>
+                  <span>160</span>
+                </div>
+                <div class="col-xs-6 text-center text-danger" style="font-size: 150%;">
+                  <span class="glyphicon glyphicon-user" data-toggle="tooltip" data-placement="left" title="" data-original-title="failing"></span>
+                  <span>160</span>
+                </div>
+              </div>
+              <div class="row visible-xs">
+                <div class="col-xs-6 pull-left">
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-default rounded dropdown-toggle" data-toggle="dropdown">
+                      <span class="glyphicon glyphicon-tasks"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                      <li><a href="#"><span class="glyphicon glyphicon-stats"></span> monitor</a></li>
+                      <li><a href="#"><span class="glyphicon glyphicon-pencil"></span> edit</a></li>
+                      <li><a href="#"><span class="glyphicon glyphicon-ok"></span> grade</a></li>
+                      <li><a href="#"><span class="glyphicon glyphicon-trash text-danger"></span><span class="text-danger"> delete</span></a></li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-xs-6 pull-right">
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-default rounded dropdown-toggle" data-toggle="dropdown">
+                      <span class="glyphicon glyphicon-book"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                      <li><a href="#">1st Period class-avg - 90%</a></li>
+                      <li><a href="#">2nd Period class-avg - 90%</a></li>
+                      <li><a href="#">3rd Period class-avg - 90%</a></li>
+                      <li><a href="#">4th Period class-avg - 90%</a></li>
+                      <li><a href="#">5th Period class-avg - 90%</a></li>
+                      <li><a href="#">6th Period class-avg - 90%</a></li>
+                      <li><a href="#">7th Period class-avg - 90%</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="row hidden-xs">
+                <div class="btn-group col-sm-6">
+                  <button type="button" class="btn btn-default btn-block rounded dropdown-toggle" data-toggle="dropdown" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="student view">
+                    <span class="glyphicon glyphicon-stats"></span>
+                    monitor
+                  </button>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="#">1st Period</a></li>
+                    <li><a href="#">2nd Period</a></li>
+                    <li><a href="#">3rd Period</a></li>
+                    <li><a href="#">4th Period</a></li>
+                    <li><a href="#">5th Period</a></li>
+                    <li><a href="#">6th Period</a></li>
+                    <li><a href="#">7th Period</a></li>
+                  </ul>
+                </div>
+                <button class="btn btn-default rounded col-sm-6">
+                  <span class="glyphicon glyphicon-pencil"></span>
+                  <span>edit</span>
+                </button>
+                <button class="btn btn-default rounded col-sm-6">
+                  <span class="glyphicon glyphicon-ok"></span>
+                  <span>grade</span>
+                </button>
+                <button class="btn btn-default rounded">
+                  <span class="glyphicon glyphicon-trash text-danger"></span>
+                  <span class="text-danger">delete</span>
+                </button>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-5">
+              <div class="row hidden-xs">
+                <div class="col-xs-12 text-center" style="height: 150px;overflow-y: auto;">
+                  <button class="btn btn-success btn-block rounded text-center" style="padding-top:5px;padding-bottom: 5px;">
+                    <span class="col-xs-12 col-sm-6 col-sm-pull">1st Period</span>
+                    <span class="hidden-xs">class avg - 100%</span>
+                  </button>
+                  <button class="btn btn-success btn-block rounded text-center" style="padding-top:5px;padding-bottom: 5px;">
+                    <span class="col-xs-12 col-sm-6 col-sm-pull">1st Period</span>
+                    <span class="hidden-xs">complete - 100%</span>
+                  </button>
+                  <button class="btn btn-success btn-block rounded text-center" style="padding-top:5px;padding-bottom: 5px;">
+                    <span class="col-xs-12 col-sm-6 col-sm-pull">1st Period</span>
+                    <span class="hidden-xs">complete - 100%</span>
+                  </button>
+                  <button class="btn btn-success btn-block rounded text-center" style="padding-top:5px;padding-bottom: 5px;">
+                    <span class="col-xs-12 col-sm-6 col-sm-pull">1st Period</span>
+                    <span class="hidden-xs">complete - 100%</span>
+                  </button>
+                  <button class="btn btn-success btn-block rounded text-center" style="padding-top:5px;padding-bottom: 5px;">
+                    <span class="col-xs-12 col-sm-6 col-sm-pull">1st Period</span>
+                    <span class="hidden-xs">complete - 100%</span>
+                  </button>
+                  <button class="btn btn-success btn-block rounded text-center" style="padding-top:5px;padding-bottom: 5px;">
+                    <span class="col-xs-12 col-sm-6 col-sm-pull">1st Period</span>
+                    <span class="hidden-xs">complete - 100%</span>
+                  </button>
+                  <button class="btn btn-success btn-block rounded text-center" style="padding-top:5px;padding-bottom: 5px;">
+                    <span class="col-xs-12 col-sm-6 col-sm-pull">1st Period</span>
+                    <span class="hidden-xs">complete - 100%</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <!------------------------------ Start of Worksheet ------------------------------------>
+    <div class="col-xs-6 col-sm-12 space">
+      <div class="row">
+        <div class="well dashboard-worksheet-holder col-xs-12 rounded">
+          <div class="row">
+            <div class="col-xs-12 worksheet-title text-center">A name that is really too long for this</div>
+          </div>
+          <div class="row">
+            <div class="sheet-cover-up col-xs-12 col-sm-2 col-sm-offset-1 top-rounded">
+                    <div class="worksheet-ribbon">
+                      <div class="btn-group">
+                        <button type="button" class="btn btn-primary dropdown-toggle ribbon-pending" data-toggle="dropdown">
+                          <span>pending</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                          <li><a href="#"><i class="glyphicon glyphicon-play"></i>  activate</a></li>
+                          <li><a href="#"><i class="glyphicon glyphicon-pause"></i>  pending</a></li>
+                          <li class="divider"></li>
+                          <li><a href="#"><i class="glyphicon glyphicon-stop"></i>  archive</a></li>
+                        </ul>
+                      </div>
+                    </div>
+              <img src="images/thumbnail.png" alt="simple machines" height="" width="100%" class="img-responsive rounded">
+              <div class="btn btn-info rounded assign-to-class"><span class="glyphicon glyphicon-file"></span>  assign</div>
+            </div>
+            <div class="col-xs-12 col-sm-4 text-center">
+              <div class="row" style="height: 70px;vertical-align: middle;line-height: 70px;">
+                <div class="col-xs-6 text-center text-success" style="font-size: 150%;">
+                  <span class="glyphicon glyphicon-user" data-toggle="tooltip" data-placement="left" title="" data-original-title="passing"></span>
+                  <span>160</span>
+                </div>
+                <div class="col-xs-6 text-center text-danger" style="font-size: 150%;">
+                  <span class="glyphicon glyphicon-user" data-toggle="tooltip" data-placement="left" title="" data-original-title="failing"></span>
+                  <span>160</span>
+                </div>
+              </div>
+              <div class="row visible-xs">
+                <div class="col-xs-6 pull-left">
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-default rounded dropdown-toggle" data-toggle="dropdown">
+                      <span class="glyphicon glyphicon-tasks"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                      <li><a href="#"><span class="glyphicon glyphicon-stats"></span> monitor</a></li>
+                      <li><a href="#"><span class="glyphicon glyphicon-pencil"></span> edit</a></li>
+                      <li><a href="#"><span class="glyphicon glyphicon-ok"></span> grade</a></li>
+                      <li><a href="#"><span class="glyphicon glyphicon-trash text-danger"></span><span class="text-danger"> delete</span></a></li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-xs-6 pull-right">
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-default rounded dropdown-toggle" data-toggle="dropdown">
+                      <span class="glyphicon glyphicon-book"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                      <li><a href="#">1st Period class-avg - 90%</a></li>
+                      <li><a href="#">2nd Period class-avg - 90%</a></li>
+                      <li><a href="#">3rd Period class-avg - 90%</a></li>
+                      <li><a href="#">4th Period class-avg - 90%</a></li>
+                      <li><a href="#">5th Period class-avg - 90%</a></li>
+                      <li><a href="#">6th Period class-avg - 90%</a></li>
+                      <li><a href="#">7th Period class-avg - 90%</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="row hidden-xs">
+                <div class="btn-group col-sm-6">
+                  <button type="button" class="btn btn-default btn-block rounded dropdown-toggle" data-toggle="dropdown" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="student view">
+                    <span class="glyphicon glyphicon-stats"></span>
+                    monitor
+                  </button>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="#">1st Period</a></li>
+                    <li><a href="#">2nd Period</a></li>
+                    <li><a href="#">3rd Period</a></li>
+                    <li><a href="#">4th Period</a></li>
+                    <li><a href="#">5th Period</a></li>
+                    <li><a href="#">6th Period</a></li>
+                    <li><a href="#">7th Period</a></li>
+                  </ul>
+                </div>
+                <button class="btn btn-default rounded col-sm-6">
+                  <span class="glyphicon glyphicon-pencil"></span>
+                  <span>edit</span>
+                </button>
+                <button class="btn btn-default rounded col-sm-6">
+                  <span class="glyphicon glyphicon-ok"></span>
+                  <span>grade</span>
+                </button>
+                <button class="btn btn-default rounded">
+                  <span class="glyphicon glyphicon-trash text-danger"></span>
+                  <span class="text-danger">delete</span>
+                </button>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-5">
+              <div class="row hidden-xs">
+                <div class="col-xs-12 text-center" style="height: 150px;overflow-y: auto;">
+                  <button class="btn btn-success btn-block rounded text-center" style="padding-top:5px;padding-bottom: 5px;">
+                    <span class="col-xs-12 col-sm-6 col-sm-pull">1st Period</span>
+                    <span class="hidden-xs">class avg - 100%</span>
+                  </button>
+                  <button class="btn btn-success btn-block rounded text-center" style="padding-top:5px;padding-bottom: 5px;">
+                    <span class="col-xs-12 col-sm-6 col-sm-pull">1st Period</span>
+                    <span class="hidden-xs">complete - 100%</span>
+                  </button>
+                  <button class="btn btn-success btn-block rounded text-center" style="padding-top:5px;padding-bottom: 5px;">
+                    <span class="col-xs-12 col-sm-6 col-sm-pull">1st Period</span>
+                    <span class="hidden-xs">complete - 100%</span>
+                  </button>
+                  <button class="btn btn-success btn-block rounded text-center" style="padding-top:5px;padding-bottom: 5px;">
+                    <span class="col-xs-12 col-sm-6 col-sm-pull">1st Period</span>
+                    <span class="hidden-xs">complete - 100%</span>
+                  </button>
+                  <button class="btn btn-success btn-block rounded text-center" style="padding-top:5px;padding-bottom: 5px;">
+                    <span class="col-xs-12 col-sm-6 col-sm-pull">1st Period</span>
+                    <span class="hidden-xs">complete - 100%</span>
+                  </button>
+                  <button class="btn btn-success btn-block rounded text-center" style="padding-top:5px;padding-bottom: 5px;">
+                    <span class="col-xs-12 col-sm-6 col-sm-pull">1st Period</span>
+                    <span class="hidden-xs">complete - 100%</span>
+                  </button>
+                  <button class="btn btn-success btn-block rounded text-center" style="padding-top:5px;padding-bottom: 5px;">
+                    <span class="col-xs-12 col-sm-6 col-sm-pull">1st Period</span>
+                    <span class="hidden-xs">complete - 100%</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <!------------------------------ Start of Worksheet ------------------------------------>
+    <div class="col-xs-6 col-sm-12 space">
+      <div class="row">
+        <div class="well dashboard-worksheet-holder col-xs-12 rounded">
+          <div class="row">
+            <div class="col-xs-12 worksheet-title text-center">A name that is really too long for this</div>
+          </div>
+          <div class="row">
+            <div class="sheet-cover-up col-xs-12 col-sm-2 col-sm-offset-1 top-rounded">
+                    <div class="worksheet-ribbon">
+                      <div class="btn-group">
+                        <button type="button" class="btn btn-primary dropdown-toggle ribbon-pending" data-toggle="dropdown">
+                          <span>pending</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                          <li><a href="#"><i class="glyphicon glyphicon-play"></i>  activate</a></li>
+                          <li><a href="#"><i class="glyphicon glyphicon-pause"></i>  pending</a></li>
+                          <li class="divider"></li>
+                          <li><a href="#"><i class="glyphicon glyphicon-stop"></i>  archive</a></li>
+                        </ul>
+                      </div>
+                    </div>
+              <img src="images/thumbnail.png" alt="simple machines" height="" width="100%" class="img-responsive rounded">
+              <div class="btn btn-info rounded assign-to-class"><span class="glyphicon glyphicon-file"></span>  assign</div>
+            </div>
+            <div class="col-xs-12 col-sm-4 text-center">
+              <div class="row" style="height: 70px;vertical-align: middle;line-height: 70px;">
+                <div class="col-xs-6 text-center text-success" style="font-size: 150%;">
+                  <span class="glyphicon glyphicon-user" data-toggle="tooltip" data-placement="left" title="" data-original-title="passing"></span>
+                  <span>160</span>
+                </div>
+                <div class="col-xs-6 text-center text-danger" style="font-size: 150%;">
+                  <span class="glyphicon glyphicon-user" data-toggle="tooltip" data-placement="left" title="" data-original-title="failing"></span>
+                  <span>160</span>
+                </div>
+              </div>
+              <div class="row visible-xs">
+                <div class="col-xs-6 pull-left">
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-default rounded dropdown-toggle" data-toggle="dropdown">
+                      <span class="glyphicon glyphicon-tasks"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                      <li><a href="#"><span class="glyphicon glyphicon-stats"></span> monitor</a></li>
+                      <li><a href="#"><span class="glyphicon glyphicon-pencil"></span> edit</a></li>
+                      <li><a href="#"><span class="glyphicon glyphicon-ok"></span> grade</a></li>
+                      <li><a href="#"><span class="glyphicon glyphicon-trash text-danger"></span><span class="text-danger"> delete</span></a></li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-xs-6 pull-right">
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-default rounded dropdown-toggle" data-toggle="dropdown">
+                      <span class="glyphicon glyphicon-book"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                      <li><a href="#">1st Period class-avg - 90%</a></li>
+                      <li><a href="#">2nd Period class-avg - 90%</a></li>
+                      <li><a href="#">3rd Period class-avg - 90%</a></li>
+                      <li><a href="#">4th Period class-avg - 90%</a></li>
+                      <li><a href="#">5th Period class-avg - 90%</a></li>
+                      <li><a href="#">6th Period class-avg - 90%</a></li>
+                      <li><a href="#">7th Period class-avg - 90%</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="row hidden-xs">
+                <div class="btn-group col-sm-6">
+                  <button type="button" class="btn btn-default btn-block rounded dropdown-toggle" data-toggle="dropdown" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="student view">
+                    <span class="glyphicon glyphicon-stats"></span>
+                    monitor
+                  </button>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="#">1st Period</a></li>
+                    <li><a href="#">2nd Period</a></li>
+                    <li><a href="#">3rd Period</a></li>
+                    <li><a href="#">4th Period</a></li>
+                    <li><a href="#">5th Period</a></li>
+                    <li><a href="#">6th Period</a></li>
+                    <li><a href="#">7th Period</a></li>
+                  </ul>
+                </div>
+                <button class="btn btn-default rounded col-sm-6">
+                  <span class="glyphicon glyphicon-pencil"></span>
+                  <span>edit</span>
+                </button>
+                <button class="btn btn-default rounded col-sm-6">
+                  <span class="glyphicon glyphicon-ok"></span>
+                  <span>grade</span>
+                </button>
+                <button class="btn btn-default rounded">
+                  <span class="glyphicon glyphicon-trash text-danger"></span>
+                  <span class="text-danger">delete</span>
+                </button>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-5">
+              <div class="row hidden-xs">
+                <div class="col-xs-12 text-center" style="height: 150px;overflow-y: auto;">
+                  <button class="btn btn-success btn-block rounded text-center" style="padding-top:5px;padding-bottom: 5px;">
+                    <span class="col-xs-12 col-sm-6 col-sm-pull">1st Period</span>
+                    <span class="hidden-xs">class avg - 100%</span>
+                  </button>
+                  <button class="btn btn-success btn-block rounded text-center" style="padding-top:5px;padding-bottom: 5px;">
+                    <span class="col-xs-12 col-sm-6 col-sm-pull">1st Period</span>
+                    <span class="hidden-xs">complete - 100%</span>
+                  </button>
+                  <button class="btn btn-success btn-block rounded text-center" style="padding-top:5px;padding-bottom: 5px;">
+                    <span class="col-xs-12 col-sm-6 col-sm-pull">1st Period</span>
+                    <span class="hidden-xs">complete - 100%</span>
+                  </button>
+                  <button class="btn btn-success btn-block rounded text-center" style="padding-top:5px;padding-bottom: 5px;">
+                    <span class="col-xs-12 col-sm-6 col-sm-pull">1st Period</span>
+                    <span class="hidden-xs">complete - 100%</span>
+                  </button>
+                  <button class="btn btn-success btn-block rounded text-center" style="padding-top:5px;padding-bottom: 5px;">
+                    <span class="col-xs-12 col-sm-6 col-sm-pull">1st Period</span>
+                    <span class="hidden-xs">complete - 100%</span>
+                  </button>
+                  <button class="btn btn-success btn-block rounded text-center" style="padding-top:5px;padding-bottom: 5px;">
+                    <span class="col-xs-12 col-sm-6 col-sm-pull">1st Period</span>
+                    <span class="hidden-xs">complete - 100%</span>
+                  </button>
+                  <button class="btn btn-success btn-block rounded text-center" style="padding-top:5px;padding-bottom: 5px;">
+                    <span class="col-xs-12 col-sm-6 col-sm-pull">1st Period</span>
+                    <span class="hidden-xs">complete - 100%</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <!------------------------------ Start of Worksheet ------------------------------------>
+    <div class="col-xs-6 col-sm-12 space">
+      <div class="row">
+        <div class="well dashboard-worksheet-holder col-xs-12 rounded">
+          <div class="row">
+            <div class="col-xs-12 worksheet-title text-center">A name that is really too long for this</div>
+          </div>
+          <div class="row">
+            <div class="sheet-cover-up col-xs-12 col-sm-2 col-sm-offset-1 top-rounded">
+                    <div class="worksheet-ribbon">
+                      <div class="btn-group">
+                        <button type="button" class="btn btn-primary dropdown-toggle ribbon-pending" data-toggle="dropdown">
+                          <span>pending</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                          <li><a href="#"><i class="glyphicon glyphicon-play"></i>  activate</a></li>
+                          <li><a href="#"><i class="glyphicon glyphicon-pause"></i>  pending</a></li>
+                          <li class="divider"></li>
+                          <li><a href="#"><i class="glyphicon glyphicon-stop"></i>  archive</a></li>
+                        </ul>
+                      </div>
+                    </div>
+              <img src="images/thumbnail.png" alt="simple machines" height="" width="100%" class="img-responsive rounded">
+              <div class="btn btn-info rounded assign-to-class"><span class="glyphicon glyphicon-file"></span>  assign</div>
+            </div>
+            <div class="col-xs-12 col-sm-4 text-center">
+              <div class="row" style="height: 70px;vertical-align: middle;line-height: 70px;">
+                <div class="col-xs-6 text-center text-success" style="font-size: 150%;">
+                  <span class="glyphicon glyphicon-user" data-toggle="tooltip" data-placement="left" title="" data-original-title="passing"></span>
+                  <span>160</span>
+                </div>
+                <div class="col-xs-6 text-center text-danger" style="font-size: 150%;">
+                  <span class="glyphicon glyphicon-user" data-toggle="tooltip" data-placement="left" title="" data-original-title="failing"></span>
+                  <span>160</span>
+                </div>
+              </div>
+              <div class="row visible-xs">
+                <div class="col-xs-6 pull-left">
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-default rounded dropdown-toggle" data-toggle="dropdown">
+                      <span class="glyphicon glyphicon-tasks"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                      <li><a href="#"><span class="glyphicon glyphicon-stats"></span> monitor</a></li>
+                      <li><a href="#"><span class="glyphicon glyphicon-pencil"></span> edit</a></li>
+                      <li><a href="#"><span class="glyphicon glyphicon-ok"></span> grade</a></li>
+                      <li><a href="#"><span class="glyphicon glyphicon-trash text-danger"></span><span class="text-danger"> delete</span></a></li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-xs-6 pull-right">
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-default rounded dropdown-toggle" data-toggle="dropdown">
+                      <span class="glyphicon glyphicon-book"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                      <li><a href="#">1st Period class-avg - 90%</a></li>
+                      <li><a href="#">2nd Period class-avg - 90%</a></li>
+                      <li><a href="#">3rd Period class-avg - 90%</a></li>
+                      <li><a href="#">4th Period class-avg - 90%</a></li>
+                      <li><a href="#">5th Period class-avg - 90%</a></li>
+                      <li><a href="#">6th Period class-avg - 90%</a></li>
+                      <li><a href="#">7th Period class-avg - 90%</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="row hidden-xs">
+                <div class="btn-group col-sm-6">
+                  <button type="button" class="btn btn-default btn-block rounded dropdown-toggle" data-toggle="dropdown" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="student view">
+                    <span class="glyphicon glyphicon-stats"></span>
+                    monitor
+                  </button>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="#">1st Period</a></li>
+                    <li><a href="#">2nd Period</a></li>
+                    <li><a href="#">3rd Period</a></li>
+                    <li><a href="#">4th Period</a></li>
+                    <li><a href="#">5th Period</a></li>
+                    <li><a href="#">6th Period</a></li>
+                    <li><a href="#">7th Period</a></li>
+                  </ul>
+                </div>
+                <button class="btn btn-default rounded col-sm-6">
+                  <span class="glyphicon glyphicon-pencil"></span>
+                  <span>edit</span>
+                </button>
+                <button class="btn btn-default rounded col-sm-6">
+                  <span class="glyphicon glyphicon-ok"></span>
+                  <span>grade</span>
+                </button>
+                <button class="btn btn-default rounded">
+                  <span class="glyphicon glyphicon-trash text-danger"></span>
+                  <span class="text-danger">delete</span>
+                </button>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-5">
+              <div class="row hidden-xs">
+                <div class="col-xs-12 text-center" style="height: 150px;overflow-y: auto;">
+                  <button class="btn btn-success btn-block rounded text-center" style="padding-top:5px;padding-bottom: 5px;">
+                    <span class="col-xs-12 col-sm-6 col-sm-pull">1st Period</span>
+                    <span class="hidden-xs">class avg - 100%</span>
+                  </button>
+                  <button class="btn btn-success btn-block rounded text-center" style="padding-top:5px;padding-bottom: 5px;">
+                    <span class="col-xs-12 col-sm-6 col-sm-pull">1st Period</span>
+                    <span class="hidden-xs">complete - 100%</span>
+                  </button>
+                  <button class="btn btn-success btn-block rounded text-center" style="padding-top:5px;padding-bottom: 5px;">
+                    <span class="col-xs-12 col-sm-6 col-sm-pull">1st Period</span>
+                    <span class="hidden-xs">complete - 100%</span>
+                  </button>
+                  <button class="btn btn-success btn-block rounded text-center" style="padding-top:5px;padding-bottom: 5px;">
+                    <span class="col-xs-12 col-sm-6 col-sm-pull">1st Period</span>
+                    <span class="hidden-xs">complete - 100%</span>
+                  </button>
+                  <button class="btn btn-success btn-block rounded text-center" style="padding-top:5px;padding-bottom: 5px;">
+                    <span class="col-xs-12 col-sm-6 col-sm-pull">1st Period</span>
+                    <span class="hidden-xs">complete - 100%</span>
+                  </button>
+                  <button class="btn btn-success btn-block rounded text-center" style="padding-top:5px;padding-bottom: 5px;">
+                    <span class="col-xs-12 col-sm-6 col-sm-pull">1st Period</span>
+                    <span class="hidden-xs">complete - 100%</span>
+                  </button>
+                  <button class="btn btn-success btn-block rounded text-center" style="padding-top:5px;padding-bottom: 5px;">
+                    <span class="col-xs-12 col-sm-6 col-sm-pull">1st Period</span>
+                    <span class="hidden-xs">complete - 100%</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+    
+    
+    
+    
+  </div>
+</div>
+
+
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootswatch.js"></script>
+    <script src="js/my-script.js"></script>
+  </body>
+</html>

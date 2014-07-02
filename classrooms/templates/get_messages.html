@@ -1,0 +1,24 @@
+
+			{% if messages %}
+				{% for message in messages %}
+					{% for messageUserInfo in message.classuser_set.all %}
+				<li id="message{{ message.id }}" class="new-uploaded-message ui-corner-all custom-corners" data-options='{"messageID":{{ message.id }}}'>
+					<div class="ui-bar ui-bar-b" {% if messageUserInfo.avatarBackColor %}style="background-color: {{ messageUserInfo.avatarBackColor }};color: {{ messageUserInfo.avatarTextColor }};"{% endif %}>
+
+					  {% ifequal userInfo.id messageUserInfo.id %}
+					  <h3 style="margin-top: 15px;">I posted this {{ message.timeDate|timesince }} ago</h3>
+					  <span style="float: right;"><a href="#deleteTweetCheck" onclick="$('#yes_or_no').val('{{ message.id }}')" data-rel="popup" data-position-to="window" class="ui-btn ui-btn-a ui-mini ui-corner-all ui-btn-icon-notext ui-icon-delete ui-shadow" title="delete message"></a></span>
+					  {% else %}
+					  <h3>{{ messageUserInfo.user.first_name|capfirst }} {{ messageUserInfo.user.last_name|capfirst }} posted this {{ message.timeDate|timesince }} ago</h3>
+					  {% endifequal %}
+				  
+					</div>
+					<div class="ui-body ui-body-a new-uploaded-message-body">
+					  <p class="message">{{ message.text }}</p>
+					</div>
+				</li>
+					{% endfor %}
+				{% endfor %}
+			{% else %}
+				Sorry, no more messages
+			{% endif %}

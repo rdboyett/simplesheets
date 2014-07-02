@@ -1,0 +1,72 @@
+
+    <script type="text/javascript">
+
+      // The API developer key obtained from the Google Developers Console.
+      var developerKey = '{{ developerKey }}';
+
+      // The Client ID obtained from the Google Developers Console.
+      var clientId = '{{ clientId }}';
+
+      // Scope to use to access user's photos.
+      var scope = ['https://www.googleapis.com/auth/drive'];
+
+      var pickerApiLoaded = false;
+      var oauthToken;
+
+      // Use the API Loader script to load google.picker and gapi.auth.
+      function onApiLoad() {
+        gapi.load('auth', {'callback': onAuthApiLoad});
+        gapi.load('picker', {'callback': onPickerApiLoad});
+      }
+
+      function onAuthApiLoad() {
+        window.gapi.auth.authorize(
+            {
+              'client_id': clientId,
+              'scope': scope,
+              'immediate': false
+            },
+            handleAuthResult);
+      }
+
+      function onPickerApiLoad() {
+        pickerApiLoaded = true;
+        createPicker();
+      }
+
+      function handleAuthResult(authResult) {
+        if (authResult && !authResult.error) {
+          oauthToken = authResult.access_token;
+          createPicker();
+        }
+      }
+
+      // Create and render a Picker object for picking user Photos.
+      function createPicker() {
+        if (pickerApiLoaded && oauthToken) {
+          var picker = new google.picker.PickerBuilder().
+              addView(google.picker.ViewId.DOCUMENTS).
+              addView(google.picker.ViewId.PDFS).
+              addView(new google.picker.DocsUploadView()).
+              setOAuthToken(oauthToken).
+              setDeveloperKey(developerKey).
+              setCallback(pickerCallback).
+              setTitle('Select File to convert to Worksheet...').
+              build();
+          picker.setVisible(true);
+        }
+      }
+
+      // A simple callback implementation.
+      function pickerCallback(data) {
+        var fileId = 'error';
+        if (data[google.picker.Response.ACTION] == "cancel") {
+            window.location.href="{% url 'worksheet_project.views.dashboard' %}"
+          }
+        if (data[google.picker.Response.ACTION] == google.picker.Action.PICKED) {
+            fileId = data[google.picker.Response.DOCUMENTS][0].id;
+            //document.location.href = '/createWorksheet/'+fileId;
+            checkProjectExists(fileId);
+          }
+      }
+    </script>

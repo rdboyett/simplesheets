@@ -1,0 +1,144 @@
+
+
+
+<div id="flash"></div>
+
+{% if not developerKey %}
+{% if not bTeacher %}
+<div id="paintHolder" class="img-rounded">
+<div id="resize-button" class="img-rounded" title="back to worksheet"></div>
+<div id="wPaint1" class="myPainter img-rounded" ></div>
+</div>
+{% endif %}
+{% endif %}
+<div id="wait"></div>
+<div id="wait-spinner"></div>
+
+
+<div id="shade" style="display: block;"></div>
+
+
+<!-------------------------------------- Check if sure Popup ---------------------------------->
+<div id="areYouSurePopup" class="popup img-rounded big-shadow" style="height: 180px;width: 550px;">
+    <div class="popTitle img-top-rounded">
+        <div class="title-bar alert-center" style="margin-left: 260px;">Alert</div>
+        <div class="title-bar icon" style="margin:10px 10px 0 0;float: right;">
+            <div id="X-Sure" class="icon-X" title="close"></div>
+        </div>
+    </div>
+    <div id="text-holder-sure" style="font-size: 16px;text-align: center;margin: 15px 0 10px 0px;"></div>
+    
+    <div id="yes-button" class="tweet-button-active img-rounded" style="float: left;margin: 15px 0px 0 155px;height: 50px;">
+        <div style="padding: 15px 5px 0 5px;font-size: 16px;font-weight: bold;text-align: center;">Yes</div>
+    </div>
+    <div id="no-button" class="tweet-button-active img-rounded" style="float: left;margin: 15px 0px 0 30px;height: 50px;">
+        <div style="padding: 15px 5px 0 5px;font-size: 16px;font-weight: bold;text-align: center;">No</div>
+    </div>
+</div>
+
+
+<!-------------------------------------- Generic Question Popup ---------------------------------->
+<div id="genericPopup" class="popup img-rounded big-shadow" style="height: 180px;width: 550px;">
+    <div class="popTitle img-top-rounded">
+        <div class="title-bar alert-center" style="margin-left: 260px;">Alert</div>
+        <div class="title-bar icon" style="margin:10px 10px 0 0;float: right;">
+            <div id="X-Sure" class="icon-X" title="close"></div>
+        </div>
+    </div>
+    <div id="text-holder-message" style="font-size: 16px;text-align: center;margin: 15px 0 10px 0px;"></div>
+    
+    <div id="first-button" class="tweet-button-active img-rounded" style="float: left;margin: 15px 0px 0 155px;height: 50px;">
+        <div style="padding-top: 15px;font-size: 16px;font-weight: bold;text-align: center;"></div>
+    </div>
+    <div id="second-button" class="tweet-button-active img-rounded" style="float: left;margin: 15px 0px 0 30px;height: 50px;">
+        <div style="padding-top: 15px;font-size: 16px;font-weight: bold;text-align: center;"></div>
+    </div>
+</div>
+
+
+<!-------------------------------------- File Already Exists Popup ---------------------------------->
+<div id="filAlreadyExistsPopup" class="popup img-rounded big-shadow" style="height: 210px;width: 550px;">
+    <div class="popTitle img-top-rounded">
+        <div class="title-bar alert-center" style="margin-left: 256px;">Alert</div>
+    </div>
+    <div id="text-holder-message" style="font-size: 16px;text-align: center;margin: 15px 0 10px 0px;">
+        A worksheet with this file already exists.  Creating a new one will delete your old worksheet.
+    </div>
+    
+    <div id="CreateNew" class="tweet-button-active img-rounded" style="float: left;margin: 25px 0px 0 60px;width: 120px;height: 50px;">
+        <div style="padding: 15px 5px 5px 0;font-size: 16px;font-weight: bold;text-align: center;">Create New</div>
+    </div>
+    <div id="UpdateOld" class="tweet-button-active img-rounded" style="float: left;margin: 25px 0px 0 20px;width: 120px;height: 50px;">
+        <div style="padding: 15px 5px 5px 0;font-size: 16px;font-weight: bold;text-align: center;">Update Old</div>
+    </div>
+    <div id="PickNew" class="tweet-button-active img-rounded" style="float: left;margin: 25px 0px 0 20px;width: 120px;height: 50px;">
+        <div style="padding: 5px 5px 5px 0;font-size: 16px;font-weight: bold;text-align: center;">Pick a New File</div>
+    </div>
+</div>
+
+
+<!-------------------------------------- Google login wait ---------------------------------->
+<div id="googleLoginWaitPopup" class="popup img-rounded big-shadow" style="height: 180px;width: 325px;">
+    <div class="popTitle img-top-rounded">
+        <div class="title-bar alert-center" style="margin-left: 140px;">Alert</div>
+    </div>
+    <div id="text-holder-message" style="font-size: 16px;text-align: center;margin: 35px 10px 10px 10px;">
+        Can you please twiddle your thumbs for a moment while we log in to your google drive.
+    </div>
+    
+</div>
+
+
+
+<!-------------------------------------- Error Popup ---------------------------------->
+<div id="errorPopup" class="popup img-rounded big-shadow" style="height: 180px;width: 550px;">
+    <div class="popTitle img-top-rounded">
+        <div class="title-bar alert-center" style="margin-left: 256px;">Alert</div>
+    </div>
+    <div id="text-holder-message" style="font-size: 16px;text-align: center;margin: 15px 0 10px 0px;">{{ error }}</div>
+    
+    <div id="dashboard-button" class="tweet-button-active img-rounded" style="float: left;margin: 15px 0px 0 145px;height: 50px; width: 105px;">
+        <div style="padding: 15px 5px 0 5px;font-size: 16px;font-weight: bold;text-align: center;">Dashboard</div>
+    </div>
+    <div id="support-button" class="tweet-button-active img-rounded" style="float: left;margin: 15px 0px 0 30px;height: 50px; width: 105px;">
+        <div style="padding: 15px 5px 0 5px;font-size: 16px;font-weight: bold;text-align: center;">Support</div>
+    </div>
+</div>
+
+
+<!-------------------------------------- Grade Report Popup ---------------------------------->
+<div id="gradePopup" class="bottomPopup img-rounded big-shadow">
+    <div class="popTitle img-top-rounded" style="height: 20px;">
+    </div>
+    <div id="centerGrade" style="height: 100%;width: 500px;">
+        <div id="grade-holder-message" style="color: #FFF;display: inline-block;font-size: 16px;text-align: center;margin: 10px 0 0 0;"></div>
+        
+        <div id="backToDashboard-button" class="tweet-button-active img-rounded" style="display: inline-block;margin: 15px 0px 0 122px;height: 40px; width: 105px;">
+            <div style="padding: 8px 5px 0 5px;font-size: 16px;font-weight: bold;text-align: center;">Dashboard</div>
+        </div>
+        <div id="retry-button" class="tweet-button-active img-rounded" style="display: inline-block;margin: 15px 0px 0 20px;height: 40px; width: 105px;">
+            <div style="padding: 8px 5px 0 5px;font-size: 16px;font-weight: bold;text-align: center;">Retry</div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

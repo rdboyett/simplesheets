@@ -1,0 +1,726 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!--<link rel="shortcut icon" href="../../assets/ico/favicon.ico">-->
+
+    <title>My Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/edstyle.css" rel="stylesheet">
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <!-- Bootstrap theme -->
+    <!--<link href="css/bootstrap-theme.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/bootswatch.css" rel="stylesheet">
+        
+        
+    <!-- Just for debugging purposes. Don't actually copy this line! -->
+    <!--[if lt IE 9]><script src="js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <link href="css/theme.css" rel="stylesheet">
+    
+    
+    
+  </head>
+
+  <body role="document">
+
+<!-----------------Nav bar -------------------------------------------------------------->
+<div class="navbar navbar-default navbar-fixed-top">
+  <div class="navbar-header col-sm-3">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand hidden-xs" href="#">
+      <img style="width:120%;max-width: 200px;margin:-5px 0 0 -10px;" src="./images/Simplesheets-dot-logo.png" alt="SimpleSheets" />
+    </a>
+    <a class="navbar-brand col-xs-8 visible-xs" href="#">
+      <img style="width:120%;max-width:200px;margin-top:-8px;" src="./images/Simplesheets-dot-logo.png" alt="SimpleSheets" />
+    </a>
+  </div>
+  <div class="navbar-collapse collapse navbar-responsive-collapse">
+    <ul class="nav navbar-nav">
+      <li><a href="dashboard.html">dashboard</a></li>
+      <li class="dropdown active">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">worksheets</span></a>
+        <ul class="dropdown-menu">
+          <li><a href="#"><span class="glyphicon glyphicon-file"></span>  create</a></li>
+          <li><a href="#"><span class="glyphicon glyphicon-file"></span>  assign</a></li>
+          <li><a href="#"><span class="glyphicon glyphicon-stats"></span>  monitor</a></li>
+        </ul>
+      </li>
+      <li><a href="classes.html">classes</a></li>
+      
+      <li class="dropdown visible-sm">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-search"></span></a>
+        <ul class="dropdown-menu">
+          <form class="navbar-form navbar-left" style="width: 19%;">
+            <input id="search-bar" type="text" class="form-control" placeholder="Search" style="width: 200px;background-color: #ADADAD;">
+          </form>
+        </ul>
+      </li>
+      
+    </ul>
+    
+    
+    <form class="navbar-form navbar-left hidden-sm">
+      <input id="search-bar" type="text" class="form-control" placeholder="Search" style="width: 200px;background-color: #ADADAD;">
+    </form>
+    
+    
+    <ul class="nav navbar-nav navbar-right">
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-bell"></span> <span class="badge">3</span><b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li><a href="#">some info here asdf asdf asdf asdf</a></li>
+          <li class="divider"></li>
+          <li><a href="#">some info here asdf asdf asdf asdf</a></li>
+          <li class="divider"></li>
+          <li><a href="#">some info here asdf asdf asdf asdf</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle hidden-sm hidden-md" data-toggle="dropdown">Robert  <span class="glyphicon glyphicon-user"></span><b class="caret"></b></a>
+        <a href="#" class="dropdown-toggle visible-sm visible-md" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span><b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li><a href="profile.html"><span class="glyphicon glyphicon-user"></span>  edit profile</a></li>
+          <li><a href="#"><span class="glyphicon glyphicon-cog"></span>  settings</a></li>
+          <li class="divider"></li>
+          <li><a href="#"><span class="glyphicon glyphicon-log-out"></span>  sign out</a></li>
+        </ul>
+      </li>
+    </ul>
+    
+    
+  </div>
+</div>
+<!-------------------------End Navbar --------------------------------------------------->
+
+<div class="container">
+  <div id="main-region" class="">
+    <div>
+      <div class="panel rounded">
+        <div class="panel-heading col-xs-12">
+          <span class="panel-title col-xs-12 col-sm-6">
+              <a href="" style="color: red;" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="back to classes">1st Period</a> &gt; Worksheet Name
+          </span>
+              <button class="btn btn-default pull-right" id="info-btn"  data-toggle="tooltip" data-placement="bottom" title="" data-original-title="help">
+                <i class="glyphicon glyphicon-info-sign"></i>
+              </button>
+              <button class="btn btn-default pull-right" id="download-btn"  data-toggle="tooltip" data-placement="bottom" title="" data-original-title="download grades">
+                <i class="glyphicon glyphicon-download-alt"></i>
+              </button>
+              <button class="btn btn-default pull-right" id="list-btn" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="list">
+                <i class="glyphicon glyphicon-list"></i>
+              </button>
+              <button class="btn btn-default pull-right" id="grid-btn" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="grid">
+                <i class="glyphicon glyphicon-th"></i>
+              </button>
+            
+        </div>
+        
+        
+        <div class="panel-body table-responsive">
+          
+          
+          <!------------------------------------  Start of list holder -------------------------------------------->
+            <div id="list-students">
+              <div class="col-xs-12">
+                <div class="row">
+                  <div class="col-xs-12">
+                    <table class="table table-bordered table-hover table-striped table-responsive">
+                      
+                      <thead>
+                        <!-------------------- Start of table headers -------------------------------------------->
+                        <tr class="row" id="students-table-headers">
+                          <td class="col-xs-2 table-sort">
+                            <div id="sort-student">
+                              <span>Student</span>
+                              <i class="pull-right glyphicon glyphicon-sort"></i>
+                            </div>
+                          </td>
+                          <td class="text-center">
+                            <div>
+                              <span>1</span>
+                            </div>
+                          </td>
+                          <td class="text-center">
+                            <div>
+                              <span>2</span>
+                            </div>
+                          </td>
+                          <td class="text-center">
+                            <div>
+                              <span>3</span>
+                            </div>
+                          </td>
+                          <td class="text-center">
+                            <div>
+                              <span>4</span>
+                            </div>
+                          </td>
+                          <td class="text-center">
+                            <div>
+                              <span>5</span>
+                            </div>
+                          </td>
+                          <td class="text-center">
+                            <div>
+                              <span>6</span>
+                            </div>
+                          </td>
+                          <td class="text-center">
+                            <div>
+                              <span>7</span>
+                            </div>
+                          </td>
+                          <td class="text-center">
+                            <div>
+                              <span>8</span>
+                            </div>
+                          </td>
+                          <td class="text-center">
+                            <div>
+                              <span>9</span>
+                            </div>
+                          </td>
+                          <td class="text-center">
+                            <div>
+                              <span>10</span>
+                            </div>
+                          </td>
+                          <td class="text-center">
+                            <div>
+                              <span>11</span>
+                            </div>
+                          </td>
+                          <td class="text-center">
+                            <div>
+                              <span>12</span>
+                            </div>
+                          </td>
+                          <td class="text-center">
+                            <div>
+                              <span>13</span>
+                            </div>
+                          </td>
+                          <td class="text-center">
+                            <div>
+                              <span>14</span>
+                            </div>
+                          </td>
+                          <td class="text-center">
+                            <div>
+                              <span>15</span>
+                            </div>
+                          </td>
+                          <td class="text-center">
+                            <div>
+                              <span>16</span>
+                            </div>
+                          </td>
+                          <td class="text-center">
+                            <div>
+                              <span>17</span>
+                            </div>
+                          </td>
+                          <td class="text-center">
+                            <div>
+                              <span>18</span>
+                            </div>
+                          </td>
+                          <td class="text-center">
+                            <div>
+                              <span>19</span>
+                            </div>
+                          </td>
+                          <td class="text-center">
+                            <div>
+                              <span>20</span>
+                            </div>
+                          </td>
+                        </tr>
+                      </thead>
+                        <!-- ------------------------ End of table headers -------------------------------------------->
+                        
+                        <!------------------------ Start of Student --------------------------------------------------->
+                      <tbody class="student-table">
+                        <tr class="row">
+                          <td class="col-xs-3">
+                            <strong>Robert Boyett</strong>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-remove text-danger"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-ok text-success"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-minus"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-remove text-danger"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-ok text-success"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-minus"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-remove text-danger"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-ok text-success"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-minus"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-remove text-danger"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-ok text-success"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-minus"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-remove text-danger"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-ok text-success"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-minus"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-remove text-danger"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-ok text-success"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-minus"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-ok text-success"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-minus"></i>
+                          </td>
+                        </tr>
+                        
+                        <!------------------------ Start of Student --------------------------------------------------->
+                        <tr class="row">
+                          <td class="col-xs-3">
+                            <strong>Robert Boyett</strong>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-remove text-danger"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-ok text-success"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-minus"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-remove text-danger"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-ok text-success"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-minus"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-remove text-danger"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-ok text-success"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-minus"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-remove text-danger"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-ok text-success"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-minus"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-remove text-danger"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-ok text-success"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-minus"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-remove text-danger"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-ok text-success"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-minus"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-ok text-success"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-minus"></i>
+                          </td>
+                        </tr>
+                        <!------------------------ Start of Student --------------------------------------------------->
+                        <tr class="row">
+                          <td class="col-xs-3">
+                            <strong>Robert Boyett</strong>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-remove text-danger"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-ok text-success"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-minus"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-remove text-danger"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-ok text-success"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-minus"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-remove text-danger"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-ok text-success"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-minus"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-remove text-danger"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-ok text-success"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-minus"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-remove text-danger"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-ok text-success"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-minus"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-remove text-danger"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-ok text-success"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-minus"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-ok text-success"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-minus"></i>
+                          </td>
+                        </tr>
+                        <!------------------------ Start of Student --------------------------------------------------->
+                        <tr class="row">
+                          <td class="col-xs-3">
+                            <strong>Robert Boyett</strong>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-remove text-danger"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-ok text-success"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-minus"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-remove text-danger"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-ok text-success"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-minus"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-remove text-danger"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-ok text-success"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-minus"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-remove text-danger"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-ok text-success"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-minus"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-remove text-danger"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-ok text-success"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-minus"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-remove text-danger"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-ok text-success"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-minus"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-ok text-success"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-minus"></i>
+                          </td>
+                        </tr>
+                        <!------------------------ Start of Student --------------------------------------------------->
+                        <tr class="row">
+                          <td class="col-xs-3">
+                            <strong>Robert Boyett</strong>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-remove text-danger"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-ok text-success"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-minus"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-remove text-danger"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-ok text-success"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-minus"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-remove text-danger"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-ok text-success"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-minus"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-remove text-danger"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-ok text-success"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-minus"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-remove text-danger"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-ok text-success"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-minus"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-remove text-danger"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-ok text-success"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-minus"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-ok text-success"></i>
+                          </td>
+                          <td class="text-center">
+                            <i class="glyphicon glyphicon-minus"></i>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+        <!-----------------------------  End of holder ----------------------------------------->
+            
+            <div id="grid-students">
+                <div id="studentBox1" class="studentBox col-xs-6 rounded" data-options='{"right":"7", "wrong":"2"}'>
+                    <div class="cont" student-name="Robert">
+                        <svg class="svg" width="130" height="130" viewPort="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                          <path class="background" d="M 27 100 A 50 50 0 1 1 97 100"/>
+                          <path class="right-green" d="M 25 100"/>
+                          <path class="wrong-red" d="M 25 100"/>
+                        </svg>
+                    </div>
+                </div>
+                <div id="studentBox2" class="studentBox col-xs-6 rounded" data-options='{"right":"7", "wrong":"2"}'>
+                    <div class="cont" student-name="Robert">
+                        <svg class="svg" width="130" height="130" viewPort="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                          <path class="background" d="M 27 100 A 50 50 0 1 1 97 100"/>
+                          <path class="right-green" d="M 25 100"/>
+                          <path class="wrong-red" d="M 25 100"/>
+                        </svg>
+                    </div>
+                </div>
+                <div id="studentBox3" class="studentBox col-xs-6 rounded" data-options='{"right":"7", "wrong":"2"}'>
+                    <div class="cont" student-name="Robert">
+                        <svg class="svg" width="130" height="130" viewPort="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                          <path class="background" d="M 27 100 A 50 50 0 1 1 97 100"/>
+                          <path class="right-green" d="M 25 100"/>
+                          <path class="wrong-red" d="M 25 100"/>
+                        </svg>
+                    </div>
+                </div>
+                <div id="studentBox4" class="studentBox col-xs-6 rounded" data-options='{"right":"7", "wrong":"2"}'>
+                    <div class="cont" student-name="Robert">
+                        <svg class="svg" width="130" height="130" viewPort="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                          <path class="background" d="M 27 100 A 50 50 0 1 1 97 100"/>
+                          <path class="right-green" d="M 25 100"/>
+                          <path class="wrong-red" d="M 25 100"/>
+                        </svg>
+                    </div>
+                </div>
+                <div id="studentBox5" class="studentBox col-xs-6 rounded" data-options='{"right":"7", "wrong":"2"}'>
+                    <div class="cont" student-name="Robert">
+                        <svg class="svg" width="130" height="130" viewPort="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                          <path class="background" d="M 27 100 A 50 50 0 1 1 97 100"/>
+                          <path class="right-green" d="M 25 100"/>
+                          <path class="wrong-red" d="M 25 100"/>
+                        </svg>
+                    </div>
+                </div>
+                <div id="studentBox6" class="studentBox col-xs-6 rounded" data-options='{"right":"7", "wrong":"2"}'>
+                    <div class="cont" student-name="Robert">
+                        <svg class="svg" width="130" height="130" viewPort="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                          <path class="background" d="M 27 100 A 50 50 0 1 1 97 100"/>
+                          <path class="right-green" d="M 25 100"/>
+                          <path class="wrong-red" d="M 25 100"/>
+                        </svg>
+                    </div>
+                </div>
+                <div id="studentBox7" class="studentBox col-xs-6 rounded" data-options='{"right":"7", "wrong":"2"}'>
+                    <div class="cont" student-name="Robert">
+                        <svg class="svg" width="130" height="130" viewPort="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                          <path class="background" d="M 27 100 A 50 50 0 1 1 97 100"/>
+                          <path class="right-green" d="M 25 100"/>
+                          <path class="wrong-red" d="M 25 100"/>
+                        </svg>
+                    </div>
+                </div>
+                <div id="studentBox8" class="studentBox col-xs-6 rounded" data-options='{"right":"7", "wrong":"2"}'>
+                    <div class="cont" student-name="Robert">
+                        <svg class="svg" width="130" height="130" viewPort="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                          <path class="background" d="M 27 100 A 50 50 0 1 1 97 100"/>
+                          <path class="right-green" d="M 25 100"/>
+                          <path class="wrong-red" d="M 25 100"/>
+                        </svg>
+                    </div>
+                </div>
+                
+            </div>
+            
+            
+            
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <!--<script src="js/bootswatch.js"></script>-->
+    <script src="js/my-script.js"></script>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  </body>
+</html>
