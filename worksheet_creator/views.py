@@ -48,176 +48,207 @@ from worksheet_creator.models import Project, BackImage
 from google_drive.views import driveUpload
 
 
+
+@login_required
+def startCreate(request, fileId=False):
+    if not fileId:
+        return redirect("/drive/pickFile/")
+    else:
+        return render_to_response('google-login-wait.html', {
+            "worksheet":True,
+            "fileId":fileId,
+        })
+
 #worksheet/create/0B5JUxbetYkEaeHVKTEw1TFpBelE  (here is good practice link)
 
 @login_required
-def create(request, fileId=False):
-    if not fileId:
-        return redirect("/drive/getFile/")
-    else:
-        storage = Storage(CredentialsModel, 'id', request.user, 'credential')
-        credential = storage.get()
-
-        userInfo = UserInfo.objects.get(user=request.user)
-        
-        today = datetime.datetime.now().strftime("%Y%m%d%H%M")
-    
-
-        if credential is None or credential.invalid == True:
-            #return HttpResponseRedirect("/login/")
-            return render_to_response('google-login-wait.html', {})
+def create(request):
+    if request.method == 'POST':
+        fileId = request.POST["fileID"]
+            
+        if not fileId:
+            return HttpResponse(json.dumps({"error":"There was an error creating your worksheet. Please try again."}))
         else:
-            http = httplib2.Http()
-            http = credential.authorize(http)
-            drive_service = build("drive", "v2", http=http)
+            storage = Storage(CredentialsModel, 'id', request.user, 'credential')
+            credential = storage.get()
+    
+            userInfo = UserInfo.objects.get(user=request.user)
+            
+            today = datetime.datetime.now().strftime("%Y%m%d%H%M")
         
-
-        
-        try:
-            file = drive_service.files().get(fileId=fileId).execute()
+    
+            if credential is None or credential.invalid == True:
+                #return HttpResponseRedirect("/login/")
+                return render_to_response('google-login-wait.html', {})
+            else:
+                http = httplib2.Http()
+                http = credential.authorize(http)
+                drive_service = build("drive", "v2", http=http)
             
+    
             
-            #get the download url for the file
-            try:
-                download_url = file['exportLinks']['application/pdf']
-            except Exception:
-                download_url = file.get('downloadUrl')
-            
-            if download_url:
-                #Download the file's content and store as a PDF file-------------------------------------------------
-              resp, content = drive_service._http.request(download_url)
-              if resp.status == 200:
-                rawTitle = file['title']
-                title = rawTitle.replace(" ", "")
-                baseFilePath = os.path.join(ROOT_PATH,'media', request.user.first_name+request.user.last_name+str(request.user.id), str(title[:5]+str(fileId[:5])))
-                make_sure_path_exists(baseFilePath)
-                
-                pdfPath = os.path.join(baseFilePath,title + ".pdf")
-                f = open(pdfPath, 'wb')
-                f.write(content)
-                f.close()
-                
-                #count the number of pages and delete if too many:---------------------------------------------------
-                pdfFile = open(pdfPath, "rb")
-                reader = PdfFileReader(pdfFile)
-                counter = 0
-                number_of_pages = reader.getNumPages()
-                for page_num in xrange(number_of_pages):
-                    counter += 1
-                if counter > 5:
-                    bTooManyPages = True
-                    pdfFile.close()
-                    os.remove(pdfPath)
-                else:
-                    bTooManyPages = False
+            if True:#try:
+                file = drive_service.files().get(fileId=fileId).execute()
                 
                 
+                #get the download url for the file
+                try:
+                    download_url = file['exportLinks']['application/pdf']
+                except Exception:
+                    download_url = file.get('downloadUrl')
                 
-                if not bTooManyPages:
-                    #Convert pages to images:-------------------------------------------------------------------------
-                    bItConverted = covertPDFtoImage(pdfPath, os.path.join(baseFilePath, title+ '.jpg'))
-                    if bItConverted:
+                if download_url:
+                    #Download the file's content and store as a PDF file-------------------------------------------------
+                  resp, content = drive_service._http.request(download_url)
+                  if resp.status == 200:
+                    rawTitle = file['title']
+                    title = rawTitle.replace(" ", "")
+                    baseFilePath = os.path.join(ROOT_PATH,'media', request.user.first_name+request.user.last_name+str(request.user.id), str(title[:5]+str(fileId[:5])))
+                    make_sure_path_exists(baseFilePath)
+                    
+                    pdfPath = os.path.join(baseFilePath,title + ".pdf")
+                    f = open(pdfPath, 'wb')
+                    f.write(content)
+                    f.close()
+                    
+                    #count the number of pages and delete if too many:---------------------------------------------------
+                    pdfFile = open(pdfPath, "rb")
+                    reader = PdfFileReader(pdfFile)
+                    counter = 0
+                    number_of_pages = reader.getNumPages()
+                    for page_num in xrange(number_of_pages):
+                        counter += 1
+                    if counter > 5:
+                        bTooManyPages = True
                         pdfFile.close()
                         os.remove(pdfPath)
-                        
-                    
-                    #store file paths----------------------------------------------------------------------------------
-                    filenames = []
-                    if number_of_pages > 1:
-                        for pageNumber in range(0,counter):
-                            filenames.append(os.path.join(baseFilePath,title + '-' + str(pageNumber) + '.jpg'))
                     else:
-                        filenames.append(os.path.join(baseFilePath,title + '.jpg'))
-                        
-                        
-                    
-                    #create a project-----------------------------------------------------------------------------------
-                    newProject = Project.objects.create(
-                        title = title,
-                        originalFileID = fileId,
-                    )
-                    userInfo.projects.add(newProject)
-                    
-                    
-                    #create background images for the project----------------------------------------------------------
-                    pageNum = 0
-                    for filename in filenames:
-                        pageNum += 1
-                        fileComponentsList = filename.split(os.sep)
-                        newList = []
-                        listLen = int(len(fileComponentsList))
-                        for number in range((listLen-4),listLen):
-                            newList.append(fileComponentsList[number])
-                        lastFileName = os.path.join('/',*newList)
-                        newFilename = display_path(lastFileName)
-                        
-                        
-                        newBackImage = BackImage.objects.create(
-                            imagePath = newFilename,
-                            pageNumber = pageNum
-                        )
-                        newProject.backgroundImages.add(newBackImage)
-                    
-                    
-                    #Create a json file to store all file information---------------------------------------------------
-                    projectData = {
-                        'user_id':request.user.id,
-                        'userInfo_id':userInfo.id,
-                        'project_id':newProject.id,
-                    }
-                    jsonFilePath = makeJsonFile(request.user, projectData, title, baseFilePath)
-                    #filenames.append(jsonFilePath)
+                        bTooManyPages = False
                     
                     
                     
-                    #Zip the file and upload to Drive---------------------------------------------------------------------
-                    #myZipFile = zipFile(jsonFilePath, title, baseFilePath) #don't need to zip...not storing pics
-                    myZipFile = True #set this to continue the program
-                    if myZipFile:
-                        uploadedFileID = driveUpload(request.user, os.path.join(baseFilePath,title + '.sst'))
-                        if uploadedFileID:
-                            os.remove(os.path.join(baseFilePath,title + '.sst'))
-                            newProject.uploadedFileID = uploadedFileID
-                            newProject.save()
-                    
-                    
-                    
-                    #now download the thumbnail
-                    thumbURL = file['thumbnailLink']
-                    if thumbURL:
-                        resp, content = drive_service._http.request(thumbURL)
-                        if resp.status == 200:
-                            thumbPath = os.path.join(baseFilePath,"thumbnail.png")
-                            f = open(thumbPath, 'wb')
-                            f.write(content)
-                            f.close()
-                            newProject.thumb = thumbPath
-                            newProject.save()
+                    if not bTooManyPages:
+                        #Convert pages to images:-------------------------------------------------------------------------
+                        bItConverted = covertPDFtoImage(pdfPath, os.path.join(baseFilePath, title+ '.jpg'))
+                        if bItConverted:
+                            pdfFile.close()
+                            os.remove(pdfPath)
                             
-                    
+                        
+                        #store file paths----------------------------------------------------------------------------------
+                        filenames = []
+                        if number_of_pages > 1:
+                            for pageNumber in range(0,counter):
+                                filenames.append(os.path.join(baseFilePath,title + '-' + str(pageNumber) + '.jpg'))
+                        else:
+                            filenames.append(os.path.join(baseFilePath,title + '.jpg'))
+                            
+                            
+                        
+                        #create a project-----------------------------------------------------------------------------------
+                        newProject = Project.objects.create(
+                            title = title,
+                            originalFileID = fileId,
+                        )
+                        userInfo.projects.add(newProject)
+                        
+                        
+                        #create background images for the project----------------------------------------------------------
+                        pageNum = 0
+                        for filename in filenames:
+                            pageNum += 1
+                            fileComponentsList = filename.split(os.sep)
+                            newList = []
+                            listLen = int(len(fileComponentsList))
+                            for number in range((listLen-4),listLen):
+                                newList.append(fileComponentsList[number])
+                            lastFileName = os.path.join('/',*newList)
+                            newFilename = display_path(lastFileName)
+                            
+                            
+                            newBackImage = BackImage.objects.create(
+                                imagePath = newFilename,
+                                pageNumber = pageNum
+                            )
+                            newProject.backgroundImages.add(newBackImage)
+                        
+                        
+                        #Create a json file to store all file information---------------------------------------------------
+                        projectData = {
+                            'user_id':request.user.id,
+                            'userInfo_id':userInfo.id,
+                            'project_id':newProject.id,
+                        }
+                        jsonFilePath = makeJsonFile(request.user, projectData, title, baseFilePath)
+                        #filenames.append(jsonFilePath)
+                        
+                        
+                        
+                        #Zip the file and upload to Drive---------------------------------------------------------------------
+                        #myZipFile = zipFile(jsonFilePath, title, baseFilePath) #don't need to zip...not storing pics
+                        myZipFile = True #set this to continue the program
+                        if myZipFile:
+                            uploadedFileID = driveUpload(request.user, os.path.join(baseFilePath,title + '.sst'))
+                            if uploadedFileID:
+                                os.remove(os.path.join(baseFilePath,title + '.sst'))
+                                newProject.uploadedFileID = uploadedFileID
+                                newProject.save()
+                        
+                        
+                        size = 200, 260
+                        thumbPath = os.path.join(baseFilePath,"thumbnail.png")
+                        im = Image.open(filenames[0])
+                        im.thumbnail(size)
+                        im.save(thumbPath, "PNG")
+                        newProject.thumb = thumbPath
+                        newProject.save()
+                        
+                        
+                    else:
+                        return HttpResponse(json.dumps({"error":"Sorry you are limited to 5 pages for your worksheet."}))
+                  else:
+                    content = None
                 else:
-                    return HttpResponse("Sorry you are limited to 5 pages for your worksheet")
-              else:
-                content = None
-            else:
-              # The file doesn't have any content stored on Drive.
-              content = None
+                  # The file doesn't have any content stored on Drive.
+                  content = None
+                
+                
+                        
+                
+                 
+                title = file['title']
+                mimeType = file['mimeType']
+                
+                loadFirstPage = os.path.join('nextPage',str(newProject.id),'1')
+                loadFirstPage = '/'+display_path(loadFirstPage)+'/'
+                
+                data = {
+                    'success': "success",
+                }
             
+            else:#except errors.HttpError, error:
+              data = {
+                    'error': "There was an error creating your worksheet. Please try again.",
+                }
             
-                    
-            
-             
-            title = file['title']
-            mimeType = file['mimeType']
-            
-            loadFirstPage = os.path.join('nextPage',str(newProject.id),'1')
-            loadFirstPage = '/'+display_path(loadFirstPage)+'/'
-            
-            return HttpResponse("Done")
         
-        except errors.HttpError, error:
-          #return HttpResponseRedirect("/login/") 
-          return render_to_response('google-login-wait.html', {})  
+        
+        
+    else:
+        data = {
+            'error': "There was an error creating your worksheet. Please try again.",
+        }
+        
+    
+    return HttpResponse(json.dumps(data))
+        
+        
+        
+        
+        
+        
+        
+        
 
 
 

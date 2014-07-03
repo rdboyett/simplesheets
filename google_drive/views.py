@@ -28,6 +28,7 @@ def google_picker(request):
     clientId = '1060273265897-6mkm41unjhbfiu8sc85cvbvrm32522v3.apps.googleusercontent.com'
     
     return render_to_response('google_drive/list_files.html', {
+              'worksheet':True,
               'userInfo': userInfo,
               'developerKey': developerKey,
               'clientId': clientId,

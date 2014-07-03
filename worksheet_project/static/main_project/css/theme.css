@@ -604,9 +604,36 @@ fieldset[disabled] .btn-success.active {
   z-index: 99999;
 }
 
+#check-file .modal-footer button {
+  margin: 5px;
+}
 
 
-
+#wait{
+    opacity: 0.6;
+    display: none;
+    background-color: #000;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 10000;
+}
+#shade{
+    opacity: 0.6;
+    display: none;
+    background-color: #000;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 9000;
+}
+#wait-spinner{
+    display: none;
+}
 
 
 

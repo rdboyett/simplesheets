@@ -23,6 +23,10 @@ urlpatterns += patterns('worksheet_project.views',
     (r'^$', 'index'),
     (r'^dashboard/$', 'dashboard'),
     (r'^createWorksheet/(?P<fileId>.+)/$', 'createWorksheet'),
+    (r'^classes/$', 'classes'),
+    (r'^monitor/$', 'monitor'),
+    (r'^profile/$', 'profile'),
+    
 
     (r'^test/$', 'test'),
 )

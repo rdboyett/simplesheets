@@ -30,7 +30,9 @@ def index(request):
         user_id = False
     
     if not user_id:
-        return render_to_response('index.html')
+        return render_to_response('index.html', {
+            "index":True,
+        })
 
 @login_required
 def dashboard(request):
@@ -40,7 +42,9 @@ def dashboard(request):
         userInfo = UserInfo.objects.create(
             user = request.user
         )
-    return render_to_response('dashboard.html')
+    return render_to_response('dashboard.html', {
+            "dashboard":True,
+        })
 
 
 
@@ -51,7 +55,42 @@ def createWorksheet(request, fileId=False):
     if UserInfo.objects.filter(user=request.user):
         userInfo = UserInfo.objects.filter(user=request.user)
 
-    return render_to_response('wait_create.html')
+    return render_to_response('wait_create.html', {
+            "worksheet":True,
+        })
+
+
+
+@login_required
+def classes(request):
+    if UserInfo.objects.filter(user=request.user):
+        userInfo = UserInfo.objects.filter(user=request.user)
+
+    return render_to_response('classes.html', {
+            "classes":True,
+        })
+
+
+@login_required
+def monitor(request):
+    if UserInfo.objects.filter(user=request.user):
+        userInfo = UserInfo.objects.filter(user=request.user)
+
+    return render_to_response('monitor.html', {
+            "worksheet":True,
+        })
+
+
+
+@login_required
+def profile(request):
+    if UserInfo.objects.filter(user=request.user):
+        userInfo = UserInfo.objects.filter(user=request.user)
+
+    return render_to_response('profile.html')
+
+
+
 
 
 

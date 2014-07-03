@@ -61,7 +61,7 @@
       function pickerCallback(data) {
         var fileId = 'error';
         if (data[google.picker.Response.ACTION] == "cancel") {
-            window.location.href="{% url 'worksheet_project.views.dashboard' %}"
+            //window.location.href="{% url 'worksheet_project.views.dashboard' %}"
           }
         if (data[google.picker.Response.ACTION] == google.picker.Action.PICKED) {
             fileId = data[google.picker.Response.DOCUMENTS][0].id;

@@ -5,20 +5,21 @@ from django.http import HttpResponse
 from django.utils import simplejson
 from django.contrib.auth.decorators import login_required
 
+from userInfo_profile.models import UserInfo
+from worksheet_creator.models import Project
+
 
 @login_required
 def checkProjectExists(request):
     if request.method == 'POST':
-        '''
-        userInfo_id = request.POST["userInfo_id"]
         originalFileID = request.POST["fileID"]
         
         data = {
             'success': "success",
             'projectExist': "false",
         }
-        if UserInfo.objects.filter(id=userInfo_id):
-            userInfo = UserInfo.objects.get(id=userInfo_id)
+        if UserInfo.objects.filter(user=request.user):
+            userInfo = UserInfo.objects.get(user=request.user)
             if Project.objects.filter(originalFileID=originalFileID):
                 oldProjects = Project.objects.filter(originalFileID=originalFileID)
                 for oldProject in oldProjects:
@@ -33,10 +34,7 @@ def checkProjectExists(request):
             data = {
                 'error': "There is no input with ID: "+str(inputNumber),
             }
-        '''
-        data = {
-            'success': "success",
-        }
+        
     else:
         data = {
             'error': "There was an error posting this request. Please try again.",

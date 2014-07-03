@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+
+{% block title %}SimpleSheets{% endblock %}
+
+{% block body %}
+
+
+    <div class="container theme-showcase" role="main">
+      <!-- Main jumbotron for a primary marketing message or call to action -->
+      <div class="jumbotron">
+        <h1>Creating Your Worksheet!</h1>
+        <p>Please browse this information while we create your worksheet.</p>
+      </div>
+    </div>
+
+
+
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+{% block extraScript %}
+  
+<script>
+  $(document).ready(function(){
+    //---------------- Ajax Calls -----------------------------------------------------------
+    
+    /************************** Check If project already exits ****************/
+	function createWorksheet(fileId){
+		console.log('In createWorksheet');
+	    
+            var csrftoken = getCookie('csrftoken');
+            var uri = "{% url "worksheet_creator.views.create" %}";
+            var xhr = new XMLHttpRequest();
+            var fd = new FormData();
+            
+            xhr.open("POST", uri, true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    // Handle response.
+		    //console.log(xhr.responseText);
+		    var data = JSON.parse(xhr.responseText)
+		    console.log(data);
+		    if (data.error) {
+                      alert(data.error);
+                      document.location.href = '/drive/pickFile/';
+                    }
+		    else{
+                      alert("Worksheet created!");
+                      console.log(data, fileId);
+		    }
+                }
+            };
+	    xhr.timeout = 30000;
+	    xhr.ontimeout = function () { 
+              alert("Something went wrong, That's all we know.");
+              document.location.href = '/drive/pickFile/';
+            }
+            fd.append('fileID', fileId);
+            
+            // Initiate a multipart/form-data upload
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            xhr.send(fd);
+        }
+	
+        {% if fileId %}
+          createWorksheet("{{ fileId }}");
+        {% else %}
+          alert("Something went wrong, That's all we know.");
+          document.location.href = '/drive/pickFile/';
+        {% endif %}
+        
+        
+        
+// using jQuery
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie != '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+        
+  });
+        
+</script>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+

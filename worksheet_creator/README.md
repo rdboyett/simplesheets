@@ -14,4 +14,11 @@ sudo apt-get build-dep python-imaging
 sudo ln -s /usr/lib/`uname -i`-linux-gnu/libfreetype.so /usr/lib/
 sudo ln -s /usr/lib/`uname -i`-linux-gnu/libjpeg.so /usr/lib/
 sudo ln -s /usr/lib/`uname -i`-linux-gnu/libz.so /usr/lib/
-pip install PIL
+pip install pillow
+
+
+Extras:
+===============================================
+You need to make sure that you add the scopes for google drive to the google_login app
+
+Ensure you change the settings for the media file so that users can create and change files.

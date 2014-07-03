@@ -8,6 +8,8 @@ CLIENT_SECRETS = os.path.join(ROOT_PATH,'..', 'secrets', 'client_secrets.json')
 SCOPES = [
     'https://www.googleapis.com/auth/userinfo.email',
     'https://www.googleapis.com/auth/userinfo.profile',
+    'https://www.googleapis.com/auth/drive.install',
+    'https://www.googleapis.com/auth/drive',
     # Add other requested scopes.
 ]
 

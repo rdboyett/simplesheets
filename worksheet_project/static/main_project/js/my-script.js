@@ -2,7 +2,7 @@ $(document).ready(function(){
     
     var cookie = getCookie('monitor-view');
     if (cookie=='grid') {
-	$("#grid=students").fadeIn(600);
+	$("#grid-students").fadeIn(600);
 	startCircleDraw();
     }else{
 	$("#list-students").fadeIn(600);
