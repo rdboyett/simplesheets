@@ -1,0 +1,129 @@
+{% extends "page_view_base.html" %}
+
+{% block title %}{{ newProject.title|capfirst }}{% endblock %}
+
+
+{% load staticfiles %}
+
+{% block body %}
+	
+<section id="wrapper-holder">
+    
+    {% include "includes/popups.html" %}
+    
+    <div id="app-bar-content" class="shadow" >
+	<div id="savedSignal">Answer Saved</div>
+	<img id="barLogo" src="{% static "page_view/images/Simplesheets-dot-logo-glow.png" %}" height="38" alt="Menu"/>
+	<img id="downLogo" src="{% static "page_view/images/down.png" %}" width="29" height="29" alt="Menu"/>
+	<img id="menuLogo" class="shadow" src="{% static "page_view/images/menu.png" %}" width="29" height="29" alt="Menu"/>
+    </div>
+    <section id="wrapper">
+	{% for backImage in newProject.backgroundImages.all %}
+	    {% ifequal backImage.pageNumber pageNumber %}
+	    <img id="backgroundImage" class="large-img-rounded shadow" src="{{ MEDIA_URL }}{{ backImage.imagePath }}"/>
+	    {% endifequal %}
+	{% endfor %}
+	
+	{% if pageNumber > 1 %}
+	<a href="/nextPage/{{ newProject.id }}/{{ pageNumber|add:"-1" }}/" title="Previous"><div id="leftNav" class="nav_button_holder"></div></a>
+	{% endif %}
+	{% ifnotequal pageNumber totalPages %}
+	<a href="/nextPage/{{ newProject.id }}/{{ pageNumber|add:"1" }}/" title="Next"><div id="rightNav" class="nav_button_holder"></div></a>
+	{% endifnotequal %}
+	
+	<form id="default_form">
+	{% if formInputs %}
+	    {% for input in formInputs %}
+		{% ifequal input.pageNumber pageNumber %}
+		    {% if input.inputType == 'textarea' %}
+			<textarea id="input{{ input.id }}" class="answers highlight img-rounded" readonly="readonly" data-options='{"answer_id":"{{ input.id }}", "question_number":"{{ input.questionNumber }}", "input_type":"{{ input.inputType }}", "points":"{{ input.points }}", "help_text":{% if input.helpText %}"{{ input.helpText }}"{% else %}""{% endif %}, "help_link":{% if input.helpLink %}"{{ input.helpLink }}"{% else %}""{% endif %}}' style="position: absolute;z-index: 1000;left: {{ input.left }}%;top: {{ input.top }}%;width: {{ input.width }}%; height: {{ input.height }}%">Place keywords to search in order to help with grading later.</textarea>
+			<script>
+			    {% if input.option1 %}
+			    $('#input{{ input.id }}').data('keyword1', '{{ input.option1 }}');
+			    {% endif %}
+			    {% if input.option2 %}
+			    $('#input{{ input.id }}').data('keyword2', '{{ input.option2 }}');
+			    {% endif %}
+			    {% if input.option3 %}
+			    $('#input{{ input.id }}').data('keyword3', '{{ input.option3 }}');
+			    {% endif %}
+			    {% if input.option4 %}
+			    $('#input{{ input.id }}').data('keyword4', '{{ input.option4 }}');
+			    {% endif %}
+			</script>
+		    {% elif input.inputType == 'work' %}
+		    <div id="workinput{{ input.id }}" class="highlight img-rounded" style="position: absolute;z-index: 1000;left: {{ input.left }}%;top: {{ input.top }}%;width: {{ input.width }}%; height: {{ input.height }}%" data-options='{"answer_id":"{{ input.id }}", "question_number":"{{ input.questionNumber }}", "input_type":"{{ input.inputType }}", "points":"{{ input.points }}", "help_text":{% if input.helpText %}"{{ input.helpText }}"{% else %}""{% endif %}, "help_link":{% if input.helpLink %}"{{ input.helpLink }}"{% else %}""{% endif %}}'>
+                        <div class="work-button img-rounded" style="position:relative;top:40%;left:0;font-size: 20px;text-align: center;">Work Area will be activated for student use...<span style="font-size: 12px;">place answer here.</span>
+			    <input id="input{{ input.id }}" class="answers highlight" value="{% if input.correctAnswer %}{{ input.correctAnswer }}{% endif %}" name="" data-options='{"answer_id":"{{ input.id }}", "question_number":"{{ input.questionNumber }}", "input_type":"{{ input.inputType }}", "points":"{{ input.points }}", "help_text":{% if input.helpText %}"{{ input.helpText }}"{% else %}""{% endif %}, "help_link":{% if input.helpLink %}"{{ input.helpLink }}"{% else %}""{% endif %}}' type="text" style="width:100px;" title="answer..." name="">
+			</div>
+		    </div>
+		    
+		    
+		    
+		    
+			
+		    {% elif input.inputType == 'select' %}
+			<select id="input{{ input.id }}" class="answers highlight img-rounded" data-options='{"answer_id":"{{ input.id }}", "question_number":"{{ input.questionNumber }}", "input_type":"{{ input.inputType }}", "points":"{{ input.points }}", "help_text":{% if input.helpText %}"{{ input.helpText }}"{% else %}""{% endif %}, "help_link":{% if input.helpLink %}"{{ input.helpLink }}"{% else %}""{% endif %}}' style="position: absolute;z-index: 1000;left: {{ input.left }}%;top: {{ input.top }}%;width: {{ input.width }}%; height: {{ input.height }}%">
+			    <option id="option0" value="none">Select One...</option>
+			    {% if input.option1 %}
+			    <option id="option1" value="option1">{{ input.option1 }}</option>
+			    {% endif %}
+			    {% if input.option2 %}
+			    <option id="option2" value="option2">{{ input.option2 }}</option>
+			    {% endif %}
+			    {% if input.option3 %}
+			    <option id="option3" value="option3">{{ input.option3 }}</option>
+			    {% endif %}
+			    {% if input.option4 %}
+			    <option id="option4" value="option4">{{ input.option4 }}</option>
+			    {% endif %}
+			</select>
+			<script>
+			    {% if input.option1 %}
+			    $('#input{{ input.id }}').data('choice1', '{{ input.option1 }}');
+			    {% endif %}
+			    {% if input.option2 %}
+			    $('#input{{ input.id }}').data('choice2', '{{ input.option2 }}');
+			    {% endif %}
+			    {% if input.option3 %}
+			    $('#input{{ input.id }}').data('choice3', '{{ input.option3 }}');
+			    {% endif %}
+			    {% if input.option4 %}
+			    $('#input{{ input.id }}').data('choice4', '{{ input.option4 }}');
+			    {% endif %}
+			    {% if input.correctAnswer %}
+				$('#input{{ input.id }}').val('{{ input.correctAnswer }}');
+			    {% endif %}
+			</script>
+		    {% elif input.inputType == 'checkbox' %}
+			<input id="input{{ input.id }}" class="answers highlight" data-options='{"answer_id":"{{ input.id }}", "question_number":"{{ input.questionNumber }}", "input_type":"{{ input.inputType }}", "points":"{{ input.points }}", "help_text":{% if input.helpText %}"{{ input.helpText }}"{% else %}""{% endif %}, "help_link":{% if input.helpLink %}"{{ input.helpLink }}"{% else %}""{% endif %}}' type="{{ input.inputType }}" title='answer...' name="" style="position: absolute;z-index: 1000;left: {{ input.left }}%;top: {{ input.top }}%;width: {{ input.width }}%; height: {{ input.height }}%">
+			<script>
+			    {% if input.correctAnswer %}
+				$('#input{{ input.id }}').prop("checked", {{ input.correctAnswer }});
+			    {% endif %}
+			</script>
+		    {% else %}
+			<input id="input{{ input.id }}" class="answers highlight" data-options='{"answer_id":"{{ input.id }}", "question_number":"{{ input.questionNumber }}", "input_type":"{{ input.inputType }}", "points":"{{ input.points }}", "help_text":{% if input.helpText %}"{{ input.helpText }}"{% else %}""{% endif %}, "help_link":{% if input.helpLink %}"{{ input.helpLink }}"{% else %}""{% endif %}}' type="{{ input.inputType }}" title='answer...' value="{% if input.correctAnswer %}{{ input.correctAnswer }}{% endif %}" name="" style="position: absolute;z-index: 1000;left: {{ input.left }}%;top: {{ input.top }}%;width: {{ input.width }}%; height: {{ input.height }}%">
+		    {% endif %}
+		{% endifequal %}
+	    {% endfor %}
+	{% endif %}
+	</form>
+	
+    
+    {% include "includes/sidebar_holder.html" %}
+    
+		
+		
+		
+		
+		
+	    </div>
+	</section>
+    </section>
+</section>
+
+
+	{% include "includes/showfile_script.html" %}
+	
+{% endblock %}

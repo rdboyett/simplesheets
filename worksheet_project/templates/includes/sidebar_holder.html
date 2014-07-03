@@ -1,0 +1,239 @@
+{% load staticfiles %}
+
+{% if bTeacher %}
+	<section id="sidebar-content" class="shadow">
+	    <div id="top-selection">
+		<div id="user-info">
+		    <div>
+			<img id="small-avatar" title="" class="img-rounded" src="{% if userInfo.avatar %}{{ userInfo.avatar }}{% else %}{% static "page_view/images/REPLACEHERE.png" %}{% endif %}" alt="user"/>
+			
+		    </div>
+		    <div id="user-name">{{ user.first_name|capfirst }} {{ user.last_name|capfirst }}</div>
+		</div>
+		<div id="edit-logo" class="tab-highlight">
+		    <img id="edit-logo-pic" title="Edit" class="img-rounded" src="{% static "page_view/images/edit.png" %}" alt="edit"/>
+		</div>
+	    </div>
+	    <div id="sidebar-inset">
+		<div id="inset-menu">
+		    <div id="button1" class="inset-edit-buttons img-top-rounded selected" title="Questions">
+			<div id="button1-holder"></div>
+		    </div>
+		    <div id="button2" class="inset-edit-buttons img-top-rounded" title="Answers">
+			<div id="button2-holder"></div>
+		    </div>
+		</div>
+		
+		
+
+<!-----------------------List of Questions---------------------------------->
+<div id="questionList">
+{% for page in pageRange %}
+    <div id="page{{ page|add:"1" }}" class="page_title" style="margin: 10px;">Page {{ page|add:"1" }}:
+    {% if formInputs %}
+	{% for input in formInputs %}
+	    {% ifequal input.pageNumber page|add:"1" %}
+	<div id="questionTab{{ input.questionNumber }}" class="questionTab-holder img-rounded"
+	data-options='{"answer_id":"{{ input.id }}", "question_number":"{{ input.questionNumber }}"}'>
+	    <div class="question_click">Question {{ input.questionNumber }}</div>
+	    <div class="x-icon" title="delete"></div>
+	    <div class="resize-icon" title="resize"></div>
+	</div>
+	    {% endifequal %}
+	{% endfor %}
+    {% else %}
+    <div class="page-holder">No questions have been created for this page.</div>
+    {% endif %}
+    </div>
+    <div style="height:20px;"></div>
+{% endfor %}
+
+    <!------------------Spacer for scrolling------------------>
+    <div style="height: 200px;"></div>
+    
+</div>
+<!-------------------End List of Questions---------------------------------->
+
+
+<div id="question-Info-Holder">
+<!-----------------------Question Number and Type---------------------------------->
+
+<div id="questionMenu" class="">
+    <div>Question Number</div>
+    <input id="questionNumber" class="img-rounded" style="" type="number" min="1" step="1" pattern="\d+"/>
+    <div>Answer Type</div>
+    <div class="" style="">
+        <select id="questionType" class="menuItem img-rounded" style="">
+            <option value="text">Text</option>
+            <option value="number">Number</option>
+            <option value="textarea">Paragraph</option>
+            <option value="select">Multiple Choice</option>
+            <option value="checkbox">Checkbox</option>
+            <option value="work">"Show Your Work" Box</option>
+        </select>
+    </div>
+    <div class=""></div>
+</div>
+<!-------------------End Question Number and Type---------------------------------->
+
+
+<!-------------------  Text Display Input ------------------------------------------>
+
+<div id="textPane" class="typeMenu">
+    <div>Correct Answer</div>
+    <div id="correctAnswer" class="" style=""></div>
+    <div>Points</div>
+    <input id="points" class="points" style="" type="text" />
+    <div>Help Text...</div>
+    <textarea id="helpInput" rows="4" class="helpInput" maxlength="100" style="" placeholder="enter help text here..."></textarea>
+    <div>Help Link...</div>
+    <input id="textHelpLink" class="helpLink " style="" value="" placeholder="http://..." type="url" pattern="https?://.+" />
+    
+    <!------------------Spacer for scrolling------------------>
+    <div style="height: 300px;"></div>
+    
+</div>
+<div id="multipleChoicePane" class="typeMenu" style="" >
+    
+    <div>Answer Choices</div>
+    <div class="answerChoice_holder">
+	<input class="radioChoice" style="margin-top: 4%;border: 0px;width: 17px;height: 17px;" type="radio" name="correctChoice" value="1" />
+	<input id="choice1" class="choice menuInputs img-rounded menuItem newline" style="" value="" type="text" />
+    </div>
+    <div class="answerChoice_holder">
+	<input class="radioChoice" style="margin-top: 4%;border: 0px;width: 17px;height: 17px;" type="radio" name="correctChoice" value="2" />
+	<input id="choice2" class="choice menuInputs img-rounded menuItem newline" style="" value="" type="text" />
+    </div>
+    <div class="answerChoice_holder">
+	<input class="radioChoice" style="margin-top: 4%;border: 0px;width: 17px;height: 17px;" type="radio" name="correctChoice" value="3" />
+	<input id="choice3" class="choice menuInputs img-rounded menuItem newline" style="" value="" type="text" />
+    </div>
+    <div class="answerChoice_holder">
+	<input class="radioChoice" style="margin-top: 4%;border: 0px;width: 17px;height: 17px;" type="radio" name="correctChoice" value="4" />
+	<input id="choice4" class="choice menuInputs img-rounded menuItem newline" style="" value="" type="text" />
+    </div>
+    
+    <div>Points</div>
+    <input id="multPoints" class="points menuInputs img-rounded menuItem newline" style="" type="text" />
+    <div>Help Text...</div>
+    <textarea id="multHelpInput" rows="2" class="helpInput" maxlength="100" style="" placeholder="enter help text here..."></textarea>
+    <div>Help Link...</div>
+    <input id="multHelpLink" class="helpLink" style="" value="" placeholder="http://..." type="url" pattern="https?://.+"  />
+    
+    <!------------------Spacer for scrolling------------------>
+    <div style="height: 300px;"></div>
+    
+</div>
+<div id="checkboxPane" class="typeMenu">
+    <div>Toggle Correct Answer</div>
+    <input id="showCheckbox" type="checkbox" class="menuInputs img-rounded menuItem newline" style=""/>
+    <div>Points</div>
+    <input id="checkPoints" class="points" style="" type="text" />
+    <div>Help Text...</div>
+    <textarea id="checkHelpInput" rows="4" class="helpInput" maxlength="100" style="" placeholder="enter help text here..."></textarea>
+    <div>Help Link...</div>
+    <input id="checkHelpLink" class="helpLink" style="" value="" placeholder="http://..." type="url" pattern="https?://.+" />
+    
+    <!------------------Spacer for scrolling------------------>
+    <div style="height: 300px;"></div>
+    
+</div>
+<div id="textareaPane" class="typeMenu">
+    <div>Keywords to Search</div>
+    <input id="keyword1" class="keyword menuInputs img-rounded menuItem newline" style="margin-left: 0%;width: 95%;" value="" type="text" />
+    <input id="keyword2" class="keyword menuInputs img-rounded menuItem newline" style="margin-left: 0%;width: 95%;" value="" type="text" />
+    <input id="keyword3" class="keyword menuInputs img-rounded menuItem newline" style="margin-left: 0%;width: 95%;" value="" type="text" />
+    <input id="keyword4" class="keyword menuInputs img-rounded menuItem newline" style="margin-left: 0%;width: 95%;" value="" type="text" />
+    <div>Total Points Possible</div>
+    <input id="areaPoints" class="points" style="" type="text" />
+    <div>Help Text...</div>
+    <textarea id="areaHelpInput" rows="2" class="helpInput" maxlength="100" style="" placeholder="enter help text here..."></textarea>
+    <div>Help Link...</div>
+    <input id="areaHelpLink" class="helpLink" style="" value="" placeholder="http://..." type="url" pattern="https?://.+" />
+    
+    <!------------------Spacer for scrolling------------------>
+    <div style="height: 300px;"></div>
+    
+</div>
+
+<!-------------------  End Text Display Input ------------------------------------------>
+</div> <!-- close question-Info-Holder -->
+
+{% else %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!---------------------------------------------   STUDENT VIEW  ----------------------------------------------------------->
+
+	<section id="sidebar-content" class="shadow">
+	    <div id="top-selection">
+		<div id="user-info">
+		    <div>
+			<img id="small-avatar" title="" class="img-rounded" src="{% if userInfo.avatar %}{{ userInfo.avatar }}{% else %}{% static "page_view/images/REPLACEHERE.png" %}{% endif %}" alt="user"/>
+			
+		    </div>
+		    <div id="user-name">{{ user.first_name|capfirst }} {{ user.last_name|capfirst }}</div>
+		</div>
+		<div id="edit-logo" class="tab-highlight">
+		    <img id="edit-logo-pic" title="Edit" class="img-rounded" src="{% static "page_view/images/edit.png" %}" alt="edit"/>
+		</div>
+	    </div>
+	    <div id="sidebar-inset">
+		<div id="inset-menu">
+		</div>
+		
+		
+
+
+
+<div id="question-Info-Holder" style="display: block;">
+
+<!-------------------  Text Display Input ------------------------------------------>
+
+<div id="textPane" class="helpTypeMenu" style="display: block;">
+    <div>Your Answer</div>
+    <div id="correctAnswer" class="" style=""></div>
+    <div>Help Text...</div>
+    <textarea id="helpInput" rows="4" class="helpInput" maxlength="100" style="" placeholder="sorry, there is no help for this question..."></textarea>
+    <div>Help Link...</div>
+    <div id="textHelpLink" class="helpLinkHtml"></div>
+    
+    <!------------------Spacer for scrolling------------------>
+    <div style="height: 300px;"></div>
+    
+</div>
+
+<!-------------------  End Text Display Input ------------------------------------------>
+</div> <!-- close question-Info-Holder -->
+
+
+{% endif %}
+
+
+
+
+
+

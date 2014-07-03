@@ -15,7 +15,6 @@ class UserInfo(models.Model):
       return u'%s' % (self.user)
     
 
-'''
 class MyGrade(models.Model):
   project = models.ForeignKey(Project)
   userInfo = models.ForeignKey(UserInfo)
@@ -52,8 +51,6 @@ admin.site.register(UserInfo)
 admin.site.register(MyGrade)
 admin.site.register(MyAnswer)
 
-
-'''
       
 
 

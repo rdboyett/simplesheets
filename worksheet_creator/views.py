@@ -224,6 +224,7 @@ def create(request):
                 
                 data = {
                     'success': "success",
+                    'projectID':newProject.id,
                 }
             
             else:#except errors.HttpError, error:
