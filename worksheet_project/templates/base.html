@@ -96,7 +96,7 @@
         </ul>
       </li>
       <li class="dropdown">
-        <a href="#" class="dropdown-toggle hidden-sm hidden-md" data-toggle="dropdown">Robert  <span class="glyphicon glyphicon-user"></span><b class="caret"></b></a>
+        <a href="#" class="dropdown-toggle hidden-sm hidden-md" data-toggle="dropdown">{% if userInfo %}{{ userInfo.user.first_name }}{% endif %}  <span class="glyphicon glyphicon-user"></span><b class="caret"></b></a>
         <a href="#" class="dropdown-toggle visible-sm visible-md" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span><b class="caret"></b></a>
         <ul class="dropdown-menu">
           <li><a href="{% url "worksheet_project.views.profile" %}"><span class="glyphicon glyphicon-user"></span>  edit profile</a></li>

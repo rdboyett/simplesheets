@@ -43,8 +43,8 @@ class Classroom(models.Model):
 
 class ClassUser(models.Model):
     user = models.ForeignKey(User)
-    teacher = models.BooleanField()
-    readOnly = models.BooleanField()
+    teacher = models.BooleanField(default=True)
+    readOnly = models.BooleanField(default=False)
     messages = models.ManyToManyField(Message, blank=True, null=True)
     classrooms = models.ManyToManyField(Classroom, blank=True, null=True)
     avatarBackColor = models.CharField(max_length=45, blank=True, null=True)

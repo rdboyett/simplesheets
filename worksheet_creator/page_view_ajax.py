@@ -9,6 +9,7 @@ import StringIO
 import logging
 import httplib2
 import shutil
+import base64
 
 from django.shortcuts import render_to_response, redirect
 from django.http import Http404, HttpResponse, HttpResponseRedirect, HttpResponseBadRequest

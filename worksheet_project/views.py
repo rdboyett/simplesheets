@@ -9,6 +9,7 @@ from django.core.mail import send_mail
 
 from userInfo_profile.models import UserInfo, MyAnswer, MyGrade
 from worksheet_creator.models import Project, FormInput, BackImage
+from classrooms.models import ClassUser, Classroom, HashTag, Message
 
 
 def loginRedirect(request):
@@ -91,12 +92,27 @@ def showNextPage(request, projectID=False, pageNumber=False):
 
 
 @login_required
-def classes(request):
+def classes(request, classID=False):
     if UserInfo.objects.filter(user=request.user):
-        userInfo = UserInfo.objects.filter(user=request.user)
+        userInfo = UserInfo.objects.get(user=request.user)
+    else:
+        userInfo = False
+
+    #Get all users Classes
+    if ClassUser.objects.filter(user=request.user):
+        classUser = ClassUser.objects.get(user=request.user)
+    else:
+        classUser = ClassUser.objects.create(
+            user = request.user,
+            teacher = True,
+        )
+        
+    #Get current Class
 
     return render_to_response('classes.html', {
             "classes":True,
+            "userInfo":userInfo,
+            "classUser":classUser,
         })
 
 

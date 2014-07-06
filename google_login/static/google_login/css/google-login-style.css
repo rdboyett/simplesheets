@@ -196,11 +196,12 @@ textarea:focus, input:focus{
 -moz-border-radius: 6px;
 border-radius: 6px;
 }
-.google-input-holder img{
+.google-input-holder span{
+    padding: 0px 10px;
     display:inline-block;
     vertical-align: middle;
-    padding:0 10px 0 10px;
-    width: 20px;
+    line-height: 32px;
+    font-size: 20px;
     border-right:1px solid #CCC;
 }
 #google_login_form .google-input-holder{

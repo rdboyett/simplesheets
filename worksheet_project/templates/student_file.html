@@ -1,9 +1,9 @@
-{% extends "base.html" %}
+{% extends "page_view_base.html" %}
 
 {% block title %}{{ newProject.title|capfirst }}{% endblock %}
 
 
-
+{% load staticfiles %}
 
 {% block body %}
 	
@@ -13,9 +13,9 @@
     
     <div id="app-bar-content" class="shadow" >
 	<div id="gradeWorksheet" class="img-rounded">Grade Worksheet</div>
-	<img id="barLogo" src="{{ MEDIA_URL }}/static/images/Simplesheets-dot-logo-glow.png" height="38" alt="Menu"/>
-	<img id="downLogo" src="{{ MEDIA_URL }}/static/images/down.png" width="29" height="29" alt="Menu"/>
-	<img id="menuLogo" class="shadow" src="{{ MEDIA_URL }}/static/images/menu.png" width="29" height="29" alt="Menu"/>
+	<img id="barLogo" src="{% static "page_view/images/Simplesheets-dot-logo-glow.png" %}" height="38" alt="Menu"/>
+	<img id="downLogo" src="{% static "page_view/images/down.png" %}" width="29" height="29" alt="Menu"/>
+	<img id="menuLogo" class="shadow" src="{% static "page_view/images/menu.png" %}" width="29" height="29" alt="Menu"/>
     </div>
     <section id="wrapper">
 	{% for backImage in newProject.backgroundImages.all %}

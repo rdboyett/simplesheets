@@ -30,7 +30,8 @@
     
     
     <ul class="nav navbar-nav navbar-right">
-      <a href="{% url "google_login.views.index" %}" class="btn btn-success rounded" role="button" style="margin: 20px 30px 0 10px;">get started</a>
+      <!--<a href="{% url "google_login.views.index" %}" class="btn btn-success rounded" role="button" style="margin: 20px 30px 0 10px;">get started</a>-->
+      <button class="btn btn-success rounded" data-toggle="modal" data-target="#teacher-student" style="margin: 20px 30px 0 10px;">get started</button>      
     </ul>
     
     
@@ -50,8 +51,64 @@
     </div>
 
 
+<!---------------- modal ------------------------------------->
+<div id="teacher-student" class="modal fade" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content rounded">
+      <div class="modal-header top-rounded">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title">Who are you?</h4>
+      </div>
+      <div class="modal-body text-center bottom-rounded">
+        <div class="row">
+          <div class="col-xs-6">
+            <button class="btn btn-block btn-lg btn-success rounded" data-toggle="modal" data-target="#sign-in">teacher</button>
+          </div>
+          <div class="col-xs-6">
+            <a href="{% url "google_login.views.index" %}" class="btn btn-block btn-lg btn-success rounded" role="button">student</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 
+<!---------------- modal ------------------------------------->
+<div id="sign-in" class="modal fade" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content rounded">
+      <div class="modal-header top-rounded">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title">sign in</h4>
+      </div>
+      <div class="modal-body">
+        
+    <form id="google-authorization-form" autocomplete="off">{% csrf_token %}
+        <ul>
+            <li><div id="google-login-error">incorrect username or password</div></li>
+            <li><div class="google-input-holder">
+                    <span class="glyphicon glyphicon-user"></span>
+                    <input id="google-username" type="text" name="username" value="" placeholder="Username or email..." autofocus>
+            </div></li>
+            <li><div class="google-input-holder">
+                    <span class="glyphicon glyphicon-lock"></span>
+                    <input id="google-password" type="password" name="password" value="" placeholder="Password...">
+            </div></li>
+            <button id="google-sign-in" class="google-button">SIGN IN</button>
+            <button id="google-sign-up" class="google-button">SIGN UP</button>
+        </ul>
+    </form>
+    <div class="forgot-password">forgot my username or password</div>
+        
+      </div>
+      <div class="modal-footer bottom-rounded">
+        <button type="button" class="btn btn-default rounded" data-dismiss="modal">Close</button>
+        <button type="submit" form="className-form" class="btn btn-primary rounded">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 {% endblock %}
 
