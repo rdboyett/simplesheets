@@ -4,6 +4,10 @@
 
 {% block title %}SimpleSheets{% endblock %}
 
+{% block extraBottomHead %}
+  <link href="{% static "google_login/css/google-login-style.css" %}" rel="stylesheet">
+{% endblock %}
+
 {% block body %}
 
 <!-----------------Nav bar -------------------------------------------------------------->
@@ -30,8 +34,7 @@
     
     
     <ul class="nav navbar-nav navbar-right">
-      <!--<a href="{% url "google_login.views.index" %}" class="btn btn-success rounded" role="button" style="margin: 20px 30px 0 10px;">get started</a>-->
-      <button class="btn btn-success rounded" data-toggle="modal" data-target="#teacher-student" style="margin: 20px 30px 0 10px;">get started</button>      
+      <button class="btn btn-success rounded" data-toggle="modal" data-target="#sign-in" style="margin: 20px 30px 0 10px;">get started</button>      
     </ul>
     
     
@@ -82,33 +85,290 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
         <h4 class="modal-title">sign in</h4>
       </div>
-      <div class="modal-body">
-        
-    <form id="google-authorization-form" autocomplete="off">{% csrf_token %}
-        <ul>
-            <li><div id="google-login-error">incorrect username or password</div></li>
-            <li><div class="google-input-holder">
-                    <span class="glyphicon glyphicon-user"></span>
-                    <input id="google-username" type="text" name="username" value="" placeholder="Username or email..." autofocus>
-            </div></li>
-            <li><div class="google-input-holder">
-                    <span class="glyphicon glyphicon-lock"></span>
-                    <input id="google-password" type="password" name="password" value="" placeholder="Password...">
-            </div></li>
-            <button id="google-sign-in" class="google-button">SIGN IN</button>
-            <button id="google-sign-up" class="google-button">SIGN UP</button>
-        </ul>
-    </form>
-    <div class="forgot-password">forgot my username or password</div>
+      <div class="modal-body centered">
+            <form id="google-authorization-form" autocomplete="off">{% csrf_token %}
+                    <div class="row"><div id="google-login-error">incorrect username or password</div></div>
+                    <div class="row">
+                      <div class="col-xs-12 col-sm-8 col-md-offset-2">
+                      <div class="google-input-holder">
+                            <span class="glyphicon glyphicon-user"></span>
+                            <input id="google-username" type="text" name="username" value="" placeholder="Username or email..." autofocus>
+                      </div>
+                      </div>
+                      <div class="col-xs-12 col-sm-8 col-md-offset-2">
+                      <div class="google-input-holder">
+                            <span class="glyphicon glyphicon-lock"></span>
+                            <input id="google-password" type="password" name="password" value="" placeholder="Password...">
+                      </div>
+                      </div>
+                      <div class="col-xs-12 col-sm-6 col-md-offset-3 text-center">
+                        <div class="forgot-password" style="font-size: 12px;">forgot my username or password</div>
+                      </div>
+                    </div>
+            </form>
+            
         
       </div>
       <div class="modal-footer bottom-rounded">
-        <button type="button" class="btn btn-default rounded" data-dismiss="modal">Close</button>
-        <button type="submit" form="className-form" class="btn btn-primary rounded">Save changes</button>
+        <div class="col-xs-6">
+          <button type="button" class="btn btn-block btn-lg btn-success rounded" data-dismiss="modal">sign in</button>
+        </div>
+        <div class="col-xs-6">
+          <button type="submit" form="google-authorization-form" class="btn btn-block btn-lg btn-primary rounded">sign up</button>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
 {% endblock %}
+
+
+
+
+
+{% block extraScript %}
+  
+  
+<script>
+
+$(document).ready(function(){
+    $("#google_login_form").fadeIn(600);
+    
+    $("#google-sign-in").click(function(e){
+        //console.log('click');
+        e.preventDefault();
+        var username = $("#google-username").val();
+        var password = $("#google-password").val();
+        checkUser(username, password);
+    });
+
+
+});
+
+
+// using jQuery
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie != '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+
+
+    /************************** check login ****************************************************************************88*******/
+	function checkUser(username, password) {
+		//console.log('In tweetSubmit');
+            var csrftoken = getCookie('csrftoken');
+            var uri = "{% url 'google_login.views.ajaxAuth' %}";
+            var xhr = new XMLHttpRequest();
+            var fd = new FormData();
+            
+            xhr.open("POST", uri, true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    // Handle response.
+		            console.log(xhr.responseText);
+                    var data = JSON.parse(xhr.responseText)
+		            //console.log(data);
+		            if (data.error) {
+                        //alert(data.error);
+                        $("#google-login-error").fadeIn(600);
+                    }
+		            else{
+                        window.location.href="{% url 'worksheet_project.views.dashboard' %}"
+                    }
+                }
+            };
+	        xhr.timeout = 4000;
+	        xhr.ontimeout = function () { location.reload(); }
+            fd.append('username', username);
+            fd.append('password', password);
+            // Initiate a multipart/form-data upload
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            xhr.send(fd);
+	    //console.log( xhr._object);
+        }
+	
+
+    /************************** check username ****************************************************************************88*******/
+	function doesUsernameExist(username) {
+		//console.log('In tweetSubmit');
+            var csrftoken = getCookie('csrftoken');
+            var uri = "{% url 'google_login.views.checkUsername' %}";
+            var xhr = new XMLHttpRequest();
+            var fd = new FormData();
+            
+            xhr.open("POST", uri, true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    // Handle response.
+		            //console.log(xhr.responseText);
+                    var data = JSON.parse(xhr.responseText)
+		            //console.log(data);
+		            if (data.error) {
+                        //alert(data.error);
+                    }
+		            else{
+                        if (data.exists == 'true'){
+                            $("#username-register-error").html('already exists');
+                            $("#username-register-error").fadeIn(600);
+                            $("#google-register-username").addClass('register-input-error');
+                            //console.log(top);
+                            setCheckSignalPosition();
+                            $("#register-check-username").addClass('register-check-error');
+                            $("#register-check-username").removeClass('register-check-good');
+                            $("#register-check-username").fadeIn(600);
+                        }
+                    }
+                }
+            };
+	        xhr.timeout = 4000;
+	        xhr.ontimeout = function () { location.reload(); }
+            fd.append('username', username);
+            // Initiate a multipart/form-data upload
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            xhr.send(fd);
+	    //console.log( xhr._object);
+        }
+	
+
+    /************************** check username ****************************************************************************88*******/
+	function doesEmailExist(email) {
+		//console.log('In doesEmailExist');
+            var csrftoken = getCookie('csrftoken');
+            var uri = "{% url 'google_login.views.doesEmailExist' %}";
+            var xhr = new XMLHttpRequest();
+            var fd = new FormData();
+            
+            xhr.open("POST", uri, true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    // Handle response.
+		            //console.log(xhr.responseText);
+                    var data = JSON.parse(xhr.responseText)
+		            //console.log(data);
+		            if (data.error) {
+                        //alert(data.error);
+                    }
+		            else{
+                        if (data.exists == 'true'){
+                            $("#email-register-error").html('already exists');
+                            $("#email-register-error").fadeIn(600);
+                            $("#google-register-email").addClass('register-input-error');
+                            //console.log(top);
+                            setCheckSignalPosition();
+                            $("#register-check-email").addClass('register-check-error');
+                            $("#register-check-email").removeClass('register-check-good');
+                            $("#register-check-email").fadeIn(600);
+                        }
+                    }
+                }
+            };
+	        xhr.timeout = 4000;
+	        xhr.ontimeout = function () { location.reload(); }
+            fd.append('email', email);
+            // Initiate a multipart/form-data upload
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            xhr.send(fd);
+	    //console.log( xhr._object);
+        }
+	
+
+
+
+    /************************** submit registration ****************************************************************************88*******/
+	function submitRegistration() {
+		//console.log('In submitRegistration');
+            var csrftoken = getCookie('csrftoken');
+            var uri = "{% url 'google_login.views.submitRegistration' %}";
+            var xhr = new XMLHttpRequest();
+            var fd = new FormData();
+            
+            xhr.open("POST", uri, true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    // Handle response.
+		            //console.log(xhr.responseText);
+                    var data = JSON.parse(xhr.responseText)
+		            //console.log(data);
+		            if (data.error) {
+                        alert(data.error);
+                    }
+		            else{
+                        window.location.href="{% url 'worksheet_project.views.dashboard' %}"
+                    }
+                }
+            };
+	        xhr.timeout = 4000;
+	        xhr.ontimeout = function () { location.reload(); }
+            fd.append('username', $("#google-register-username").val());
+            fd.append('email', $("#google-register-email").val());
+            fd.append('password', $("#google-register-password").val());
+            // Initiate a multipart/form-data upload
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            xhr.send(fd);
+	    //console.log( xhr._object);
+        }
+	
+
+
+submitPasswordForgot
+    /************************** submit Forgot Password ****************************************************************************88*******/
+	function submitPasswordForgot(email) {
+		//console.log('In submitPasswordForgot');
+            var csrftoken = getCookie('csrftoken');
+            var uri = "{% url 'google_login.views.submitPasswordForgot' %}";
+            var xhr = new XMLHttpRequest();
+            var fd = new FormData();
+            
+            xhr.open("POST", uri, true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    // Handle response.
+		            //console.log(xhr.responseText);
+                    var data = JSON.parse(xhr.responseText)
+		            //console.log(data);
+		            if (data.error) {
+                        alert(data.error);
+                    }
+		            else{
+                        alert('Your reset link was sent to your email.');
+                        $("#google-login-shade").click();
+                    }
+                }
+            };
+	        xhr.timeout = 4000;
+	        xhr.ontimeout = function () { location.reload(); }
+            fd.append('email', email);
+            // Initiate a multipart/form-data upload
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            xhr.send(fd);
+	    //console.log( xhr._object);
+        }
+	
+
+
+
+
+
+</script>
+
+
+<script src="{% static "google_login/js/center_google_login.js" %}"></script>
+  
+{% endblock %}
+
+
+
 

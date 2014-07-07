@@ -190,13 +190,14 @@ textarea:focus, input:focus{
 .google-input-holder{
     padding: 0;
     margin: 5px;
-    width:250px;
+    /*width:250px;*/
     border:1px solid #CCC;
 -webkit-border-radius: 6px;
 -moz-border-radius: 6px;
 border-radius: 6px;
 }
 .google-input-holder span{
+    margin: 0;
     padding: 0px 10px;
     display:inline-block;
     vertical-align: middle;
@@ -204,6 +205,7 @@ border-radius: 6px;
     font-size: 20px;
     border-right:1px solid #CCC;
 }
+
 #google_login_form .google-input-holder{
     margin-left: 50px;
 }
@@ -258,18 +260,13 @@ border-radius: 6px;
     font-weight: bold;
 }
 .forgot-password{
-    position:absolute;
-    bottom:10px;
-    left: 50px;
     color: #E24444;
-    font-size: 10px;
+    font-size: 12px;
     font-weight: bold;
     cursor: pointer;
     opacity: 0.8;
 }
 .forgot-password:hover{opacity:1;}
-#google_login_form .forgot-password{left:94px;}
-#google_register_form .forgot-password{left:119px;}
 
 
 .register-check-error{
@@ -320,11 +317,36 @@ border-radius: 6px;
 }
 */
 
+#sign-in input {
+	display:inline-block;
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	border-radius: 6px;
+	background-color: transparent;
+	border: none;
+	color: #393939;
+	background-image: none;
+	padding: 5px;
+	font-size: 18px;
+	line-height: 22px;
+	vertical-align: middle;
+}
 
+#sign-in input::-webkit-input-placeholder {
+   color: #7C7C7C;
+}
 
+#sign-in input:-moz-placeholder { /* Firefox 18- */
+   color: red;  
+}
 
+#sign-in input::-moz-placeholder {  /* Firefox 19+ */
+   color: red;  
+}
 
-
+#sign-in input:-ms-input-placeholder {  
+   color: red;  
+}
 
 
 
