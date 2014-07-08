@@ -256,7 +256,7 @@ border-radius: 6px;
 #google-login-error, .error-panel{
     display: none;
     color: #E24444;
-    font-size: 10px;
+    font-size: 12px;
     font-weight: bold;
 }
 .forgot-password{
@@ -287,37 +287,40 @@ border-radius: 6px;
     vertical-align:middle;
 }
 
-#register-check-username{
-    position: absolute;
-    top:122px;
-    right:78px;
+#register-check-username {
+    display:none;
+    position: relative;
+    top:0px;
+    right:0px;
+    
+    border-right: 0px solid #CCC;
 }
 #register-check-email{
-    position: absolute;
-    top:162px;
-    right:78px;
+    display:none;
+    position: relative;
+    top:0px;
+    right:0px;
+    
+    border-right: 0px solid #CCC;
 }
 #register-check-password{
-    position: absolute;
-    top:203px;
-    right:78px;
+    display:none;
+    position: relative;
+    top:0px;
+    right:0px;
+    
+    border-right: 0px solid #CCC;
 }
 #forgot-check-email{
-    position: absolute;
-    top:162px;
-    right:58px;
+    display:none;
+    position: relative;
+    top:0px;
+    right:0px;
+    
+    border-right: 0px solid #CCC;
 }
-/*
-#google-username{
-    padding-left: 25px !important;
-	background-image: url("../images/username_logo.png") !important;
-    background-position: left;
-    background-repeat:no-repeat;
-    background-size:20px;
-}
-*/
 
-#sign-in input {
+#sign-in input, #register-user input, #recover-forgotten-password input {
 	display:inline-block;
 	-webkit-border-radius: 6px;
 	-moz-border-radius: 6px;
@@ -330,26 +333,34 @@ border-radius: 6px;
 	font-size: 18px;
 	line-height: 22px;
 	vertical-align: middle;
+	
+	width: 80%;
 }
 
-#sign-in input::-webkit-input-placeholder {
-   color: #7C7C7C;
+input::-webkit-input-placeholder {
+   color: #7C7C7C !important;
 }
 
-#sign-in input:-moz-placeholder { /* Firefox 18- */
-   color: red;  
+input:-moz-placeholder { /* Firefox 18- */
+   color: #7C7C7C !important;
 }
 
-#sign-in input::-moz-placeholder {  /* Firefox 19+ */
-   color: red;  
+input::-moz-placeholder {  /* Firefox 19+ */
+   color: #7C7C7C !important;
 }
 
-#sign-in input:-ms-input-placeholder {  
-   color: red;  
+input:-ms-input-placeholder {  
+   color: #7C7C7C !important;
 }
 
 
-
+#register-check-username {
+    position: relative;
+    top:0px;
+    right:0px;
+    
+    border-right: 0px solid #CCC;
+}
 
 
 

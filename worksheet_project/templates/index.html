@@ -55,29 +55,6 @@
 
 
 <!---------------- modal ------------------------------------->
-<div id="teacher-student" class="modal fade" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content rounded">
-      <div class="modal-header top-rounded">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h4 class="modal-title">Who are you?</h4>
-      </div>
-      <div class="modal-body text-center bottom-rounded">
-        <div class="row">
-          <div class="col-xs-6">
-            <button class="btn btn-block btn-lg btn-success rounded" data-toggle="modal" data-target="#sign-in">teacher</button>
-          </div>
-          <div class="col-xs-6">
-            <a href="{% url "google_login.views.index" %}" class="btn btn-block btn-lg btn-success rounded" role="button">student</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<!---------------- modal ------------------------------------->
 <div id="sign-in" class="modal fade" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content rounded">
@@ -87,8 +64,13 @@
       </div>
       <div class="modal-body centered">
             <form id="google-authorization-form" autocomplete="off">{% csrf_token %}
-                    <div class="row"><div id="google-login-error">incorrect username or password</div></div>
                     <div class="row">
+                      <div class="col-xs-12 col-sm-6 col-md-offset-3 text-center">
+                        <a href="/google/auth/" class="zocial googleplus">Sign in with Google</a>
+                      </div>
+                      <div class="col-xs-12 col-sm-6 col-md-offset-3 text-center">
+                        <div id="google-login-error">incorrect username or password</div>
+                      </div>
                       <div class="col-xs-12 col-sm-8 col-md-offset-2">
                       <div class="google-input-holder">
                             <span class="glyphicon glyphicon-user"></span>
@@ -102,7 +84,92 @@
                       </div>
                       </div>
                       <div class="col-xs-12 col-sm-6 col-md-offset-3 text-center">
-                        <div class="forgot-password" style="font-size: 12px;">forgot my username or password</div>
+                        <a data-toggle="modal" data-target="#recover-forgotten-password" onclick="$('#sign-in').modal('hide');"><div class="forgot-password" style="font-size: 12px;">forgot my username or password</div></a>
+                      </div>
+                    </div>
+            </form>
+      </div>
+      <div class="modal-footer bottom-rounded">
+        <div class="col-xs-6">
+          <button id="google-sign-in" type="button" class="btn btn-block btn-lg btn-success rounded">sign in</button>
+        </div>
+        <div class="col-xs-6">
+          <button type="button" class="btn btn-block btn-lg btn-primary rounded" data-toggle="modal" data-target="#teacher-student" onclick="$('#sign-in').modal('hide');">sign up</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!---------------- modal ------------------------------------->
+<div id="teacher-student" class="modal fade" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content rounded">
+      <div class="modal-header top-rounded">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title">Who are you?</h4>
+      </div>
+      <div class="modal-body text-center bottom-rounded">
+        <div class="row">
+          <div class="col-xs-6">
+            <button class="btn btn-block btn-lg btn-success rounded" data-toggle="modal" data-target="#register-user" onclick="$('#teacher-student').modal('hide');$('#teacher_or_student').val('teacher');">teacher</button>
+          </div>
+          <div class="col-xs-6">
+            <button class="btn btn-block btn-lg btn-success rounded" data-toggle="modal" data-target="#register-user" onclick="$('#teacher-student').modal('hide');$('#teacher_or_student').val('student');">student</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!---------------- modal ------------------------------------->
+<div id="register-user" class="modal fade" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content rounded">
+      <div class="modal-header top-rounded">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title">sign up</h4>
+      </div>
+      <div class="modal-body centered">
+            <form id="google-registration-form" autocomplete="off">{% csrf_token %}
+                    <input id="teacher_or_student" name="teacher_or_student" type="hidden" value="">
+                    <div class="row">
+                      <div class="col-xs-12 col-sm-6 col-md-offset-3 text-center">
+                        <a href="/google/auth/" class="zocial googleplus">Sign up with your Google</a>
+                      </div>
+                      <div class="col-xs-12 col-sm-6 col-md-offset-3 text-center">
+                        <div id="username-register-error" class="error-panel"></div>
+                      </div>
+                      <div class="col-xs-12 col-sm-8 col-md-offset-2">
+                        <div class="google-input-holder">
+                          <span class="glyphicon glyphicon-user"></span>
+                          <input id="google-register-username" type="text" name="username" value="" placeholder="Username..." autofocus>
+                          <span id="register-check-username" class="register-check-good"></span>
+                        </div>
+                      </div>
+                      <div class="col-xs-12 col-sm-6 col-md-offset-3 text-center">
+                        <div id="email-register-error" class="error-panel"></div>
+                      </div>
+                      <div class="col-xs-12 col-sm-8 col-md-offset-2">
+                        <div class="google-input-holder">
+                          <span class="glyphicon glyphicon-envelope"></span>
+                          <input id="google-register-email" type="email" name="email" value="" placeholder="Email...">
+                          <span id="register-check-email" class="register-check-good"></span>
+                        </div>
+                      </div>
+                      <div class="col-xs-12 col-sm-6 col-md-offset-3 text-center">
+                        <div id="password-register-error" class="error-panel"></div>
+                      </div>
+                      <div class="col-xs-12 col-sm-8 col-md-offset-2">
+                        <div class="google-input-holder">
+                          <span class="glyphicon glyphicon-lock"></span>
+                          <input id="google-register-password" type="password" name="password" value="" placeholder="Password...">
+                          <span id="register-check-password" class="register-check-good"></span>
+                        </div>
                       </div>
                     </div>
             </form>
@@ -110,16 +177,51 @@
         
       </div>
       <div class="modal-footer bottom-rounded">
-        <div class="col-xs-6">
-          <button type="button" class="btn btn-block btn-lg btn-success rounded" data-dismiss="modal">sign in</button>
-        </div>
-        <div class="col-xs-6">
-          <button type="submit" form="google-authorization-form" class="btn btn-block btn-lg btn-primary rounded">sign up</button>
+        <div class="col-xs-12 col-sm-8 col-md-offset-2">
+          <button id="google-register-submit" type="button" class="btn btn-block btn-lg btn-success rounded">register</button>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+
+<!---------------- modal ------------------------------------->
+<div id="recover-forgotten-password" class="modal fade" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content rounded">
+      <div class="modal-header top-rounded">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title">let's get your reconnected</h4>
+      </div>
+      <div class="modal-body centered">
+            <form id="google-forgot-form" autocomplete="off">{% csrf_token %}
+                    <div class="row">
+                      <div class="col-xs-12 col-sm-6 col-md-offset-3 text-center">
+                        <div id="email-forgot-error" class="error-panel"></div>
+                      </div>
+                      <div class="col-xs-12 col-sm-8 col-md-offset-2">
+                      <div class="google-input-holder">
+                        <span class="glyphicon glyphicon-envelope"></span>
+                        <input id="google-forgot-email" type="email" name="email" value="" placeholder="Email...">
+                        <span id="forgot-check-email" class="register-check-good"></span>
+                      </div>
+                      </div>
+                    </div>
+            </form>
+      </div>
+      <div class="modal-footer bottom-rounded">
+        <div class="col-xs-12 col-sm-8 col-md-offset-2">
+          <button id="google-forgot-submit" type="submit" form="google-forgot-form" class="btn btn-block btn-lg btn-success rounded">send</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
 
 {% endblock %}
 
@@ -133,17 +235,7 @@
 <script>
 
 $(document).ready(function(){
-    $("#google_login_form").fadeIn(600);
-    
-    $("#google-sign-in").click(function(e){
-        //console.log('click');
-        e.preventDefault();
-        var username = $("#google-username").val();
-        var password = $("#google-password").val();
-        checkUser(username, password);
-    });
-
-
+  
 });
 
 
@@ -168,7 +260,7 @@ function getCookie(name) {
 
     /************************** check login ****************************************************************************88*******/
 	function checkUser(username, password) {
-		//console.log('In tweetSubmit');
+		console.log('In checkUser');
             var csrftoken = getCookie('csrftoken');
             var uri = "{% url 'google_login.views.ajaxAuth' %}";
             var xhr = new XMLHttpRequest();
@@ -203,7 +295,7 @@ function getCookie(name) {
 
     /************************** check username ****************************************************************************88*******/
 	function doesUsernameExist(username) {
-		//console.log('In tweetSubmit');
+		console.log('In doesUsernameExist');
             var csrftoken = getCookie('csrftoken');
             var uri = "{% url 'google_login.views.checkUsername' %}";
             var xhr = new XMLHttpRequest();
@@ -213,7 +305,7 @@ function getCookie(name) {
             xhr.onreadystatechange = function() {
                 if (xhr.readyState == 4 && xhr.status == 200) {
                     // Handle response.
-		            //console.log(xhr.responseText);
+		            console.log(xhr.responseText);
                     var data = JSON.parse(xhr.responseText)
 		            //console.log(data);
 		            if (data.error) {
@@ -245,7 +337,7 @@ function getCookie(name) {
 
     /************************** check username ****************************************************************************88*******/
 	function doesEmailExist(email) {
-		//console.log('In doesEmailExist');
+		console.log('In doesEmailExist');
             var csrftoken = getCookie('csrftoken');
             var uri = "{% url 'google_login.views.doesEmailExist' %}";
             var xhr = new XMLHttpRequest();
@@ -289,7 +381,7 @@ function getCookie(name) {
 
     /************************** submit registration ****************************************************************************88*******/
 	function submitRegistration() {
-		//console.log('In submitRegistration');
+		console.log('In submitRegistration');
             var csrftoken = getCookie('csrftoken');
             var uri = "{% url 'google_login.views.submitRegistration' %}";
             var xhr = new XMLHttpRequest();
@@ -323,7 +415,7 @@ function getCookie(name) {
 	
 
 
-submitPasswordForgot
+
     /************************** submit Forgot Password ****************************************************************************88*******/
 	function submitPasswordForgot(email) {
 		//console.log('In submitPasswordForgot');
@@ -344,7 +436,7 @@ submitPasswordForgot
                     }
 		            else{
                         alert('Your reset link was sent to your email.');
-                        $("#google-login-shade").click();
+                        $("#recover-forgotten-password").modal('hide');
                     }
                 }
             };
@@ -365,7 +457,7 @@ submitPasswordForgot
 </script>
 
 
-<script src="{% static "google_login/js/center_google_login.js" %}"></script>
+<script src="{% static "main_project/js/index-login.js" %}"></script>
   
 {% endblock %}
 
