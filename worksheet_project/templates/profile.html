@@ -17,36 +17,56 @@
 	    <div class="profile-card">
 	      <p>
 		<strong>School</strong>
-		<button id="show-school" class="btn btn-primary pull-right rounded"><i class="glyphicon glyphicon-pencil"></i></button>
+		<button id="show-school" class="btn btn-primary pull-right rounded" data-toggle="modal" data-target="#update-school" ><i class="glyphicon glyphicon-pencil"></i></button>
 	      </p>
-	      <span>Alvarado High School</span>
+	      <span id="schoolName-span">{% if userInfo.school %}{{ userInfo.school|capfirst }}{%else%}please add your school{%endif%}</span>
 	    </div>
             
             
             
-	    <form novalidate="" data-validate="parsley" id="profile-form" class="profile-card">
-	      <div id="alert-panel"></div>
-	      <img src="https://lh3.googleusercontent.com/-K9EDOFcINeI/AAAAAAAAAAI/AAAAAAAAABU/wA5Phtqseck/photo.jpg" alt="User photo" class="rounded img-responsive pull-left">
-	      <div class="form-group">
-		<label class="control-label" for="firstName" style="font-size: 18px;">First Name</label>
-		<div class="input-group rounded">
-                  <span class="input-group-addon rounded"><i class="glyphicon glyphicon-user"></i></span>
-                  <input type="text" class="form-control parsley-validated rounded" id="firstName" name="firstName" data-trigger="change" required="required" data-notblank="true" value="Robert">
-		</div>
-		<span class="help-block"></span>
-	      </div>
-	      <div class="form-group">
-		<label class="control-label" for="lastName" style="font-size: 18px;">Last Name</label>
-		<div class="input-group rounded">
-                  <span class="input-group-addon rounded"><i class="glyphicon glyphicon-user"></i></span>
-                  <input type="text" class="form-control parsley-validated rounded" id="lastName" name="lastName" data-trigger="change" required="required" data-notblank="true" value="Boyett">
-		</div>
-		<span class="help-block"></span>
-	      </div>
+	    <form id="profile-form" class="profile-card">
+              <div class="row">
+                <div class="col-xs-6 col-xs-offset-4 col-sm-4 col-sm-offset-0">
+                  <img {% if googleUserInfo %}
+                        src="{{ googleUserInfo.googleAvatar }}"
+                      {% else %}
+                        src="{% static "main_project/images/default_avatar.png" %}"
+                      {% endif %}
+                        alt="User photo" class="rounded pull-left img-thumbnail">
+                    
+                  <div class="col-xs-12">
+                    <label class="control-label" for="mr_ms" style="font-size: 18px;color: #FFF;">Title</label>
+                    <div class="google-input-holder" style="background-color: #FFF;">
+                      <span class="glyphicon glyphicon-user"></span>
+                      <input type="text" name="mr_ms" value="{% if userInfo.mr_ms_dr %}{{ userInfo.mr_ms_dr }}{%endif%}" minlength="2" maxlength="3" required>
+                      <span class="register-check register-check-error"></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-12 col-sm-8">
+                  <div class="col-xs-12">
+                    <label class="control-label" for="firstName" style="font-size: 18px;color: #FFF;">First Name</label>
+                    <div class="google-input-holder" style="background-color: #FFF;">
+                      <span class="glyphicon glyphicon-user"></span>
+                      <input type="text" name="firstName" value="{% if userInfo.user.first_name %}{{ userInfo.user.first_name|capfirst }}{%endif%}" minlength="2" maxlength="20" required>
+                      <span class="register-check register-check-error"></span>
+                    </div>
+                  </div>
+                  
+                  <div class="col-xs-12">
+                    <label class="control-label" for="lastName" style="font-size: 18px;color: #FFF;">Last Name</label>
+                    <div class="google-input-holder" style="background-color: #FFF;">
+                      <span class="glyphicon glyphicon-user"></span>
+                      <input type="text" name="firstName" value="{% if userInfo.user.last_name %}{{ userInfo.user.last_name|capfirst }}{%endif%}" minlength="2" maxlength="20" required>
+                      <span class="register-check register-check-error"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
 	      <br>
 	      <div class="row">
 		<div class="col-xs-6">
-		  <button type="submit" class="btn btn-block btn-success disabled rounded" id="update-profile">Update Profile</button>
+		  <button type="submit" class="btn btn-block btn-success rounded" id="update-profile">Update Profile</button>
 		</div>
 		<div class="col-xs-6">
                   <button type="submit" class="btn btn-block btn-primary rounded" id="show-update-password-modal">
@@ -58,29 +78,37 @@
         </div>
             
         <div class="col-xs-12 col-sm-6 col-md-5">
+          
+            <h3>Your Accounts</h3>
 	    <div id="auth-connections" class="profile-card">
               <div>
-                <h4>Your Accounts:</h4>
                 <div class="row">
                   <div class="col-xs-12">
                     <div class="media">
                       <a class="pull-left" href="#">
-                        <img class="media-object rounded" src="images/Simplesheets-dot-shortlogo.png" alt="google-thumbnail">
+                        <img class="media-object rounded" src="{% static "main_project/images/Simplesheets-dot-shortlogo.png" %}" alt="google-thumbnail">
                       </a>
                       <div class="media-body">
                         <h5 class="media-heading">Your SimpleSheets Account:</h5>
-                        <strong>Username: </strong>rboyett@alvaradoisd.net
+                        <strong>Username: </strong>{% if userInfo.user.email %}{{ userInfo.user.email }}{% elif userInfo.user.username %}{{ userInfo.user.username }}{%endif%}
+                        <div class="row">
+                          <div class="col-xs-12">
+                            <button class="btn btn-xs btn-info rounded">change</button>
+                          </div>
+                        </div>
                       </div>
                     </div>
+                    {% if googleUserInfo %}
                     <div class="media">
                       <a class="pull-left" href="#">
-                        <img class="media-object rounded" src="images/google-logo.png" alt="google-thumbnail">
+                        <img class="media-object rounded" src="{% static "main_project/images/google-logo.png" %}" alt="google-thumbnail">
                       </a>
                       <div class="media-body">
                         <h5 class="media-heading">You are connected to the Google account:</h5>
-                        <strong>Email: </strong>rboyett@alvaradoisd.net
+                        <strong>Email: </strong>{% if userInfo.user.email %}{{ userInfo.user.email }}{%endif%}
                       </div>
                     </div>
+                    {% endif %}
                   </div>
                 </div>
                 <hr>
@@ -90,8 +118,8 @@
               </div>
               <div class="row">
               <div class="col-xs-6">
-                <button class="btn btn-block btn-social btn-danger rounded" id="edmodo-authorize" type="button">
-                  <span> <img class="rounded" style="width: 38px;margin: 0px;border: none;" src="images/g-plus.jpg" width="80" alt=""> </span><span> Connect with Google</span>
+                <button class="btn btn-block btn-social btn-danger rounded {% if googleUserInfo %}disabled{%endif%}" id="google-authorize" type="button">
+                  <span> <img class="rounded" style="width: 38px;margin: 0px;border: none;" src="{% static "main_project/images/g-plus.jpg" %}" width="80" alt=""> </span><span> Connect with Google</span>
                 </button>
               </div>
               <div class="col-xs-6">
@@ -107,4 +135,89 @@
   </div>
 </div>
         
+        
+        
+<!---------------- modal ------------------------------------->
+<div id="update-school" class="modal fade" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content rounded">
+      <div class="modal-header top-rounded">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title">sign up</h4>
+      </div>
+      <div class="modal-body centered">
+            <form id="update-school-form" action="{% url "userInfo_profile.views.school" %}" enctype='multipart/form-data' method="post" autocomplete="off">{% csrf_token %}
+              <div class="row">
+                      <div class="col-xs-12 col-sm-8 col-md-offset-2 text-center">
+                        <div class="google-input-holder">
+                          <span class="glyphicon glyphicon-home"></span>
+                          <input type="text" name="schoolName" minlength="3" maxlength="65" required value="{% if userInfo.school %}{{ userInfo.school|capfirst }}{%endif%}" placeholder="School Name..." autofocus>
+                          <span class="register-check register-check-error"></span>
+                        </div>
+                      </div>
+              </div>
+            </form>
+      </div>
+      <div class="modal-footer bottom-rounded">
+        <div class="col-xs-12 col-sm-8 col-md-offset-2">
+          <button id="update-school-submit-button" type="submit" form="update-school-form" class="btn btn-block btn-lg btn-success rounded" onclick="$('#update-school').modal('hide');">update</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!---------------- modal ------------------------------------->
+<div id="teacher-student" class="modal fade" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content rounded">
+      <div class="modal-header top-rounded">
+        <h4 class="modal-title">Who are you?</h4>
+      </div>
+      <div class="modal-body text-center bottom-rounded">
+        <div class="row">
+          <form id="update-teacherStudent-form" action="{% url "userInfo_profile.views.teacherStudent" %}" enctype='multipart/form-data' method="post">{% csrf_token %}
+            <input id="teacher_or_student" name="teacherStudent" type="hidden" value="" />
+            <div class="col-xs-6">
+              <button type="submit" class="btn btn-block btn-lg btn-success rounded" onclick="$('#teacher-student').modal('hide');$('#teacher_or_student').val('teacher');">teacher</button>
+            </div>
+            <div class="col-xs-6">
+              <button type="submit" class="btn btn-block btn-lg btn-success rounded" onclick="$('#teacher-student').modal('hide');$('#teacher_or_student').val('student');">student</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+        
+        
 {% endblock %}
+
+
+{% block extraScript %}
+<script src="{% static "main_project/js/profile.js" %}"></script>
+<script>
+$(document).ready(function(){
+  {% if not teacherStudent %}
+    $("#teacher-student").modal({
+        "backdrop" : "static",
+        "keyboard" : "false",
+    });
+    $("#teacher-student").modal("show");
+  {%endif%}
+});
+</script>
+{% endblock %}
+
+
+
+
+
+
+
+
+

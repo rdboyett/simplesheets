@@ -44,9 +44,7 @@ $(document).ready(function(){
 	setCookie('monitor-view','list',30);
     });
     
-    
-    
-    
+
     
 });
 

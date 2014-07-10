@@ -10,6 +10,7 @@ from django.core.mail import send_mail
 from userInfo_profile.models import UserInfo, MyAnswer, MyGrade
 from worksheet_creator.models import Project, FormInput, BackImage
 from classrooms.models import ClassUser, Classroom, HashTag, Message
+from google_login.models import GoogleUserInfo
 
 
 def loginRedirect(request):
@@ -39,11 +40,17 @@ def index(request):
 @login_required
 def dashboard(request):
     if UserInfo.objects.filter(user=request.user):
-        userInfo = UserInfo.objects.filter(user=request.user)
+        userInfo = UserInfo.objects.get(user=request.user)
     else:
         userInfo = UserInfo.objects.create(
             user = request.user
         )
+        return HttpResponseRedirect("/edit-profile/")
+    
+    #Check if it's a new user
+    if not request.user.first_name or not request.user.last_name or not userInfo.teacher_student:
+        return HttpResponseRedirect("/edit-profile/")
+    
     return render_to_response('dashboard.html', {
             "dashboard":True,
         })
@@ -119,7 +126,7 @@ def classes(request, classID=False):
 @login_required
 def monitor(request):
     if UserInfo.objects.filter(user=request.user):
-        userInfo = UserInfo.objects.filter(user=request.user)
+        userInfo = UserInfo.objects.get(user=request.user)
 
     return render_to_response('monitor.html', {
             "worksheet":True,
@@ -130,9 +137,31 @@ def monitor(request):
 @login_required
 def profile(request):
     if UserInfo.objects.filter(user=request.user):
-        userInfo = UserInfo.objects.filter(user=request.user)
-
-    return render_to_response('profile.html')
+        userInfo = UserInfo.objects.get(user=request.user)
+    else:
+        userInfo = False
+        
+    #if there is a google account
+    if GoogleUserInfo.objects.filter(user=request.user):
+        googleUserInfo = GoogleUserInfo.objects.get(user=request.user)
+    else:
+        googleUserInfo = False
+        
+    #check if teacher or student is set
+    if not userInfo.teacher_student:
+        teacherStudent = False
+    else:
+        teacherStudent = True
+    
+    args = {
+            "profile":True,
+            "userInfo":userInfo,
+            "googleUserInfo":googleUserInfo,
+            "teacherStudent":teacherStudent,
+        }
+    args.update(csrf(request))
+        
+    return render_to_response('profile.html', args)
 
 
 

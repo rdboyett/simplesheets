@@ -107,7 +107,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR,'worksheet_creator','media')
 # Examples: "http://example.com/media/", "http://media.example.com/"
 MEDIA_URL = '/media/'
 
-LOGIN_URL          = '/google/auth/'
+LOGIN_URL          = '/'
 LOGIN_REDIRECT_URL = '/dashboard/'
 LOGIN_ERROR_URL    = '/google/error/'
 

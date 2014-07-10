@@ -7,7 +7,9 @@ from worksheet_creator.models import Project
 
 class UserInfo(models.Model):
     user = models.ForeignKey(User)
-    avatar = models.URLField(blank=True, null=True)
+    school = models.CharField(max_length=65, blank=True, null=True)
+    teacher_student = models.CharField(max_length=45, blank=True, null=True)
+    mr_ms_dr = models.CharField(max_length=3, blank=True, null=True)
     projects = models.ManyToManyField(Project, blank=True, null=True)
 
 

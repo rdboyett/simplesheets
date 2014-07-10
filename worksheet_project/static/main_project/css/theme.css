@@ -15,16 +15,16 @@ body{
 
 
 #search-bar::-webkit-input-placeholder, textarea::-webkit-input-placeholder { 
-    color:    #FFF;
+    color:    #FFF !important;
 }
 #search-bar:-moz-placeholder, textarea:-moz-placeholder { 
-    color:    #FFF;
+    color:    #FFF !important;
 }
 #search-bar::-moz-placeholder, textarea::-moz-placeholder { 
-    color:    #FFF;
+    color:    #FFF !important;
 }
 #search-bar:-ms-input-placeholder, textarea:-ms-input-placeholder { 
-    color:    #FFF;
+    color:    #FFF !important;
 }
 
 
@@ -636,19 +636,117 @@ fieldset[disabled] .btn-success.active {
 }
 
 
+.top5 { margin-top:5px; }
+.top10 { margin-top:10px; }
+.top15 { margin-top:15px; }
+.top20 { margin-top:20px; }
+.top25 { margin-top:25px; }
+.top30 { margin-top:30px; }
 
 
 
+.modal-body input {
+	display:inline-block;
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	border-radius: 6px;
+	background-color: transparent !important;
+	border: none;
+	color: #393939 !important;
+	background-image: none;
+	padding: 5px;
+	font-size: 18px;
+	line-height: 22px;
+	vertical-align: middle;
+	
+	width: 80%;
+}
+
+input::-webkit-input-placeholder {
+   color: #7C7C7C !important;
+}
+
+input:-moz-placeholder { /* Firefox 18- */
+   color: #7C7C7C !important;
+}
+
+input::-moz-placeholder {  /* Firefox 19+ */
+   color: #7C7C7C !important;
+}
+
+input:-ms-input-placeholder {  
+   color: #7C7C7C !important;
+}
 
 
+.google-input-holder:hover{
+-webkit-box-shadow: 2px 2px 2px 0px #CCC;
+-moz-box-shadow: 2px 2px 2px 0 #CCC;
+box-shadow: 2px 2px 2px 0px #CCC;
+}
+textarea:focus, input:focus{
+    outline: 0;
+}
+.google-input-holder{
+    padding: 0;
+    margin: 5px;
+    /*width:250px;*/
+    border:1px solid #CCC;
+-webkit-border-radius: 6px;
+-moz-border-radius: 6px;
+border-radius: 6px;
+}
+.google-input-holder span{
+    margin: 0;
+    padding: 0px 10px;
+    vertical-align: middle;
+    line-height: 32px;
+    font-size: 20px;
+    border-right:1px solid #CCC;
+}
+.error{
+    color: #E24444;
+    font-size: 12px;
+    font-weight: bold;
+    background: transparent;
+}
+
+.register-check{
+    display:none;
+    position: relative;
+    top:0px;
+    right:0px;
+    
+    border-right: 0px solid #CCC !important;
+}
 
 
+.register-check-error{
+    display:none;
+    width:20px;
+    height:20px;
+	background: url("../images/twitter_web_sprite_icons.png") center no-repeat;
+	background-position: -95px -505px;
+    vertical-align:middle;
+}
 
+.register-check-good{
+    display:none;
+    width:20px;
+    height:20px;
+	background: url("../images/twitter_web_sprite_icons.png") center no-repeat;
+	background-position: 6px -685px;
+    vertical-align:middle;
+}
 
+input{border: none;}
 
-
-
-
+.google-input-holder input{
+    line-height: 32px;
+    font-size: 20px;
+    vertical-align: middle;
+    width: 70%;
+}
 
 
 

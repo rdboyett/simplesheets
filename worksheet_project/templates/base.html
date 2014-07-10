@@ -95,8 +95,8 @@
           <li><a href="#">some info here asdf asdf asdf asdf</a></li>
         </ul>
       </li>
-      <li class="dropdown">
-        <a href="#" class="dropdown-toggle hidden-sm hidden-md" data-toggle="dropdown">{% if userInfo %}{{ userInfo.user.first_name }}{% endif %}  <span class="glyphicon glyphicon-user"></span><b class="caret"></b></a>
+      <li class="dropdown {% if profile %}active{% endif %}">
+        <a href="#" class="dropdown-toggle hidden-sm hidden-md" data-toggle="dropdown">{% if userInfo.user.first_name %}{{ userInfo.user.first_name|capfirst }}{% endif %}  <span class="glyphicon glyphicon-user"></span><b class="caret"></b></a>
         <a href="#" class="dropdown-toggle visible-sm visible-md" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span><b class="caret"></b></a>
         <ul class="dropdown-menu">
           <li><a href="{% url "worksheet_project.views.profile" %}"><span class="glyphicon glyphicon-user"></span>  edit profile</a></li>
@@ -120,6 +120,8 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+    <script src="{% static "main_project/js/jquery.form.js" %}"></script>
     <script src="{% static "main_project/js/bootstrap.min.js" %}"></script>
     <script src="{% static "main_project/js/bootswatch.js" %}"></script>
     <script src="{% static "main_project/js/my-script.js" %}"></script>

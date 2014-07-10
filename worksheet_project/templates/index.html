@@ -65,10 +65,20 @@
       <div class="modal-body centered">
             <form id="google-authorization-form" autocomplete="off">{% csrf_token %}
                     <div class="row">
-                      <div class="col-xs-12 col-sm-6 col-md-offset-3 text-center">
-                        <a href="/google/auth/" class="zocial googleplus">Sign in with Google</a>
-                      </div>
-                      <div class="col-xs-12 col-sm-6 col-md-offset-3 text-center">
+                      
+              <div class="row">
+              <div class="col-xs-6 col-sm-5 col-sm-offset-1 text-center">
+                <a href="/google/auth/" class="btn btn-block btn-social btn-danger rounded" id="google-authorize" type="button">
+                  <span> <img class="rounded" style="width: 38px;margin: 0px;border: none;" src="{% static "main_project/images/g-plus.jpg" %}" width="80" alt=""> </span><span> Connect with Google</span>
+                </a>
+              </div>
+              <div class="col-xs-6 col-sm-5 text-center">
+                <button class="btn btn-block btn-social btn-info rounded" id="edmodo-authorize" type="button">
+                  <span> <img style="width: 25px;margin: 6px 2px 2px 3px;border: none;" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/41205/edmodo-icon_1.png" width="80" alt=""> </span><span> Connect with Edmodo</span>
+                </button>
+              </div>
+            </div>
+                      <div class="col-xs-12 col-sm-6 col-md-offset-3 text-center top15">
                         <div id="google-login-error">incorrect username or password</div>
                       </div>
                       <div class="col-xs-12 col-sm-8 col-md-offset-2">
@@ -138,10 +148,19 @@
             <form id="google-registration-form" autocomplete="off">{% csrf_token %}
                     <input id="teacher_or_student" name="teacher_or_student" type="hidden" value="">
                     <div class="row">
-                      <div class="col-xs-12 col-sm-6 col-md-offset-3 text-center">
-                        <a href="/google/auth/" class="zocial googleplus">Sign up with your Google</a>
-                      </div>
-                      <div class="col-xs-12 col-sm-6 col-md-offset-3 text-center">
+              <div class="row">
+              <div class="col-xs-6 col-sm-5 col-sm-offset-1 text-center">
+                <a href="/google/auth/" class="btn btn-block btn-social btn-danger rounded" id="google-authorize" type="button">
+                  <span> <img class="rounded" style="width: 38px;margin: 0px;border: none;" src="{% static "main_project/images/g-plus.jpg" %}" width="80" alt=""> </span><span> Connect with Google</span>
+                </a>
+              </div>
+              <div class="col-xs-6 col-sm-5 text-center">
+                <button class="btn btn-block btn-social btn-info rounded" id="edmodo-authorize" type="button">
+                  <span> <img style="width: 25px;margin: 6px 2px 2px 3px;border: none;" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/41205/edmodo-icon_1.png" width="80" alt=""> </span><span> Connect with Edmodo</span>
+                </button>
+              </div>
+            </div>
+                      <div class="col-xs-12 col-sm-6 col-md-offset-3 text-center top15">
                         <div id="username-register-error" class="error-panel"></div>
                       </div>
                       <div class="col-xs-12 col-sm-8 col-md-offset-2">
