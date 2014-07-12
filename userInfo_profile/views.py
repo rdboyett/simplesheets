@@ -71,6 +71,101 @@ def teacherStudent(request):
 
 
 
+@login_required
+def profileUpdate(request):
+    if request.method == 'POST':
+        title = request.POST["title"]
+        fullName = request.POST["fullName"]
+        
+        fullName = fullName.strip(' \t\n\r')
+        fullName = fullName.title()
+        
+        firstName = fullName.split(' ',1)[0]
+        lastName = fullName.split(' ',1)[1]
+        
+        data = {
+            'fullName': fullName,
+        }
+        if UserInfo.objects.filter(user=request.user):
+            userInfo = UserInfo.objects.get(user=request.user)
+            if title == 'False':
+                userInfo.title = ""
+            else:
+                userInfo.title = title
+                
+            request.user.first_name = firstName
+            request.user.last_name = lastName
+            request.user.save()
+            userInfo.save()
+        else:
+            data = {
+                'error': "There is now userInfo for the user",
+            }
+        
+    else:
+        data = {
+            'error': "There was an error posting this request. Please try again.",
+        }
+        
+    
+    return HttpResponse(json.dumps(data))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 def test(request):

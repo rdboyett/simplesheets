@@ -9,7 +9,7 @@ class UserInfo(models.Model):
     user = models.ForeignKey(User)
     school = models.CharField(max_length=65, blank=True, null=True)
     teacher_student = models.CharField(max_length=45, blank=True, null=True)
-    mr_ms_dr = models.CharField(max_length=3, blank=True, null=True)
+    title = models.CharField(max_length=3, blank=True, null=True)
     projects = models.ManyToManyField(Project, blank=True, null=True)
 
 

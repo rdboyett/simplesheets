@@ -741,12 +741,35 @@ border-radius: 6px;
 
 input{border: none;}
 
-.google-input-holder input{
+.google-input-holder input, .google-input-holder select{
     line-height: 32px;
     font-size: 20px;
     vertical-align: middle;
     width: 70%;
+    display: inline-block;
 }
+
+#title-input{
+  max-width: 180px;
+}
+#title-input select{
+  width: 60%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

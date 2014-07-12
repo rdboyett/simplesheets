@@ -68,9 +68,9 @@
                       
               <div class="row">
               <div class="col-xs-6 col-sm-5 col-sm-offset-1 text-center">
-                <a href="/google/auth/" class="btn btn-block btn-social btn-danger rounded" id="google-authorize" type="button">
+                <button class="btn btn-block btn-social btn-danger rounded google-authorize" type="button" onclick="$('#sign-in').modal('hide');">
                   <span> <img class="rounded" style="width: 38px;margin: 0px;border: none;" src="{% static "main_project/images/g-plus.jpg" %}" width="80" alt=""> </span><span> Connect with Google</span>
-                </a>
+                </button>
               </div>
               <div class="col-xs-6 col-sm-5 text-center">
                 <button class="btn btn-block btn-social btn-info rounded" id="edmodo-authorize" type="button">
@@ -104,7 +104,7 @@
           <button id="google-sign-in" type="button" class="btn btn-block btn-lg btn-success rounded">sign in</button>
         </div>
         <div class="col-xs-6">
-          <button type="button" class="btn btn-block btn-lg btn-primary rounded" data-toggle="modal" data-target="#teacher-student" onclick="$('#sign-in').modal('hide');">sign up</button>
+          <button type="button" class="btn btn-block btn-lg btn-primary rounded" data-toggle="modal" data-target="#register-user" onclick="$('#sign-in').modal('hide');">sign up</button>
         </div>
       </div>
     </div>
@@ -112,27 +112,6 @@
 </div>
 
 
-<!---------------- modal ------------------------------------->
-<div id="teacher-student" class="modal fade" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content rounded">
-      <div class="modal-header top-rounded">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h4 class="modal-title">Who are you?</h4>
-      </div>
-      <div class="modal-body text-center bottom-rounded">
-        <div class="row">
-          <div class="col-xs-6">
-            <button class="btn btn-block btn-lg btn-success rounded" data-toggle="modal" data-target="#register-user" onclick="$('#teacher-student').modal('hide');$('#teacher_or_student').val('teacher');">teacher</button>
-          </div>
-          <div class="col-xs-6">
-            <button class="btn btn-block btn-lg btn-success rounded" data-toggle="modal" data-target="#register-user" onclick="$('#teacher-student').modal('hide');$('#teacher_or_student').val('student');">student</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
 
 
@@ -146,13 +125,12 @@
       </div>
       <div class="modal-body centered">
             <form id="google-registration-form" autocomplete="off">{% csrf_token %}
-                    <input id="teacher_or_student" name="teacher_or_student" type="hidden" value="">
                     <div class="row">
               <div class="row">
               <div class="col-xs-6 col-sm-5 col-sm-offset-1 text-center">
-                <a href="/google/auth/" class="btn btn-block btn-social btn-danger rounded" id="google-authorize" type="button">
+                <button class="btn btn-block btn-social btn-danger rounded google-authorize" type="button">
                   <span> <img class="rounded" style="width: 38px;margin: 0px;border: none;" src="{% static "main_project/images/g-plus.jpg" %}" width="80" alt=""> </span><span> Connect with Google</span>
-                </a>
+                </button>
               </div>
               <div class="col-xs-6 col-sm-5 text-center">
                 <button class="btn btn-block btn-social btn-info rounded" id="edmodo-authorize" type="button">
@@ -254,6 +232,14 @@
 <script>
 
 $(document).ready(function(){
+  $('.google-authorize').click(function(){
+    //popup new window to log in to oauth
+    var myWindow = window.open("/google/auth/","_blank","toolbar=no, location=no, menubar=no, scrollbars=yes, resizable=yes, top=100, left=0, width=500, height=600");
+   
+  });
+  
+  
+  
   
 });
 
@@ -354,7 +340,7 @@ function getCookie(name) {
         }
 	
 
-    /************************** check username ****************************************************************************88*******/
+    /************************** check username ***********************************************************************************/
 	function doesEmailExist(email) {
 		console.log('In doesEmailExist');
             var csrftoken = getCookie('csrftoken');
@@ -470,6 +456,9 @@ function getCookie(name) {
 	
 
 
+  function syncAccounts(newUserID) {
+    location.reload();
+  }
 
 
 

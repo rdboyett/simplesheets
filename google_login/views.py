@@ -67,7 +67,6 @@ def index(request):
 
     
 def auth(request):
-    
     credential = None
         
     if credential is None or credential.invalid == True:
@@ -80,7 +79,6 @@ def auth(request):
 
 
 def auth_return(request):
-    
     if not xsrfutil.validate_token(settings.SECRET_KEY, request.REQUEST['state'],
                                    request.user):
       return  HttpResponseBadRequest()
@@ -115,9 +113,9 @@ def auth_return(request):
         )
 
     #Update the User model with changes in google
-    user.first_name = firstName
-    user.last_name = lastName
-    user.save()
+    #user.first_name = firstName
+    #user.last_name = lastName
+    #user.save()
 
     #Check to see if a google account has been setup yet
     if not GoogleUserInfo.objects.filter(google_id=google_id):
@@ -140,7 +138,11 @@ def auth_return(request):
     request.session.set_expiry(604800)
     storage = Storage(CredentialsModel, 'id', user, 'credential')
     storage.put(credential)
-    return HttpResponseRedirect(settings.LOGIN_SUCCESS)
+    #return HttpResponseRedirect(settings.LOGIN_SUCCESS)
+    #return HttpResponse('<script>window.close();</script>')
+    return render_to_response('google_login/login_return.html', {
+	    "user":request.user,
+	})
 
 
 
@@ -337,6 +339,65 @@ def submitPasswordForgot(request):
     return HttpResponse(json.dumps(data))
 
 
+
+@login_required
+def syncGoogleAccount(request):
+    if request.method == 'POST':
+        oldUserID = request.POST['oldUserID']
+        newUserID = request.POST['newUserID']
+
+	if User.objects.filter(id=oldUserID):
+	    resetThisUser = User.objects.get(id=oldUserID)
+	else:
+	    return HttpResponse(json.dumps({'error':'Sorry, we are having an issue linking your google account.'}))
+	    	
+	if User.objects.filter(id=newUserID):
+	    deleteThisUser = User.objects.get(id=newUserID)
+	else:
+	    return HttpResponse(json.dumps({'error':'Sorry, we are having an issue linking your google account.'}))
+	    
+	    
+	#reset google account to oldUserID and delete newUserID
+	if GoogleUserInfo.objects.filter(user=deleteThisUser):
+	    googleAccount = GoogleUserInfo.objects.get(user=deleteThisUser)
+	    
+	    #get the storage from deleteUser
+	    oldStorage = Storage(CredentialsModel, 'id', deleteThisUser, 'credential')
+	    credential = oldStorage.get()
+	    
+	    #create a new storage for resetUser
+	    newStorage = Storage(CredentialsModel, 'id', resetThisUser, 'credential')
+	    newStorage.put(credential)
+	    
+	    #delete old credential for deleteUser
+	    oldStorage.delete()
+	    
+	    #reset email from deleteUser to resetUser to make them the same
+	    resetThisUser.email = deleteThisUser.email
+	    resetThisUser.save()
+	    
+	    
+	    #log in resetUser
+	    resetThisUser.backend = 'django.contrib.auth.backends.ModelBackend'
+	    login(request, resetThisUser)
+		
+	    #set new userID for session
+	    request.session['user_id'] = resetThisUser.id
+	    request.session.set_expiry(604800)
+	    
+	    
+	    #set to old account
+	    googleAccount.user = resetThisUser
+	    googleAccount.save()
+	    
+	    #delete deleteUser
+	    deleteThisUser.delete()
+	    data = {'success':'success'}
+	else:
+	    return HttpResponse(json.dumps({'error':'Sorry, we are having an issue linking your google account.'}))
+    else:
+        data = {'error':'Did not post correctly'}
+    return HttpResponse(json.dumps(data))
 
 
 

@@ -64,6 +64,63 @@ $(document).ready(function(){
     }); 
     
     
+
+//add the custom validation method
+$.validator.addMethod("wordCount",
+   function(value) {
+      var typedWords = jQuery.trim(value).split(' ').length;
+ 
+      if(typedWords == 2) {
+         return true;
+      }else{return false}
+      
+   },"first and last name.");
+
+    $("#profile-form").validate({
+            errorPlacement: function(error, element){
+		element.parent().parent().prepend(error);
+            },
+	    highlight: function(element, errorClass, validClass) {
+		$(element).addClass(errorClass).removeClass(validClass);
+		$(element.form).find("label[for=" + element.id + "]")
+		  .addClass(errorClass);
+		var check = $(element).next();
+		if (check.hasClass("register-check-good")) {
+		    check.removeClass("register-check-good").addClass("register-check-error");
+		}
+		check.fadeIn(300);
+	    },
+	    unhighlight: function(element, errorClass, validClass) {
+		$(element).removeClass(errorClass).addClass(validClass);
+		$(element.form).find("label[for=" + element.id + "]")
+		  .removeClass(errorClass);
+		var check = $(element).next();
+		if (check.hasClass("register-check-error")) {
+		    check.removeClass("register-check-error").addClass("register-check-good");
+		}
+		check.fadeIn(300);
+	    },
+	
+	    rules: {
+		'fullName': {
+		   wordCount: true
+		}
+	    },
+    });
+    
+    
+    $('#profile-form').ajaxForm({ 
+        success:       function(responseText){
+            if (responseText.error) {
+                alert(responseText.error);
+            }else if (responseText.fullName) {
+                $("#fullName-input").val(responseText.fullName);
+            }
+        },
+        dataType:  'json',
+        timeout:   4000 
+    }); 
+    
     
     
     

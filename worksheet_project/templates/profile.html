@@ -24,54 +24,47 @@
             
             
             
-	    <form id="profile-form" class="profile-card">
+	    <form id="profile-form" class="profile-card" action="{% url "userInfo_profile.views.profileUpdate" %}" enctype='multipart/form-data' method="post">{% csrf_token %}
               <div class="row">
-                <div class="col-xs-6 col-xs-offset-4 col-sm-4 col-sm-offset-0">
-                  <img {% if googleUserInfo %}
+                <div class="col-xs-6 col-xs-offset-4 col-sm-4 col-sm-offset-0 col-md-3 col-md-offset-1">
+                  <img id="profile-image" {% if googleUserInfo %}
                         src="{{ googleUserInfo.googleAvatar }}"
                       {% else %}
                         src="{% static "main_project/images/default_avatar.png" %}"
                       {% endif %}
-                        alt="User photo" class="rounded pull-left img-thumbnail">
+                        alt="User photo" class="rounded img-thumbnail">
                     
-                  <div class="col-xs-12">
-                    <label class="control-label" for="mr_ms" style="font-size: 18px;color: #FFF;">Title</label>
-                    <div class="google-input-holder" style="background-color: #FFF;">
-                      <span class="glyphicon glyphicon-user"></span>
-                      <input type="text" name="mr_ms" value="{% if userInfo.mr_ms_dr %}{{ userInfo.mr_ms_dr }}{%endif%}" minlength="2" maxlength="3" required>
-                      <span class="register-check register-check-error"></span>
-                    </div>
-                  </div>
                 </div>
                 <div class="col-xs-12 col-sm-8">
                   <div class="col-xs-12">
-                    <label class="control-label" for="firstName" style="font-size: 18px;color: #FFF;">First Name</label>
-                    <div class="google-input-holder" style="background-color: #FFF;">
+                    <div id="title-input" class="google-input-holder" style="background-color: #FFF;">
                       <span class="glyphicon glyphicon-user"></span>
-                      <input type="text" name="firstName" value="{% if userInfo.user.first_name %}{{ userInfo.user.first_name|capfirst }}{%endif%}" minlength="2" maxlength="20" required>
-                      <span class="register-check register-check-error"></span>
+                      <select class="form-control" name="title">
+                        <option value="False">None</option>
+                        <option {% ifequal userInfo.title "Mr" %}selected{%endifequal%} value="Mr">Mr</option>
+                        <option {% ifequal userInfo.title "Ms" %}selected{%endifequal%} value="Ms">Ms</option>
+                        <option {% ifequal userInfo.title "Dr" %}selected{%endifequal%} value="Dr">Dr</option>
+                      </select>
                     </div>
                   </div>
                   
                   <div class="col-xs-12">
-                    <label class="control-label" for="lastName" style="font-size: 18px;color: #FFF;">Last Name</label>
                     <div class="google-input-holder" style="background-color: #FFF;">
                       <span class="glyphicon glyphicon-user"></span>
-                      <input type="text" name="firstName" value="{% if userInfo.user.last_name %}{{ userInfo.user.last_name|capfirst }}{%endif%}" minlength="2" maxlength="20" required>
+                      <input id="fullName-input" type="text" name="fullName" value="{% if userInfo.user.first_name %}{{ userInfo.user.first_name|capfirst }} {{ userInfo.user.last_name|capfirst }}{%endif%}" minlength="3" maxlength="60" required placeholder="Name...">
                       <span class="register-check register-check-error"></span>
                     </div>
                   </div>
+                  
                 </div>
               </div>
 	      <br>
 	      <div class="row">
 		<div class="col-xs-6">
-		  <button type="submit" class="btn btn-block btn-success rounded" id="update-profile">Update Profile</button>
+		  <button type="submit" class="btn btn-block btn-success rounded">Update Profile</button>
 		</div>
 		<div class="col-xs-6">
-                  <button type="submit" class="btn btn-block btn-primary rounded" id="show-update-password-modal">
-		    Set Password
-                  </button>
+                  <button type="button" class="btn btn-block btn-primary rounded">Set Password</button>
 		</div>
 	      </div>
 	    </form>
@@ -90,7 +83,7 @@
                       </a>
                       <div class="media-body">
                         <h5 class="media-heading">Your SimpleSheets Account:</h5>
-                        <strong>Username: </strong>{% if userInfo.user.email %}{{ userInfo.user.email }}{% elif userInfo.user.username %}{{ userInfo.user.username }}{%endif%}
+                        <strong>Username: </strong>{% if userInfo.user.username %}{{ userInfo.user.username }}{%endif%}
                         <div class="row">
                           <div class="col-xs-12">
                             <button class="btn btn-xs btn-info rounded">change</button>
@@ -118,7 +111,7 @@
               </div>
               <div class="row">
               <div class="col-xs-6">
-                <button class="btn btn-block btn-social btn-danger rounded {% if googleUserInfo %}disabled{%endif%}" id="google-authorize" type="button">
+                <button class="btn btn-block btn-social btn-danger rounded {% if googleUserInfo %}disabled{%endif%} google-authorize" type="button">
                   <span> <img class="rounded" style="width: 38px;margin: 0px;border: none;" src="{% static "main_project/images/g-plus.jpg" %}" width="80" alt=""> </span><span> Connect with Google</span>
                 </button>
               </div>
@@ -209,7 +202,65 @@ $(document).ready(function(){
     });
     $("#teacher-student").modal("show");
   {%endif%}
+  
+  
+  $('.google-authorize').click(function(){
+    //popup new window to log in to oauth
+    var myWindow = window.open("/google/auth/","_blank","toolbar=no, location=no, menubar=no, scrollbars=yes, resizable=yes, top=100, left=0, width=500, height=600");
+   
+  });
 });
+
+
+  function syncAccounts(newUserID) {
+      //Compare the two user ID's
+      var oldUserID = {{ userInfo.user.id }};
+      
+      //If they don't match redirect
+      if (newUserID == oldUserID) {
+        location.reload();
+      }else{
+        //open new popup window
+        syncGoogleAccount(oldUserID, newUserID);
+      }
+  }
+
+
+    /************************** check username ****************************************************************************88*******/
+	function syncGoogleAccount(oldUserID, newUserID) {
+		console.log('In syncGoogleAccount');
+            var csrftoken = getCookie('csrftoken');
+            var uri = "{% url 'google_login.views.syncGoogleAccount' %}";
+            var xhr = new XMLHttpRequest();
+            var fd = new FormData();
+            
+            xhr.open("POST", uri, true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    // Handle response.
+		            console.log(xhr.responseText);
+                    var data = JSON.parse(xhr.responseText)
+		            //console.log(data);
+		            if (data.error) {
+                        alert(data.error);
+                    }else{
+                      location.reload();
+                    }
+                }
+            };
+	        xhr.timeout = 4000;
+	        xhr.ontimeout = function () { location.reload(); }
+            fd.append('oldUserID', oldUserID);
+            fd.append('newUserID', newUserID);
+            // Initiate a multipart/form-data upload
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            xhr.send(fd);
+	    //console.log( xhr._object);
+        }
+	
+
+
+
 </script>
 {% endblock %}
 

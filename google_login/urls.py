@@ -19,5 +19,6 @@ urlpatterns += patterns('google_login.views',
     url(r'^submitRegistration/$', 'submitRegistration', name='submitRegistration'),
     url(r'^doesEmailExist/$', 'doesEmailExist', name='doesEmailExist'),
     url(r'^submitPasswordForgot/$', 'submitPasswordForgot', name='submitPasswordForgot'),
+    url(r'^syncGoogleAccount/$', 'syncGoogleAccount', name='syncGoogleAccount'),
     
 )
