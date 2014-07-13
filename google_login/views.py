@@ -113,9 +113,10 @@ def auth_return(request):
         )
 
     #Update the User model with changes in google
-    #user.first_name = firstName
-    #user.last_name = lastName
-    #user.save()
+    if not user.first_name:
+	user.first_name = firstName
+	user.last_name = lastName
+	user.save()
 
     #Check to see if a google account has been setup yet
     if not GoogleUserInfo.objects.filter(google_id=google_id):
@@ -401,6 +402,46 @@ def syncGoogleAccount(request):
 
 
 
+@login_required
+def ajaxResetPassword(request):
+    if request.method == 'POST':
+        password1 = request.POST['password1']
+        password2 = request.POST['password2']
+	
+	if password1 == password2:
+	    user = request.user
+	    user.set_password(password1)
+	    user.save()
+	    data = {'success':'success'}
+	else:
+	    return HttpResponse(json.dumps({'error':"Sorry, these passwords don't match."}))
+    else:
+        data = {'error':'Did not post correctly'}
+    return HttpResponse(json.dumps(data))
+
+
+
+@login_required
+def changeUsername(request):
+    if request.method == 'POST':
+        username = request.POST['userName'].strip()
+	
+	currentUser = request.user
+	
+	#check if username exists
+        if User.objects.filter(username=username):
+	    #Check if they are the same user as logged in
+	    if currentUser == User.objects.get(username=username):
+		return HttpResponse(json.dumps({'error':'you already have that username.'}))
+	    else:
+		return HttpResponse(json.dumps({'error':'username already exists.'}))
+        else:
+	    currentUser.username = username
+	    currentUser.save()
+            data = {'username':username}
+    else:
+        data = {'error':'Did not post correctly'}
+    return HttpResponse(json.dumps(data))
 
 
 

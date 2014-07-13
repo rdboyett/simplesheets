@@ -64,7 +64,7 @@
 		  <button type="submit" class="btn btn-block btn-success rounded">Update Profile</button>
 		</div>
 		<div class="col-xs-6">
-                  <button type="button" class="btn btn-block btn-primary rounded">Set Password</button>
+                  <button type="button" class="btn btn-block btn-primary rounded" data-toggle="modal" data-target="#reset-password">Reset Password</button>
 		</div>
 	      </div>
 	    </form>
@@ -78,24 +78,24 @@
                 <div class="row">
                   <div class="col-xs-12">
                     <div class="media">
-                      <a class="pull-left" href="#">
+                      <div class="pull-left">
                         <img class="media-object rounded" src="{% static "main_project/images/Simplesheets-dot-shortlogo.png" %}" alt="google-thumbnail">
-                      </a>
+                      </div>
                       <div class="media-body">
                         <h5 class="media-heading">Your SimpleSheets Account:</h5>
-                        <strong>Username: </strong>{% if userInfo.user.username %}{{ userInfo.user.username }}{%endif%}
+                        <strong>Username: </strong><span id="username-label">{% if userInfo.user.username %}{{ userInfo.user.username }}{%endif%}</span>
                         <div class="row">
                           <div class="col-xs-12">
-                            <button class="btn btn-xs btn-info rounded">change</button>
+                            <button class="btn btn-xs btn-info rounded" data-toggle="modal" data-target="#change-username">change</button>
                           </div>
                         </div>
                       </div>
                     </div>
                     {% if googleUserInfo %}
                     <div class="media">
-                      <a class="pull-left" href="#">
+                      <div class="pull-left">
                         <img class="media-object rounded" src="{% static "main_project/images/google-logo.png" %}" alt="google-thumbnail">
-                      </a>
+                      </div>
                       <div class="media-body">
                         <h5 class="media-heading">You are connected to the Google account:</h5>
                         <strong>Email: </strong>{% if userInfo.user.email %}{{ userInfo.user.email }}{%endif%}
@@ -153,7 +153,7 @@
       </div>
       <div class="modal-footer bottom-rounded">
         <div class="col-xs-12 col-sm-8 col-md-offset-2">
-          <button id="update-school-submit-button" type="submit" form="update-school-form" class="btn btn-block btn-lg btn-success rounded" onclick="$('#update-school').modal('hide');">update</button>
+          <button id="update-school-submit-button" type="submit" form="update-school-form" class="btn btn-block btn-lg btn-success rounded">update</button>
         </div>
       </div>
     </div>
@@ -186,13 +186,83 @@
 </div>
 
 
+
+<!---------------- modal ------------------------------------->
+<div id="reset-password" class="modal fade" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content rounded">
+      <div class="modal-header top-rounded">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title">reset password</h4>
+      </div>
+      <div class="modal-body centered">
+            <form id="reset-password-form" action="{% url "google_login.views.ajaxResetPassword" %}" enctype='multipart/form-data' method="post" autocomplete="off">{% csrf_token %}
+              <div class="row">
+                      <div class="col-xs-12 col-sm-8 col-md-offset-2 text-center">
+                        <div class="google-input-holder">
+                          <span class="glyphicon glyphicon-lock"></span>
+                          <input id="password1" type="password" name="password1" required value="" placeholder="password..." autofocus>
+                          <span class="register-check register-check-error"></span>
+                        </div>
+                      </div>
+                      
+                      <div class="col-xs-12 col-sm-8 col-md-offset-2 text-center">
+                        <div class="google-input-holder">
+                          <span class="glyphicon glyphicon-lock"></span>
+                          <input type="password" name="password2" required value="" placeholder="confirm...">
+                          <span class="register-check register-check-error"></span>
+                        </div>
+                      </div>
+              </div>
+            </form>
+      </div>
+      <div class="modal-footer bottom-rounded">
+        <div class="col-xs-12 col-sm-8 col-md-offset-2">
+          <button type="submit" form="reset-password-form" class="btn btn-block btn-lg btn-success rounded">reset</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!---------------- modal ------------------------------------->
+<div id="change-username" class="modal fade" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content rounded">
+      <div class="modal-header top-rounded">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title">reset password</h4>
+      </div>
+      <div class="modal-body centered">
+            <form id="change-username-form" action="{% url "google_login.views.changeUsername" %}" enctype='multipart/form-data' method="post" autocomplete="off">{% csrf_token %}
+              <div class="row">
+                      <div class="col-xs-12 col-sm-8 col-md-offset-2 text-center">
+                        <div class="google-input-holder">
+                          <span class="glyphicon glyphicon-user"></span>
+                          <input type="text" name="userName" minlength="6" maxlength="15" required value="" placeholder="username..." autofocus>
+                          <span class="register-check register-check-error"></span>
+                        </div>
+                      </div>
+              </div>
+            </form>
+      </div>
+      <div class="modal-footer bottom-rounded">
+        <div class="col-xs-12 col-sm-8 col-md-offset-2">
+          <button type="submit" form="change-username-form" class="btn btn-block btn-lg btn-success rounded">change</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
         
         
 {% endblock %}
 
 
 {% block extraScript %}
-<script src="{% static "main_project/js/profile.js" %}"></script>
 <script>
 $(document).ready(function(){
   {% if not teacherStudent %}
@@ -258,10 +328,11 @@ $(document).ready(function(){
 	    //console.log( xhr._object);
         }
 	
-
+var checkUsernameURI = "{% url 'google_login.views.checkUsername' %}";
 
 
 </script>
+<script src="{% static "main_project/js/profile.js" %}"></script>
 {% endblock %}
 
 

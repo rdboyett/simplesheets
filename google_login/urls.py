@@ -20,5 +20,7 @@ urlpatterns += patterns('google_login.views',
     url(r'^doesEmailExist/$', 'doesEmailExist', name='doesEmailExist'),
     url(r'^submitPasswordForgot/$', 'submitPasswordForgot', name='submitPasswordForgot'),
     url(r'^syncGoogleAccount/$', 'syncGoogleAccount', name='syncGoogleAccount'),
+    url(r'^ajaxResetPassword/$', 'ajaxResetPassword', name='ajaxResetPassword'),
+    url(r'^changeUsername/$', 'changeUsername', name='changeUsername'),
     
 )
