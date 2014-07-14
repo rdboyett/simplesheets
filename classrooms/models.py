@@ -4,6 +4,8 @@ from django.contrib import admin
 from django.contrib.auth.models import User
 from django.db import models
 
+from worksheet_creator.models import Project
+
 
 class Message(models.Model):
     text = models.TextField(max_length=150)
@@ -35,7 +37,7 @@ class Classroom(models.Model):
     messages = models.ManyToManyField(Message, blank=True, null=True)
     allowJoin = models.BooleanField(default=True)
     classOwnerID = models.IntegerField()
-    allUserClass = models.BooleanField(default=False)
+    worksheets = models.ManyToManyField(Project, blank=True, null=True)
 
 
     def __unicode__(self):

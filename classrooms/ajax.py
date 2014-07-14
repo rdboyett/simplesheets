@@ -23,19 +23,13 @@ log = logging.getLogger(__name__)
 def createGroup(request):
     if request.method == 'POST':
         userInfo = ClassUser.objects.get(user=request.user)
-        groupName = request.POST['group_name']
+        groupName = request.POST['group_name'].strip()
         groupCode = generateCode()
-        
-        if request.POST['all_users'] == 'true':
-            allUsersGroup = True
-        else:
-            allUsersGroup = False
-        
+                
         classroom = Classroom.objects.create(
             name = groupName,
             code = groupCode,
             classOwnerID = userInfo.id,
-            allUserClass = allUsersGroup,
         )
         userInfo.classrooms.add(classroom)
         
@@ -95,7 +89,7 @@ def deleteGroup(request):
 def changeGroupName(request):
     if request.method == 'POST':
         classID = request.POST["groupID"]
-        group_name = request.POST["group_name"]
+        group_name = request.POST["group_name"].strip()
         #log.info("classID: "+str(classID))
         
         if Classroom.objects.filter(id=classID):
@@ -156,7 +150,7 @@ def toggleLockGroup(request):
 @login_required
 def joinGroup(request):
     if request.method == 'POST':
-        joinCode = request.POST["groupCode"]
+        joinCode = request.POST["groupCode"].strip()
         #log.info("classID: "+str(classID))
         
         
@@ -204,7 +198,7 @@ def joinGroup(request):
 @login_required
 def postMessage(request):
     if request.method == 'POST':
-        tweetText = request.POST["post_message"]
+        tweetText = request.POST["post_message"].strip()
         classroomID = request.POST["classID"]
         
         userInfo = ClassUser.objects.get(user=request.user)
@@ -366,7 +360,7 @@ def adminDeleteUser(request):
 @login_required
 def editProfile(request):
     if request.method == 'POST':
-        userFirstName = request.POST["userFirstName"]
+        userFirstName = request.POST["userFirstName"].strip()
         background_color = request.POST["background_color"]
         text_color = request.POST["text_color"]
         

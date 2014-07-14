@@ -42,6 +42,7 @@ class Project(models.Model):
   originalFileID = models.CharField(max_length=65, blank=True, null=True)
   uploadedFileID = models.CharField(max_length=65, blank=True, null=True)
   thumb = models.FilePathField(blank=True, null=True)
+  status = models.CharField(max_length=10, default="active")
   
   def __unicode__(self):
         return u'%s %s' % (self.title, self.dateTime)

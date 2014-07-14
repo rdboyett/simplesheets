@@ -10,16 +10,6 @@ $(document).ready(function(){
     
     
     
-    
-    /*
-    resizePopups();
-    
-    
-    $( window ).resize(function() {
-        resizePopups();
-      });
-    */
-    
   $('div [data-toggle="popover"]').popover();
   //$('#add-class').popover('show');
   //$('#class-code-container').popover('show');
@@ -44,7 +34,6 @@ $(document).ready(function(){
 	setCookie('monitor-view','list',30);
     });
     
-
     
 });
 

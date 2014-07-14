@@ -12,45 +12,49 @@
   <div class="row">
     <div class="col-xs-12 col-md-3">
       <h3>Classes</h3>
+{% if allClasses %}
       <ul id="classes-list" class="list-group">
-        <li class="list-group-item clickable">
+        {% for class in allClasses %}
+        {% ifnotequal class.id currentClass.id %}<a href="/classes/{{ class.id }}">{%endifnotequal%}
+        <li class="list-group-item {% ifequal class.id currentClass.id %}active{%endifequal%}">
           <div class="list-class-item">
             <div class="pull-right">
-              <button class="btn btn-xs btn-success rounded hidden">
+              <button class="btn btn-xs btn-success rounded {% ifnotequal class.id currentClass.id %}hidden{%endifnotequal%}">
                 <span class="glyphicon glyphicon-cog"></span>
               </button>
             </div>
-            <div><p style="margin: 0;">1st Period</p></div>
+            <div><p style="margin: 0;">{{ class.name|capfirst }}</p></div>
           </div>
         </li>
-        <li class="list-group-item active">
-          <div class="list-class-item">
-            <div class="pull-right">
-              <button class="btn btn-xs btn-success rounded">
-                <span class="glyphicon glyphicon-cog"></span>
-              </button>
-            </div>
-            <div><p style="margin: 0;">2nd Period</p></div>
-          </div>
-        </li>
+        {% ifnotequal class.id currentClass.id %}</a>{%endifnotequal%}
+        {% endfor %}
       </ul>
+  {%else%}
+    <h5>Sorry, you don't have any classes yet.</h5>
+  {% endif %}
               <button id="add-class" class="btn btn-block btn-info rounded space" data-toggle="modal" data-target="#new-class">
-                <span class="glyphicon glyphicon-book"><span> new class</span>
+                <span class="glyphicon glyphicon-book"><span>{% if classUser.teacher %} new class{%else%} join a class{%endif%}</span>
               </button>
+              {% if allClasses %}
+              {% if classUser.teacher %}
               <button id="add-class" class="btn btn-block btn-warning rounded space" data-toggle="modal" data-target="#new-class">
                 <span class="glyphicon glyphicon-file"><span> assign worksheets</span>
               </button>
+              {%endif%}{%endif%}
     </div>
     
     
     <div class="col-xs-12 col-md-9">
       <div>
+        {% if classUser.teacher %}
         <div class="row">
+          {% if currentClass %}
           <div class="col-xs-12 col-sm-6">
               <button id="class-code-container" class="btn btn-block btn-lg btn-warning rounded space" data-toggle="modal" data-target="#class-code">
-                Class code: <span class="class-code">erM44E</button>
+                Class code: <span class="class-code">{{ currentClass.code }}</button>
               </button>
           </div>
+          {% endif %}
           <br class="visible-xs">
           <div class="col-xs-12 col-sm-6">
               <button id="new-worksheet" class="btn btn-block btn-lg btn-success rounded space" data-container="body" data-toggle="popover" data-placement="bottom" data-content="Create your first worksheet." data-original-title="Click here!">
@@ -58,18 +62,28 @@
               </button>
           </div>
         </div>
-      
+        {%endif%}
+        
         <h3 class="text-default">Assignments</h3>
+{% if currentClass and currentClass.worksheets.all %}
         <ul class="row list-unstyled">
           
+          {% for worksheet in currentClass.worksheets.all %}
           <!------------------------------ Worksheet Display ------------------------------------->
           <li class="col-xs-6 col-md-4">
             <div class="panel panel-default card-edpuzzle list-video-item rounded">
 	      <div class="panel-body">
                 <div class="worksheet-badge">
                   <div class="btn-group">
-                    <button type="button" class="btn btn-success bottom-rounded dropdown-toggle" data-toggle="dropdown">
-                      <span>active</span>
+                    <button type="button" class="btn bottom-rounded dropdown-toggle 
+                    {% if worksheet.status == "active" %}
+                      btn-success
+                    {% elif worksheet.status == "pending" %}
+                      btn-warning
+                    {% else %}
+                      btn-danger
+                    {%endif%}" data-toggle="dropdown">
+                      <span>{{ worksheet.status }}</span>
                     </button>
                     <ul class="dropdown-menu" role="menu">
                       <li><a href="#"><i class="glyphicon glyphicon-play"></i>  activate</a></li>
@@ -80,7 +94,7 @@
                   </div>
                 </div>
 		<div class="img-assignment show-assignment-stats clickable">
-		  <img src="images/thumbnail.png" alt="simple machines" height="" width="100%" class="img-responsive">
+		  <img src="{{ worksheet.thumb }}" alt="simple machines" height="" width="100%" class="img-responsive">
 		  <div class="img-center">
 		    <ul class="list-unstyled monitor-button" data-toggle="popover" data-placement="bottom" data-content="See your students progress!" data-original-title="" title="">
 		      <li><i class="glyphicon glyphicon-stats" style="font-size: 30px;"></i></li>
@@ -89,7 +103,7 @@
 		  </div>
 		</div>
 		<div class="card-title">
-		  <h5 class="text-center">Simple Machines</h5>
+		  <h5 class="text-center">{{ worksheet.title|capfirst }}</h5>
 		</div>
 	      </div>
 	      <div class="panel-footer">
@@ -121,368 +135,12 @@
             </div>
           </li>
           <!------------------------------ End of Worksheet Display ------------------------------------->
-          
-          
-          <!------------------------------ Worksheet Display ------------------------------------->
-          <li class="col-xs-6 col-md-4">
-            <div class="panel panel-default card-edpuzzle list-video-item rounded">
-	      <div class="panel-body">
-                <div class="worksheet-badge">
-                  <div class="btn-group">
-                    <button type="button" class="btn btn-warning bottom-rounded dropdown-toggle" data-toggle="dropdown">
-                      <span>pending</span>
-                    </button>
-                    <ul class="dropdown-menu" role="menu">
-                      <li><a href="#"><i class="glyphicon glyphicon-play"></i>  activate</a></li>
-                      <li><a href="#"><i class="glyphicon glyphicon-pause"></i>  pending</a></li>
-                      <li class="divider"></li>
-                      <li><a href="#"><i class="glyphicon glyphicon-stop"></i>  archive</a></li>
-                    </ul>
-                  </div>
-                </div>
-		<div class="img-assignment show-assignment-stats clickable">
-		  <img src="images/thumbnail.png" alt="simple machines" height="" width="100%" class="img-responsive">
-		  <div class="img-center">
-		    <ul class="list-unstyled monitor-button" data-toggle="popover" data-placement="bottom" data-content="See your students progress!" data-original-title="" title="">
-		      <li><i class="glyphicon glyphicon-stats" style="font-size: 30px;"></i></li>
-                      <li><strong>Monitor</strong></li>
-		    </ul>
-		  </div>
-		</div>
-		<div class="card-title">
-		  <h5 class="text-center">Simple Machines</h5>
-		</div>
-	      </div>
-	      <div class="panel-footer">
-                <div class="btn-group visible-xs">
-                  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                    <span class="glyphicon glyphicon-tasks"></span>
-                  </button>
-                  <ul class="dropdown-menu" role="menu">
-                    <li><a href="#"><i class="glyphicon glyphicon-eye-open"></i>  student view</a></li>
-                    <li><a href="#"><i class="glyphicon glyphicon-pencil"></i>  edit</a></li>
-                    <li><a href="#"><i class="glyphicon glyphicon-check"></i>  grade</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#"><i class="glyphicon glyphicon-trash"></i>  trash</a></li>
-                  </ul>
-                </div>
-                <div class="hidden-xs">
-                  <button class="col-xs-6 col-sm-3 btn btn-default" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="student view">
-                    <i class="glyphicon glyphicon-eye-open"></i>
-                  </button>
-                  <button class="col-xs-6 col-sm-3 btn btn-default" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="edit">
-                    <i class="glyphicon glyphicon-pencil"></i>
-                  </button>
-                  <button class="col-xs-6 col-sm-3 btn btn-default" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="grade">
-                    <i class="glyphicon glyphicon-check"></i>
-                  </button>
-                  <button class="col-xs-6 col-sm-3 btn btn-default"><i class="glyphicon glyphicon-trash"></i></button>
-                </div>
-              </div>
-            </div>
-          </li>
-          <!------------------------------ End of Worksheet Display ------------------------------------->
-          
-          <!------------------------------ Worksheet Display ------------------------------------->
-          <li class="col-xs-6 col-md-4">
-            <div class="panel panel-default card-edpuzzle list-video-item rounded">
-	      <div class="panel-body">
-                <div class="worksheet-badge">
-                  <div class="btn-group">
-                    <button type="button" class="btn btn-danger bottom-rounded dropdown-toggle" data-toggle="dropdown">
-                      <span>archived</span>
-                    </button>
-                    <ul class="dropdown-menu" role="menu">
-                      <li><a href="#"><i class="glyphicon glyphicon-play"></i>  activate</a></li>
-                      <li><a href="#"><i class="glyphicon glyphicon-pause"></i>  pending</a></li>
-                      <li class="divider"></li>
-                      <li><a href="#"><i class="glyphicon glyphicon-stop"></i>  archive</a></li>
-                    </ul>
-                  </div>
-                </div>
-		<div class="img-assignment show-assignment-stats clickable">
-		  <img src="images/thumbnail.png" alt="simple machines" height="" width="100%" class="img-responsive">
-		  <div class="img-center">
-		    <ul class="list-unstyled monitor-button" data-toggle="popover" data-placement="bottom" data-content="See your students progress!" data-original-title="" title="">
-		      <li><i class="glyphicon glyphicon-stats" style="font-size: 30px;"></i></li>
-                      <li><strong>Monitor</strong></li>
-		    </ul>
-		  </div>
-		</div>
-		<div class="card-title">
-		  <h5 class="text-center">Simple Machines</h5>
-		</div>
-	      </div>
-	      <div class="panel-footer">
-                <div class="btn-group visible-xs">
-                  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                    <span class="glyphicon glyphicon-tasks"></span>
-                  </button>
-                  <ul class="dropdown-menu" role="menu">
-                    <li><a href="#"><i class="glyphicon glyphicon-eye-open"></i>  student view</a></li>
-                    <li><a href="#"><i class="glyphicon glyphicon-pencil"></i>  edit</a></li>
-                    <li><a href="#"><i class="glyphicon glyphicon-check"></i>  grade</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#"><i class="glyphicon glyphicon-trash"></i>  trash</a></li>
-                  </ul>
-                </div>
-                <div class="hidden-xs">
-                  <button class="col-xs-6 col-sm-3 btn btn-default" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="student view">
-                    <i class="glyphicon glyphicon-eye-open"></i>
-                  </button>
-                  <button class="col-xs-6 col-sm-3 btn btn-default" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="edit">
-                    <i class="glyphicon glyphicon-pencil"></i>
-                  </button>
-                  <button class="col-xs-6 col-sm-3 btn btn-default" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="grade">
-                    <i class="glyphicon glyphicon-check"></i>
-                  </button>
-                  <button class="col-xs-6 col-sm-3 btn btn-default"><i class="glyphicon glyphicon-trash"></i></button>
-                </div>
-              </div>
-            </div>
-          </li>
-          <!------------------------------ End of Worksheet Display ------------------------------------->
-          
-          <!------------------------------ Worksheet Display ------------------------------------->
-          <li class="col-xs-6 col-md-4">
-            <div class="panel panel-default card-edpuzzle list-video-item rounded">
-	      <div class="panel-body">
-		<div class="img-assignment show-assignment-stats clickable">
-		  <img src="images/thumbnail.png" alt="simple machines" height="" width="100%" class="img-responsive">
-		  <div class="img-center">
-		    <ul class="list-unstyled monitor-button" data-toggle="popover" data-placement="bottom" data-content="See your students progress!" data-original-title="" title="">
-		      <li><i class="glyphicon glyphicon-stats" style="font-size: 30px;"></i></li>
-                      <li><strong>Monitor</strong></li>
-		    </ul>
-		  </div>
-		</div>
-		<div class="card-title">
-		  <h5 class="text-center">Simple Machines</h5>
-		</div>
-	      </div>
-	      <div class="panel-footer">
-                <div class="btn-group visible-xs">
-                  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                    <span class="glyphicon glyphicon-tasks"></span>
-                  </button>
-                  <ul class="dropdown-menu" role="menu">
-                    <li><a href="#"><i class="glyphicon glyphicon-eye-open"></i>  student view</a></li>
-                    <li><a href="#"><i class="glyphicon glyphicon-pencil"></i>  edit</a></li>
-                    <li><a href="#"><i class="glyphicon glyphicon-check"></i>  grade</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#"><i class="glyphicon glyphicon-trash"></i>  trash</a></li>
-                  </ul>
-                </div>
-                <div class="hidden-xs">
-                  <button class="col-xs-6 col-sm-3 btn btn-default" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="student view">
-                    <i class="glyphicon glyphicon-eye-open"></i>
-                  </button>
-                  <button class="col-xs-6 col-sm-3 btn btn-default" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="edit">
-                    <i class="glyphicon glyphicon-pencil"></i>
-                  </button>
-                  <button class="col-xs-6 col-sm-3 btn btn-default" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="grade">
-                    <i class="glyphicon glyphicon-check"></i>
-                  </button>
-                  <button class="col-xs-6 col-sm-3 btn btn-default"><i class="glyphicon glyphicon-trash"></i></button>
-                </div>
-              </div>
-            </div>
-          </li>
-          <!------------------------------ End of Worksheet Display ------------------------------------->
-          
-          <!------------------------------ Worksheet Display ------------------------------------->
-          <li class="col-xs-6 col-md-4">
-            <div class="panel panel-default card-edpuzzle list-video-item rounded">
-	      <div class="panel-body">
-		<div class="img-assignment show-assignment-stats clickable">
-		  <img src="images/thumbnail.png" alt="simple machines" height="" width="100%" class="img-responsive">
-		  <div class="img-center">
-		    <ul class="list-unstyled monitor-button" data-toggle="popover" data-placement="bottom" data-content="See your students progress!" data-original-title="" title="">
-		      <li><i class="glyphicon glyphicon-stats" style="font-size: 30px;"></i></li>
-                      <li><strong>Monitor</strong></li>
-		    </ul>
-		  </div>
-		</div>
-		<div class="card-title">
-		  <h5 class="text-center">Simple Machines</h5>
-		</div>
-	      </div>
-	      <div class="panel-footer">
-                <div class="btn-group visible-xs">
-                  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                    <span class="glyphicon glyphicon-tasks"></span>
-                  </button>
-                  <ul class="dropdown-menu" role="menu">
-                    <li><a href="#"><i class="glyphicon glyphicon-eye-open"></i>  student view</a></li>
-                    <li><a href="#"><i class="glyphicon glyphicon-pencil"></i>  edit</a></li>
-                    <li><a href="#"><i class="glyphicon glyphicon-check"></i>  grade</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#"><i class="glyphicon glyphicon-trash"></i>  trash</a></li>
-                  </ul>
-                </div>
-                <div class="hidden-xs">
-                  <button class="col-xs-6 col-sm-3 btn btn-default" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="student view">
-                    <i class="glyphicon glyphicon-eye-open"></i>
-                  </button>
-                  <button class="col-xs-6 col-sm-3 btn btn-default" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="edit">
-                    <i class="glyphicon glyphicon-pencil"></i>
-                  </button>
-                  <button class="col-xs-6 col-sm-3 btn btn-default" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="grade">
-                    <i class="glyphicon glyphicon-check"></i>
-                  </button>
-                  <button class="col-xs-6 col-sm-3 btn btn-default"><i class="glyphicon glyphicon-trash"></i></button>
-                </div>
-              </div>
-            </div>
-          </li>
-          <!------------------------------ End of Worksheet Display ------------------------------------->
-          
-          <!------------------------------ Worksheet Display ------------------------------------->
-          <li class="col-xs-6 col-md-4">
-            <div class="panel panel-default card-edpuzzle list-video-item rounded">
-	      <div class="panel-body">
-		<div class="img-assignment show-assignment-stats clickable">
-		  <img src="images/thumbnail.png" alt="simple machines" height="" width="100%" class="img-responsive">
-		  <div class="img-center">
-		    <ul class="list-unstyled monitor-button" data-toggle="popover" data-placement="bottom" data-content="See your students progress!" data-original-title="" title="">
-		      <li><i class="glyphicon glyphicon-stats" style="font-size: 30px;"></i></li>
-                      <li><strong>Monitor</strong></li>
-		    </ul>
-		  </div>
-		</div>
-		<div class="card-title">
-		  <h5 class="text-center">Simple Machines</h5>
-		</div>
-	      </div>
-	      <div class="panel-footer">
-                <div class="btn-group visible-xs">
-                  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                    <span class="glyphicon glyphicon-tasks"></span>
-                  </button>
-                  <ul class="dropdown-menu" role="menu">
-                    <li><a href="#"><i class="glyphicon glyphicon-eye-open"></i>  student view</a></li>
-                    <li><a href="#"><i class="glyphicon glyphicon-pencil"></i>  edit</a></li>
-                    <li><a href="#"><i class="glyphicon glyphicon-check"></i>  grade</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#"><i class="glyphicon glyphicon-trash"></i>  trash</a></li>
-                  </ul>
-                </div>
-                <div class="hidden-xs">
-                  <button class="col-xs-6 col-sm-3 btn btn-default" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="student view">
-                    <i class="glyphicon glyphicon-eye-open"></i>
-                  </button>
-                  <button class="col-xs-6 col-sm-3 btn btn-default" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="edit">
-                    <i class="glyphicon glyphicon-pencil"></i>
-                  </button>
-                  <button class="col-xs-6 col-sm-3 btn btn-default" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="grade">
-                    <i class="glyphicon glyphicon-check"></i>
-                  </button>
-                  <button class="col-xs-6 col-sm-3 btn btn-default"><i class="glyphicon glyphicon-trash"></i></button>
-                </div>
-              </div>
-            </div>
-          </li>
-          <!------------------------------ End of Worksheet Display ------------------------------------->
-          
-          <!------------------------------ Worksheet Display ------------------------------------->
-          <li class="col-xs-6 col-md-4">
-            <div class="panel panel-default card-edpuzzle list-video-item rounded">
-	      <div class="panel-body">
-		<div class="img-assignment show-assignment-stats clickable">
-		  <img src="images/thumbnail.png" alt="simple machines" height="" width="100%" class="img-responsive">
-		  <div class="img-center">
-		    <ul class="list-unstyled monitor-button" data-toggle="popover" data-placement="bottom" data-content="See your students progress!" data-original-title="" title="">
-		      <li><i class="glyphicon glyphicon-stats" style="font-size: 30px;"></i></li>
-                      <li><strong>Monitor</strong></li>
-		    </ul>
-		  </div>
-		</div>
-		<div class="card-title">
-		  <h5 class="text-center">Simple Machines</h5>
-		</div>
-	      </div>
-	      <div class="panel-footer">
-                <div class="btn-group visible-xs">
-                  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                    <span class="glyphicon glyphicon-tasks"></span>
-                  </button>
-                  <ul class="dropdown-menu" role="menu">
-                    <li><a href="#"><i class="glyphicon glyphicon-eye-open"></i>  student view</a></li>
-                    <li><a href="#"><i class="glyphicon glyphicon-pencil"></i>  edit</a></li>
-                    <li><a href="#"><i class="glyphicon glyphicon-check"></i>  grade</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#"><i class="glyphicon glyphicon-trash"></i>  trash</a></li>
-                  </ul>
-                </div>
-                <div class="hidden-xs">
-                  <button class="col-xs-6 col-sm-3 btn btn-default" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="student view">
-                    <i class="glyphicon glyphicon-eye-open"></i>
-                  </button>
-                  <button class="col-xs-6 col-sm-3 btn btn-default" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="edit">
-                    <i class="glyphicon glyphicon-pencil"></i>
-                  </button>
-                  <button class="col-xs-6 col-sm-3 btn btn-default" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="grade">
-                    <i class="glyphicon glyphicon-check"></i>
-                  </button>
-                  <button class="col-xs-6 col-sm-3 btn btn-default"><i class="glyphicon glyphicon-trash"></i></button>
-                </div>
-              </div>
-            </div>
-          </li>
-          <!------------------------------ End of Worksheet Display ------------------------------------->
-          
-          <!------------------------------ Worksheet Display ------------------------------------->
-          <li class="col-xs-6 col-md-4">
-            <div class="panel panel-default card-edpuzzle list-video-item rounded">
-	      <div class="panel-body">
-		<div class="img-assignment show-assignment-stats clickable">
-		  <img src="images/thumbnail.png" alt="simple machines" height="" width="100%" class="img-responsive">
-		  <div class="img-center">
-		    <ul class="list-unstyled monitor-button" data-toggle="popover" data-placement="bottom" data-content="See your students progress!" data-original-title="" title="">
-		      <li><i class="glyphicon glyphicon-stats" style="font-size: 30px;"></i></li>
-                      <li><strong>Monitor</strong></li>
-		    </ul>
-		  </div>
-		</div>
-		<div class="card-title">
-		  <h5 class="text-center">Simple Machines</h5>
-		</div>
-	      </div>
-	      <div class="panel-footer">
-                <div class="btn-group visible-xs">
-                  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                    <span class="glyphicon glyphicon-tasks"></span>
-                  </button>
-                  <ul class="dropdown-menu" role="menu">
-                    <li><a href="#"><i class="glyphicon glyphicon-eye-open"></i>  student view</a></li>
-                    <li><a href="#"><i class="glyphicon glyphicon-pencil"></i>  edit</a></li>
-                    <li><a href="#"><i class="glyphicon glyphicon-check"></i>  grade</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#"><i class="glyphicon glyphicon-trash"></i>  trash</a></li>
-                  </ul>
-                </div>
-                <div class="hidden-xs">
-                  <button class="col-xs-6 col-sm-3 btn btn-default" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="student view">
-                    <i class="glyphicon glyphicon-eye-open"></i>
-                  </button>
-                  <button class="col-xs-6 col-sm-3 btn btn-default" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="edit">
-                    <i class="glyphicon glyphicon-pencil"></i>
-                  </button>
-                  <button class="col-xs-6 col-sm-3 btn btn-default" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="grade">
-                    <i class="glyphicon glyphicon-check"></i>
-                  </button>
-                  <button class="col-xs-6 col-sm-3 btn btn-default"><i class="glyphicon glyphicon-trash"></i></button>
-                </div>
-              </div>
-            </div>
-          </li>
-          <!------------------------------ End of Worksheet Display ------------------------------------->
-          
-          
-          
-          
+          {% endfor %}
           
         </ul>
+{% else %}
+  <h5>Sorry, there are no assignments yet.</h5>
+{% endif %}
       </div>
     </div>
   </div>
@@ -494,18 +152,24 @@
     <div class="modal-content rounded">
       <div class="modal-header top-rounded">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h4 class="modal-title">Create a Class</h4>
+        <h4 class="modal-title">create a class</h4>
       </div>
       <div class="modal-body">
-        
-        <form id="className-form" action="" >
-          <input name="className" type="text" class="form-control rounded" placeholder="class name...">
-        </form>
-        
+            <form id="create-class-form" action="{% url "classrooms.ajax.createGroup" %}" enctype='multipart/form-data' method="post" autocomplete="off">{% csrf_token %}
+              <div class="row">
+                      <div class="col-xs-12 col-sm-8 col-md-offset-2 text-center">
+                        <div class="google-input-holder">
+                          <span class="glyphicon glyphicon-home"></span>
+                          <input type="text" name="group_name" minlength="3" maxlength="40" required value="" placeholder="Class Name..." autofocus>
+                          <span class="register-check register-check-error"></span>
+                        </div>
+                      </div>
+              </div>
+            </form>
       </div>
       <div class="modal-footer bottom-rounded">
-        <button type="button" class="btn btn-default rounded" data-dismiss="modal">Close</button>
-        <button type="submit" form="className-form" class="btn btn-primary rounded">Save changes</button>
+        <button type="button" class="btn btn-default rounded" data-dismiss="modal">close</button>
+        <button type="submit" form="create-class-form" class="btn btn-primary rounded">create</button>
       </div>
     </div>
   </div>
@@ -529,4 +193,11 @@
   </div>
 </div>
 
+{% endblock %}
+
+
+
+
+{% block extraScript %}
+  <script src="{% static "main_project/js/classes.js" %}"></script>
 {% endblock %}

@@ -53,6 +53,7 @@ def dashboard(request):
     
     return render_to_response('dashboard.html', {
             "dashboard":True,
+            "userInfo":userInfo,
         })
 
 
@@ -104,23 +105,48 @@ def classes(request, classID=False):
         userInfo = UserInfo.objects.get(user=request.user)
     else:
         userInfo = False
-
+    
     #Get all users Classes
     if ClassUser.objects.filter(user=request.user):
         classUser = ClassUser.objects.get(user=request.user)
     else:
+        if userInfo.teacher_student == 'teacher':
+            teacher = True
+        else:
+            teacher = False
         classUser = ClassUser.objects.create(
             user = request.user,
-            teacher = True,
+            teacher = teacher,
         )
         
     #Get current Class
+    if classID:
+        if Classroom.objects.filter(id=classID):
+            currentClass = Classroom.objects.get(id=classID)
+        else:
+            currentClass = False
+    else:
+        currentClass = False
+        
+    #Get all users Class
+    if classUser.classrooms.all():
+        allClasses = classUser.classrooms.all().order_by('name')
+        if not currentClass:
+            currentClass = allClasses[0]
+    else:
+        allClasses = False
+    
 
-    return render_to_response('classes.html', {
+    args = {
             "classes":True,
             "userInfo":userInfo,
             "classUser":classUser,
-        })
+            "currentClass":currentClass,
+            "allClasses":allClasses,
+        }
+    args.update(csrf(request))
+        
+    return render_to_response('classes.html', args)
 
 
 @login_required
