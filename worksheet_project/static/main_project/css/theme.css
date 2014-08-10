@@ -757,14 +757,40 @@ input{border: none;}
 }
 
 
+#worksheet-display .header{
+  border-bottom: 1px solid #CCC;
+  color: #565656;
+  font-size: 16px;
+  font-weight: bold;
+} 
 
+#worksheet-display .sheetList-body{
+ cursor: pointer;
+ padding: 5px 0;
+}
+#worksheet-display .sheetList-body:hover{
+  color: red;
+  background-color: #E0E0E0;
+}
 
+#no-worksheets{
+  display: none;
+  position: relative;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: red;
+  color: #FFF;
+  font-size: 20px;
+  line-height: 34px;
+  font-weight: bold;
+  text-align: center;
+  vertical-align: middle;
+}
 
-
-
-
-
-
+#worksheet-display a {
+  color: #494949;
+}
 
 
 

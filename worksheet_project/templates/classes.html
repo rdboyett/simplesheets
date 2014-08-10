@@ -2,7 +2,7 @@
 {% load staticfiles %}
 
 
-{% block title %}Dashboard{% endblock %}
+{% block title %}Classes{% endblock %}
 
 {% block body %}
 
@@ -33,14 +33,13 @@
     <h5>Sorry, you don't have any classes yet.</h5>
   {% endif %}
               <button id="add-class" class="btn btn-block btn-info rounded space" data-toggle="modal" data-target="#new-class">
-                <span class="glyphicon glyphicon-book"><span>{% if classUser.teacher %} new class{%else%} join a class{%endif%}</span>
+                <span class="glyphicon glyphicon-book"></span><span>{% if classUser.teacher %} new class{%else%} join a class{%endif%}</span>
               </button>
-              {% if allClasses %}
-              {% if classUser.teacher %}
-              <button id="add-class" class="btn btn-block btn-warning rounded space" data-toggle="modal" data-target="#new-class">
-                <span class="glyphicon glyphicon-file"><span> assign worksheets</span>
+              {% if allClasses and classUser.teacher %}
+              <button id="assign-worksheets-ajax" class="btn btn-block btn-warning rounded space" data-toggle="modal" data-target="#assign-worksheets">
+                <span class="glyphicon glyphicon-file"></span><span> assign worksheets</span>
               </button>
-              {%endif%}{%endif%}
+              {%endif%}
     </div>
     
     
@@ -57,9 +56,9 @@
           {% endif %}
           <br class="visible-xs">
           <div class="col-xs-12 col-sm-6">
-              <button id="new-worksheet" class="btn btn-block btn-lg btn-success rounded space" data-container="body" data-toggle="popover" data-placement="bottom" data-content="Create your first worksheet." data-original-title="Click here!">
+              <a href="{% url "google_drive.views.google_picker" %}"><button id="new-worksheet" class="btn btn-block btn-lg btn-success rounded space" data-container="body" data-toggle="popover" data-placement="bottom" data-content="Create your first worksheet." data-original-title="Click here!">
                 <span class="glyphicon glyphicon-file"></span>  new worksheet
-              </button>
+              </button></a>
           </div>
         </div>
         {%endif%}
@@ -175,23 +174,57 @@
   </div>
 </div>
 
-
+{% if currentClass %}
 <!---------------- modal ------------------------------------->
 <div id="class-code" class="modal fade" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content rounded">
       <div class="modal-header top-rounded">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h4 class="modal-title">Class Code</h4>
+        <h4 class="modal-title">class code</h4>
       </div>
       <div class="modal-body text-center text-danger">
         
-        <span style="font-size: 600%;font-weight: bold;">erM44E</span>
+        <span style="font-size: 600%;font-weight: bold;">{{ currentClass.code }}</span>
         
       </div>
     </div>
   </div>
 </div>
+{%endif%}
+
+{% if allClasses and classUser.teacher %}
+<!---------------- modal ------------------------------------->
+<div id="assign-worksheets" class="modal fade" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content rounded">
+      <div class="modal-header top-rounded">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title">pick a worksheet</h4>
+      </div>
+      <div class="modal-body">
+        <div id="class-spinner" style="margin: 80px 0;"></div>
+        <div id="no-worksheets" class="rounded">Sorry, no more worksheets.</div>
+        <ul id="worksheet-display" class="row list-unstyled" style="display: none;padding: 10px;">
+          <li class="row header">
+            <div class="col-xs-12 col-sm-6">NAME:</div>
+            <div class="hidden-xs col-sm-3">CREATED:</div>
+            <div class="hidden-xs col-sm-3">STATUS:</div>
+          </li>
+        </ul>
+      </div>
+      <div class="modal-footer bottom-rounded">
+        <form class="col-xs-12 col-sm-6" style="margin-bottom: 5px;">
+          <input id="search-bar" type="text" class="form-control rounded" placeholder="Search" style="width: 200px;background-color: #ADADAD;">
+        </form>
+        <button type="button" class="btn btn-default rounded" data-dismiss="modal">close</button>
+        <button id="prevWorksheet-button" type="button" class="btn btn-primary rounded">prev</button>
+        <button id="nextWorksheet-button" type="button" class="btn btn-primary rounded">next</button>
+      </div>
+    </div>
+  </div>
+</div>
+{%endif%}
 
 {% endblock %}
 
@@ -199,5 +232,7 @@
 
 
 {% block extraScript %}
+  <script>var getWorksheetsURL="{% url "worksheet_creator.page_view_ajax.getWorksheets" %}"</script>
+  <script src="{% static "page_view/js/spin.js" %}"></script>
   <script src="{% static "main_project/js/classes.js" %}"></script>
 {% endblock %}

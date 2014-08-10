@@ -988,6 +988,46 @@ def uploadWorkboxImage(request):
 
 
 
+@login_required
+def getWorksheets(request):
+    if request.method == 'POST':
+        project_id = request.POST["lastID"]
+        next_prev = request.POST["next_prev"]
+        
+        
+        userInfo = UserInfo.objects.get(user=request.user)
+        
+        if project_id != "false":
+            if Project.objects.filter(id=project_id):
+                if next_prev == 'next':
+                    if Project.objects.filter(userinfo=userInfo,id__lt=project_id):
+                        worksheets = Project.objects.filter(userinfo=userInfo,id__lt=project_id).order_by("-dateTime")[:5]
+                    else:
+                        return HttpResponse(json.dumps({"error":"Sorry, no more next"}))
+                else:
+                    if Project.objects.filter(userinfo=userInfo,id__gt=project_id):
+                        worksheets = Project.objects.filter(userinfo=userInfo,id__gt=project_id).order_by("dateTime")[:5]
+                        worksheets = worksheets.reverse()
+                    else:
+                        return HttpResponse(json.dumps({"error":"Sorry, no more prev"}))
+                    
+        
+        else:
+            if Project.objects.all():
+                worksheets = Project.objects.filter(userinfo=userInfo).order_by("-dateTime")[:5]
+            else:
+                worksheets = False
+        
+        return render_to_response('list_worksheets.html', {
+              'worksheets': worksheets,
+              })
+    else:
+        data = {
+            'error': "There was an error posting this request. Please try again.",
+        }
+        
+            
+    return HttpResponse(json.dumps(data))
 
 
 
