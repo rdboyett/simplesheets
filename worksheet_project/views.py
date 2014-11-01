@@ -191,6 +191,58 @@ def profile(request):
 
 
 
+@login_required
+def assign(request, projectID=False):
+    if UserInfo.objects.filter(user=request.user):
+        userInfo = UserInfo.objects.get(user=request.user)
+    else:
+        userInfo = False
+    
+    #Get all users Classes
+    if ClassUser.objects.filter(user=request.user):
+        classUser = ClassUser.objects.get(user=request.user)
+    else:
+        if userInfo.teacher_student == 'teacher':
+            teacher = True
+        else:
+            teacher = False
+        classUser = ClassUser.objects.create(
+            user = request.user,
+            teacher = teacher,
+        )
+        
+    #Get current Worksheet Project
+    if projectID:
+        if Project.objects.filter(id=projectID):
+            currentProject = Project.objects.get(id=projectID)
+        else:
+            currentProject = False
+    else:
+        currentProject = False
+        if userInfo.projects.all():
+            allProjects = userInfo.projects.all()
+        else:
+            allProjects = False
+        
+    #Get all users Worksheet Projects
+    if classUser.classrooms.all():
+        allClasses = classUser.classrooms.all().order_by('name')
+    else:
+        allClasses = False
+    
+
+    args = {
+            "worksheet":True,
+            "userInfo":userInfo,
+            "classUser":classUser,
+            "currentProject":currentProject,
+            "allProjects":allProjects,
+            "allClasses":allClasses,
+        }
+    args.update(csrf(request))
+        
+    return render_to_response('assign.html', args)
+
 
 
 

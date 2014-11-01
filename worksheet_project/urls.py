@@ -32,6 +32,8 @@ urlpatterns += patterns('worksheet_project.views',
     (r'^classes/$', 'classes'),
     (r'^monitor/$', 'monitor'),
     (r'^edit-profile/$', 'profile'),
+    (r'^assign/(?P<projectID>(\d+))/$', 'assign'),
+    (r'^assign/$', 'assign'),
     
 
     (r'^test/$', 'test'),
