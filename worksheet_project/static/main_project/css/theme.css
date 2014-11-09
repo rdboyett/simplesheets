@@ -792,6 +792,40 @@ input{border: none;}
   color: #494949;
 }
 
+.card-edpuzzle.active .panel-body{
+  background-color: #7BE560 !important;
+  color: #28a30b !important;
+}
+
+.card-edpuzzle.active .panel-footer, .card-edpuzzle.active .panel-footer button {
+  background: #7BE560 !important;
+}
+
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

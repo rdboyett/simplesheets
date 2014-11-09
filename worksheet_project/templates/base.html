@@ -31,6 +31,9 @@
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     
+    <!-- Font Awesome -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+      
     <link href="{% static "main_project/css/theme.css" %}" rel="stylesheet">
     
     {% block extraBottomHead %}{% endblock %}
@@ -61,7 +64,7 @@
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">worksheets</span></a>
         <ul class="dropdown-menu">
           <li><a href="{% url "google_drive.views.google_picker" %}"><span class="glyphicon glyphicon-file"></span>  create</a></li>
-          <li><a href="#"><span class="glyphicon glyphicon-file"></span>  assign</a></li>
+          <li><a href="{% url "worksheet_project.views.assign" %}"><span class="glyphicon glyphicon-file"></span>  assign</a></li>
           <li><a href="{% url "worksheet_project.views.monitor" %}"><span class="glyphicon glyphicon-stats"></span>  monitor</a></li>
         </ul>
       </li>

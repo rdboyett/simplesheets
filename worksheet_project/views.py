@@ -235,7 +235,6 @@ def assign(request, projectID=False):
             "worksheet":True,
             "userInfo":userInfo,
             "classUser":classUser,
-            "currentProject":currentProject,
             "allProjects":allProjects,
             "allClasses":allClasses,
         }

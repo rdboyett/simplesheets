@@ -108,6 +108,12 @@ def deleteOldProject(request):
 
 
 
+@login_required
+def assignWorksheets(request):
+    if request.method == 'POST':
+        originalFileID = request.POST["fileID"]
+
+
 
 
 

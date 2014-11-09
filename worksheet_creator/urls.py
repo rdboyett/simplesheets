@@ -9,6 +9,7 @@ urlpatterns = patterns('worksheet_creator.views',
 urlpatterns += patterns('worksheet_creator.ajax',
     (r'^checkProjectExists/$', 'checkProjectExists'),
     (r'^deleteOldProject/$', 'deleteOldProject'),
+    (r'^assignWorksheets/$', 'assignWorksheets'),
 )
 
 
