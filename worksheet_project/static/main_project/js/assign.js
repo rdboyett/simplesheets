@@ -60,6 +60,55 @@ $(document).ready(function(){
     }
     
     
+    $("#assignThis-button").click(function(){
+	if($(".class-button.btn-success").length>0){
+	    //get the project id's
+	    var projectIDList = [];
+	    var count = 0;
+	    $(".card-edpuzzle.list-video-item.active").each(function(){
+		projectIDList[count]=$(this).data("options").worksheet_id;
+		count++;
+	    });
+	    console.log(projectIDList);
+	    
+	    //get the class id's
+	    var classIDList = [];
+	    count = 0;
+	    $(".class-button.btn-success").each(function(){
+		classIDList[count]=$(this).data("options").class_id;
+		count++;
+	    });
+	    console.log(classIDList);
+	    sendAssignments(projectIDList, classIDList)
+	}
+    });
+    
+    
+    
+    function sendAssignments(projectIDList, classIDList) {
+	var formData = {"projectIDList":projectIDList, "classIDList":classIDList};
+	$.ajax({
+	    type: "POST",
+	    data: formData,
+	    url: sendAssignmentsURL,
+	    success:  function(data, textStatus, jqXHR)
+	    {
+		console.log(data);
+	    },
+	    error: function (jqXHR, textStatus, errorThrown)
+	    {
+		console.log(errorThrown);
+	    }
+	 });
+    }
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
@@ -69,37 +118,3 @@ $(document).ready(function(){
     
     
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

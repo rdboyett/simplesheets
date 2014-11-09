@@ -36,7 +36,7 @@
           {% for worksheet in allProjects %}
           <!------------------------------ Worksheet Display ------------------------------------->
           <li class="col-xs-6 col-md-4">
-            <div class="panel panel-default card-edpuzzle list-video-item rounded">
+            <div class="panel panel-default card-edpuzzle list-video-item rounded" data-options='{"worksheet_id":{{ worksheet.id }}}'>
 	      <div class="panel-body">
                 <div class="worksheet-badge">
                   <div class="btn-group">
@@ -124,13 +124,11 @@
       <div class="modal-body">
         <div id="class-spinner" style="display: none;margin: 80px 0;"></div>
 	
-  <div class="row">
 {% if allClasses %}
-  <form>
   {% for class in allClasses %}
   <div class="row" style="margin-top: 5px;">
     <div class="col-xs-8 col-sm-6 text-center col-centered">
-      <button type="button" class="class-button btn btn-block btn-primary text-center rounded" data-toggle="button">
+      <button type="button" class="class-button btn btn-block btn-primary text-center rounded" data-toggle="button"  data-options='{"class_id":{{ class.id }}}'>
 	  <span>{{ class.name|capfirst }}</span>
       </button>
     </div><!-- /.col-lg-6 -->
@@ -139,8 +137,6 @@
   {%else%}
     <h5>Sorry, you don't have any classes yet.</h5>
   {% endif %}
-  </form>
-</div><!-- /.row -->
   
   
   
@@ -160,7 +156,9 @@
 
 
 {% block extraScript %}
-  <script>var getWorksheetsURL="{% url "worksheet_creator.page_view_ajax.getWorksheets" %}"</script>
+  <script>
+    var sendAssignmentsURL="{% url "worksheet_creator.ajax.assignWorksheets" %}";
+  </script>
   <script src="{% static "page_view/js/spin.js" %}"></script>
   <script src="{% static "main_project/js/assign.js" %}"></script>
 {% endblock %}

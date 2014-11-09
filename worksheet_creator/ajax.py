@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 
 from userInfo_profile.models import UserInfo
 from worksheet_creator.models import Project
+from classrooms.models import Classroom
 
 
 @login_required
@@ -111,9 +112,28 @@ def deleteOldProject(request):
 @login_required
 def assignWorksheets(request):
     if request.method == 'POST':
-        originalFileID = request.POST["fileID"]
+        projectIDList = request.POST.getlist("projectIDList[]")
+        classIDList = request.POST.getlist("classIDList[]")
+        
+        for classID in classIDList:
+            if Classroom.objects.filter(id=classID):
+                classroom = Classroom.objects.get(id=classID)
+                for worksheetID in projectIDList:
+                    if Project.objects.filter(id=worksheetID):
+                        worksheet = Project.objects.get(id=worksheetID)
+                        classroom.worksheets.add(worksheet)
+                        classroom.save()
 
-
+        data = {
+            'success': "success",
+        }
+    else:
+        data = {
+            'error': "There was an error posting this request. Please try again.",
+        }
+        
+    
+    return HttpResponse(json.dumps(data))
 
 
 
